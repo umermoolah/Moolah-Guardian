@@ -1,0 +1,463 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:moolah/screens/blacklist/blacklist_screen.dart';
+import 'package:moolah/util/colors.dart';
+import 'package:moolah/util/common_widgets/common_appbar.dart';
+import 'package:moolah/util/common_widgets/common_button.dart';
+import 'package:moolah/util/common_widgets/common_widgets.dart';
+import 'package:moolah/util/images.dart';
+
+import '../../util/apptext.dart';
+import '../../util/common_widgets/CommonGradientBackground.dart';
+
+class SyncDeviceDetailScreen extends StatefulWidget {
+  static const screenName = "syncDeviceDetailScreen";
+
+  const SyncDeviceDetailScreen({Key? key}) : super(key: key);
+
+  @override
+  State<SyncDeviceDetailScreen> createState() => _SyncDeviceDetailScreenState();
+}
+
+class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
+    with SingleTickerProviderStateMixin {
+  TabController? tabController;
+  String headingText = "Black List App";
+  int prevIndex = 0;
+  bool switchButton = false;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(length: 2, vsync: this);
+    tabController?.addListener(() {
+      final currentIndex = tabController?.index;
+      if (currentIndex != prevIndex) {
+        setState(() {
+          headingText = currentIndex == 0 ? "Black List App" : "Black List URL";
+        });
+        prevIndex = currentIndex ?? 0;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CommonGradientBackground(
+      child: Column(
+        children: [
+          verticalSpace(40),
+          commonAppBar(heading: "John's Summary"),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
+              child: Column(
+                children: [
+                  headingWidget(),
+                  verticalSpace(15),
+                  Expanded(
+                    child: roundedContainer(
+                        borderRadius: 15,
+                        borderRadiusWhole: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                        padding: const EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            tabBar(),
+                            CustomButton(
+                              text: headingText,
+                              onTap: () {
+                                if (tabController?.index == 1) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const BlackListScreen(),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                            verticalSpace(30),
+                            if (tabController?.index == 0)
+                              appSection()
+                            else
+                              urlSection()
+                          ],
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget appSection() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: ListView(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                bigHeadingText("7h 32 m "),
+                Column(
+                  children: [
+                    subHeadingText("+35% from last Week",
+                        color: AppColors.normalGreen),
+                    verticalSpace(5)
+                  ],
+                )
+              ],
+            ),
+            regularText("Daily Average", fontSize: 12, color: AppColors.grey),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: boldText('All Apps', fontSize: 18),
+            ),
+            appItem(
+                'assets/images/home/twitter.svg', 'Twitter', 5, "2h 29 mins"),
+            appItem('assets/images/home/instagram.svg', 'Instagram', 4,
+                "1h 29 mins"),
+            appItem(
+                'assets/images/home/snapchat.svg', 'Snapchat', 3, "30 mins"),
+            appItem('assets/images/home/tiktok.svg', 'Tiktok', 2, "15 mins"),
+            appItem('assets/images/home/Facebook.svg', 'Facebook', 1, "5 mins"),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget appItem(String iconPath, String appName, int flex, String time) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          SvgPicture.asset(iconPath),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                boldText(appName, fontSize: 14),
+                Row(
+                  children: [
+                    Flexible(
+                      flex: flex,
+                      child: Container(
+                        height: 5,
+                        decoration: BoxDecoration(
+                            color: const Color(0xffE8EAE3),
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      flex: 3,
+                      child: regularText(time,
+                          fontSize: 12, color: AppColors.grey),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          PopupMenuButton(
+            icon: SvgPicture.asset('assets/images/home/more.svg'),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                padding: const EdgeInsets.only(left: 5),
+                height: 30,
+                value: 1,
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/images/home/trash.svg'),
+                    const SizedBox(
+                      // sized box with width 10
+                      width: 10,
+                    ),
+                    regularText("Remove App",
+                        color: AppColors.red, fontSize: 13)
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                padding: const EdgeInsets.only(left: 5),
+                height: 30,
+                value: 2,
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/images/home/slash.svg'),
+                    const SizedBox(
+                      // sized box with width 10
+                      width: 10,
+                    ),
+                    regularText("Blacklist App", fontSize: 13)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget urlSection() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: ListView.builder(
+          itemCount: 15,
+          itemBuilder: (context, index) =>
+              urlItem('https://www.fiverr.com/cp/product-release-2023'),
+        ),
+      ),
+    );
+  }
+
+  Widget urlItem(String url) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Row(
+        children: [
+          SvgPicture.asset(AppImages.globalOutlined),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              url,
+              style: TextStyle(
+                fontFamily: fontFamily,
+                fontSize: 14,
+                color: AppColors.grey,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget percentageContainer(
+      Color color, String icon, String text, String value, String t) {
+    return Expanded(
+      child: roundedContainer(
+          padding: const EdgeInsets.all(7),
+          color: AppColors.lightGrey,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  roundedContainer(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                    color: color,
+                    child: SvgPicture.asset(
+                      icon,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  horizontalSpace(3),
+                  subHeadingText(text, fontSize: 10),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  bigHeadingText(value, fontSize: 20),
+                  Column(
+                    children: [
+                      bigHeadingText(t, fontSize: 12),
+                      verticalSpace(2)
+                    ],
+                  ),
+                ],
+              )
+            ],
+          )),
+    );
+  }
+
+  Widget headingWidget() {
+    return roundedContainer(
+      borderRadius: 15,
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    height: 55,
+                    width: 55,
+                    child: ClipRRect(
+                      child: Image.asset(AppImages.child1),
+                    ),
+                  ),
+                  horizontalSpace(10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      bigSubHeading("John Campbell"),
+                      iconText(AppImages.clock, "Active 32 m ago", isItalic: true),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    children: [
+                    SvgPicture.asset(AppImages.information),
+                    horizontalSpace(10),
+                    customSwitch()
+                  ],),
+                  verticalSpace(2),
+                  regularText(switchButton ? "Wallet Enabled" : "Wallet Disabled", color: switchButton ? AppColors.normalGreen : AppColors.grey, fontSize: 10, italic: true)
+                ],
+              )
+            ],
+          ),
+          verticalSpace(20),
+          Row(
+            children: [
+              percentageContainer(AppColors.yellow, AppImages.emptyBattery,
+                  "Battery %", "96", "%"),
+              horizontalSpace(10),
+              percentageContainer(
+                  AppColors.blue, AppImages.global, "Data Used", "1.9", "GB")
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  textForTab(String s, bool condition) {
+    return condition
+        ? Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: regularText(s,
+                color: AppColors.white, fontWeight: FontWeight.w500),
+          )
+        : regularText(s,
+            color: AppColors.normalGreen, fontWeight: FontWeight.w500);
+  }
+
+  Widget tabBar() {
+    return roundedContainer(
+      padding: const EdgeInsets.all(5),
+      margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10)
+          .copyWith(bottom: 0),
+      color: AppColors.veryVeryLightGreen,
+      child: TabBar(
+          overlayColor:
+              MaterialStateColor.resolveWith((states) => AppColors.lightGreen),
+          indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(6),
+              color: AppColors.normalGreen),
+          onTap: (v) {
+            setState(() {});
+          },
+          controller: tabController,
+          tabs: [
+            textForTab("Screen Time", tabController!.index == 0),
+            textForTab("Browser History", tabController!.index == 1),
+            // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
+          ]),
+    );
+  }
+
+ Widget customSwitch({bool showM = true}) {
+    double size = 35;
+    return customGestureDetecter(
+      onTap: (){
+        setState(() {
+          switchButton = !switchButton;
+        });
+        if(switchButton){
+          _showAdDialog();
+        }else{
+          if(!showM){
+            Get.back();
+          }
+        }
+      },
+      child: Stack(
+        alignment: switchButton ? Alignment.centerRight : Alignment.centerLeft,
+        children: [
+          roundedContainer(
+            borderRadius: 30,
+            color: switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
+            height: size * 0.65,
+            width: size * 1.2
+          ),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              roundedContainer(
+                  borderRadius: 30,
+                  color: Colors.white,
+                  margin: EdgeInsets.all(size * 0.083),//2.5
+                  height: size * 0.5,
+                  width: size * 0.5,
+              ),
+              if(showM)
+              regularText("M!",customFontFamily: fontFamilyPraise, color: switchButton ? AppColors.lightGreen : AppColors.darkLightGrey, fontSize: 11)
+            ],
+          ),
+        ],
+      ),
+    );
+ }
+
+  void _showAdDialog() {
+    showDialog(context: context, builder: (_){
+      return Material(
+        type: MaterialType.transparency,
+        child: Center(
+          child: roundedContainer(
+            // height: 100,
+              margin: const EdgeInsets.all(30),
+              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+              color: Colors.white,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(AppImages.earningImage),
+                  verticalSpace(20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      bigHeadingText("Enable Earning "),
+                      bigHeadingText("M!",customFontFamily: fontFamilyPraise),
+                    ],
+                  ),
+                  verticalSpace(20),
+                  subHeadingText("""Earning M! is enabled by default
+ in all Moolah M1 tablets. Parents
+can choose to disable Moolah Ads
+and Wallet from kid devices here.
+
+                  """),
+                  verticalSpace(20),
+                  customSwitch(showM: false),
+                ],
+              )
+          ),
+        ),
+      );
+    });
+  }
+}

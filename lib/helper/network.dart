@@ -1,0 +1,50 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import 'package:moolah/helper/models/response_model.dart';
+import 'package:moolah/helper/sharedHelper.dart';
+
+class Network {
+
+
+  static Future<ResponseModel> get(String url) async {
+
+    var res = await http.get(Uri.parse(url), headers: getHeaders());
+    return responseHandler(res: res);
+
+  }
+
+  static Future<ResponseModel> post(String url, {Map<String, dynamic> body = const {}}) async {
+    try{
+      var res = await http.post(Uri.parse(url), body: body);
+      return responseHandler(res: res);
+    }catch(e){
+      print("e:::$e");
+      return responseHandler(empty: true);
+    }
+
+
+  }
+
+  static getHeaders() {
+    if(Prefs.accessToken.get().isNotEmpty){
+      return {
+        "Authorization": "Bearer ${Prefs.accessToken.get()}"
+      };
+    }else{
+      return {};
+    }
+  }
+
+  static Future<ResponseModel> responseHandler({http.Response? res, bool empty = false}) async {
+    print("responceHandler: ${res!.body}");
+    if((res?.statusCode ?? 0) == 200 && !empty){
+      if(jsonDecode(res!.body)["status"] ?? true){
+        return ResponseModel(isSuccessful: true, data: jsonDecode(res.body));
+      }else{
+        return ResponseModel(isSuccessful: false, data: jsonDecode(res.body));
+      }
+    }
+    return ResponseModel(isSuccessful: false);
+  }
+}

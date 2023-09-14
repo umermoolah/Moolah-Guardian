@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+
+import 'colors.dart';
+
+String fontFamily = "DM Sans";
+String fontFamilyPraise = "praise";
+
+
+Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily}){
+  return Text(text, style: TextStyle(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign);
+}
+
+Widget boldText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, String? customFontFamily}){
+  return regularText(text,fontSize: fontSize, fontWeight: fontWeight??FontWeight.bold, color: color,customFontFamily: customFontFamily);
+}
+
+Widget bigHeadingText(String text, {Color? color, double? fontSize, String? customFontFamily}){
+  return boldText(text, fontSize: fontSize??30, fontWeight: FontWeight.w600, color: color,customFontFamily: customFontFamily);
+}
+Widget subHeadingText(String text, {double? fontSize = 14, FontWeight? fontWeight, Color color = Colors.grey, TextAlign? textAlign}){
+  return regularText(text, color: color, fontSize: fontSize, fontWeight: fontWeight, textAlign: textAlign);
+}
+
+Widget bigSubHeading(text, {Color? color}){
+  return subHeadingText(text, fontSize: 16, fontWeight: FontWeight.w700, color: color?? AppColors.black);
+}

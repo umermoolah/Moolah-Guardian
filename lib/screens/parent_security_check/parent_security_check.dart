@@ -1,0 +1,123 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:moolah/util/apptext.dart';
+import 'package:moolah/util/common_widgets/CommonGradientBackground.dart';
+import 'package:moolah/util/common_widgets/common_button.dart';
+import 'package:moolah/util/common_widgets/common_widgets.dart';
+import 'package:moolah/util/images.dart';
+
+import '../../util/colors.dart';
+import '../../util/common_widgets/common_appbar.dart';
+import '../../util/common_widgets/common_text_field.dart';
+
+class ParentSecurityCheck extends StatefulWidget {
+  static const screenName = "parentSecurityCheck";
+  const ParentSecurityCheck({Key? key}) : super(key: key);
+
+  @override
+  State<ParentSecurityCheck> createState() => _ParentSecurityCheckState();
+}
+
+class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height = MediaQuery.of(context).size.height;
+    return CommonGradientBackground(
+        child: Column(
+      children: [
+        verticalSpace(10),
+        commonAppBar(withIcon: true),
+        Expanded(
+          child: roundedContainer(
+            width: width,
+            borderRadiusWhole: BorderRadius.circular(13).copyWith(
+                bottomRight: Radius.zero, bottomLeft: Radius.zero),
+            padding: const EdgeInsets.all(25)
+                .copyWith(bottom: 0, left: 20, right: 20),
+            margin: const EdgeInsets.all(10).copyWith(bottom: 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                bigHeadingText("Parent Security Check", fontSize: 27),
+                verticalSpace(4),
+                subHeadingText("Please provide the following data for security"),
+                verticalSpace(7),
+                subHeadingText("purposes before syncing to your kids device. "),
+                verticalSpace(10),
+                CustomTextField(
+                    hintText: "Kid Account Email",
+                    validators: Validators.email),
+                CustomTextField(
+                    hintText: "Kid Account Password",
+                    textInputType: TextInputType.visiblePassword,
+                    validators: Validators.password),
+              verticalSpace(10),
+                subHeadingText("Kid Account Birthday",
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey),
+                verticalSpace(10),
+              customGestureDetecter(
+                onTap: () async {
+                  var dateOfBirth = await showDatePicker(
+                      context: context,
+                      initialDate:
+                      DateTime(DateTime.now().year - 20),
+                      firstDate: DateTime(1940),
+                      lastDate:
+                      DateTime(DateTime.now().year - 20),
+                      builder: (context, child) {
+                        return Theme(
+                          data: Theme.of(context).copyWith(
+                            colorScheme: ColorScheme.light(
+                              primary: AppColors
+                                  .normalGreen, // header background color
+                              onPrimary: AppColors
+                                  .black, // header text color
+                              onSurface: AppColors
+                                  .normalGreen, // body text color
+                            ),
+                            textButtonTheme: TextButtonThemeData(
+                              style: TextButton.styleFrom(
+                                foregroundColor: Colors
+                                    .black, // button text color
+                              ),
+                            ),
+                          ),
+                          child: child!,
+                        );
+                      });
+                  setState(() {});
+                },
+                child: roundedContainer(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 10),
+                    color: AppColors.lightGrey,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        regularText(
+                        // dateOfBirth == null
+                        //     ?
+                        "__\\__\\___"
+                            // : getSortedDate()
+                          ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                            child: SvgPicture.asset(AppImages.date))
+                      ],
+                    ),
+                ),),
+                verticalSpace(15),
+                CustomButton(text: "Submit", margin: EdgeInsets.zero,onTap: (){
+                  Get.back();
+                },)
+              ],
+            )
+          ),
+        )
+      ],
+    ));
+  }
+}
