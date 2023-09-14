@@ -2,20 +2,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/blacklist/blacklist_screen.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_appbar.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
+import 'package:moolah/util/common_widgets/loader.dart';
 import 'package:moolah/util/images.dart';
 
+import '../../helper/models/app_usage_model.dart';
+import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
 
 class SyncDeviceDetailScreen extends StatefulWidget {
   static const screenName = "syncDeviceDetailScreen";
 
-  const SyncDeviceDetailScreen({Key? key}) : super(key: key);
+  SyncDeviceDetailScreen({required this.kidId});
+  int kidId;
 
   @override
   State<SyncDeviceDetailScreen> createState() => _SyncDeviceDetailScreenState();
@@ -26,11 +31,12 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   TabController? tabController;
   String headingText = "Black List App";
   int prevIndex = 0;
-  bool switchButton = false;
+
 
   @override
   void initState() {
     super.initState();
+    Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
     tabController = TabController(length: 2, vsync: this);
     tabController?.addListener(() {
       final currentIndex = tabController?.index;
@@ -45,58 +51,65 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return CommonGradientBackground(
-      child: Column(
-        children: [
-          verticalSpace(40),
-          commonAppBar(heading: "John's Summary"),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
-              child: Column(
-                children: [
-                  headingWidget(),
-                  verticalSpace(15),
-                  Expanded(
-                    child: roundedContainer(
-                        borderRadius: 15,
-                        borderRadiusWhole: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                        padding: const EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            tabBar(),
-                            CustomButton(
-                              text: headingText,
-                              onTap: () {
-                                if (tabController?.index == 1) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const BlackListScreen(),
-                                    ),
-                                  );
-                                }
-                              },
-                            ),
-                            verticalSpace(30),
-                            if (tabController?.index == 0)
-                              appSection()
-                            else
-                              urlSection()
-                          ],
-                        )),
+    return GetBuilder<HomeController>(
+      builder: (homeController) {
+        return CommonGradientBackground(
+          child: Loader(
+            c: homeController,
+            child: Column(
+              children: [
+                verticalSpace(40),
+                commonAppBar(heading: "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
+                    child: Column(
+                      children: [
+                        headingWidget(homeController),
+                        verticalSpace(15),
+                        Expanded(
+                          child: roundedContainer(
+                              borderRadius: 15,
+                              borderRadiusWhole: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                children: [
+                                  tabBar(),
+                                  CustomButton(
+                                    text: headingText,
+                                    onTap: () {
+                                      if (tabController?.index == 1) {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const BlackListScreen(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  verticalSpace(30),
+                                  if (tabController?.index == 0)
+                                    appSection(homeController)
+                                  else
+                                    urlSection()
+                                ],
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      }
     );
   }
 
-  Widget appSection() {
+  Widget appSection(HomeController homeController) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -105,10 +118,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                bigHeadingText("7h 32 m "),
+                bigHeadingText("${homeController.getSelectedKid(widget.kidId).appUsage!.deviceDailyAvgUsage!} "),
                 Column(
                   children: [
-                    subHeadingText("+35% from last Week",
+                    subHeadingText(homeController.getSelectedKid(widget.kidId).appUsage!.deviceDailyAvgUsageChange!,
                         color: AppColors.normalGreen),
                     verticalSpace(5)
                   ],
@@ -120,21 +133,26 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: boldText('All Apps', fontSize: 18),
             ),
+            for(int i=0;i<homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps!.length;i++)
             appItem(
-                'assets/images/home/twitter.svg', 'Twitter', 5, "2h 29 mins"),
-            appItem('assets/images/home/instagram.svg', 'Instagram', 4,
-                "1h 29 mins"),
-            appItem(
-                'assets/images/home/snapchat.svg', 'Snapchat', 3, "30 mins"),
-            appItem('assets/images/home/tiktok.svg', 'Tiktok', 2, "15 mins"),
-            appItem('assets/images/home/Facebook.svg', 'Facebook', 1, "5 mins"),
+                homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps![i]),
+            // appItem('assets/images/home/instagram.svg', 'Instagram', 4,
+            //     "1h 29 mins"),
+            // appItem(
+            //     'assets/images/home/snapchat.svg', 'Snapchat', 3, "30 mins"),
+            // appItem('assets/images/home/tiktok.svg', 'Tiktok', 2, "15 mins"),
+            // appItem('assets/images/home/Facebook.svg', 'Facebook', 1, "5 mins"),
           ],
         ),
       ),
     );
   }
 
-  Widget appItem(String iconPath, String appName, int flex, String time) {
+  Widget appItem(ListOfInstalledApp listOfInstalledApp) {
+    String iconPath = listOfInstalledApp.appIcon!;
+    String appName = listOfInstalledApp.appName!;
+    int flex = listOfInstalledApp.percentUsage! ~/ 10;
+    String time = listOfInstalledApp.durationOfUsage!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -172,6 +190,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             icon: SvgPicture.asset('assets/images/home/more.svg'),
             itemBuilder: (context) => [
               PopupMenuItem(
+                onTap: (){
+                  print("deleteApp");
+                  Get.find<HomeController>().deleteApp(kidId: widget.kidId, appId: listOfInstalledApp.appId??0);
+                },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
                 value: 1,
@@ -287,7 +309,8 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
-  Widget headingWidget() {
+  Widget headingWidget(HomeController homeController) {
+    Kid kid = homeController.getSelectedKid(widget.kidId);
     return roundedContainer(
       borderRadius: 15,
       padding: const EdgeInsets.all(20),
@@ -302,15 +325,15 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     height: 55,
                     width: 55,
                     child: ClipRRect(
-                      child: Image.asset(AppImages.child1),
+                      child: Image.asset(kid.kidPic??""),
                     ),
                   ),
                   horizontalSpace(10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      bigSubHeading("John Campbell"),
-                      iconText(AppImages.clock, "Active 32 m ago", isItalic: true),
+                      bigSubHeading(kid.name),
+                      iconText(AppImages.clock, "Active ${kid.lastActive}", isItalic: true),
                     ],
                   ),
                 ],
@@ -321,10 +344,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     children: [
                     SvgPicture.asset(AppImages.information),
                     horizontalSpace(10),
-                    customSwitch()
+                    customSwitch(value: kid.walletEnabled??false)
                   ],),
                   verticalSpace(2),
-                  regularText(switchButton ? "Wallet Enabled" : "Wallet Disabled", color: switchButton ? AppColors.normalGreen : AppColors.grey, fontSize: 10, italic: true)
+                  regularText(kid.walletEnabled??false ? "Wallet Enabled" : "Wallet Disabled", color: kid.walletEnabled??false ? AppColors.normalGreen : AppColors.grey, fontSize: 10, italic: true)
                 ],
               )
             ],
@@ -333,10 +356,9 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           Row(
             children: [
               percentageContainer(AppColors.yellow, AppImages.emptyBattery,
-                  "Battery %", "96", "%"),
+                  "Battery %", kid.batteryStatus??"", "%"),
               horizontalSpace(10),
-              percentageContainer(
-                  AppColors.blue, AppImages.global, "Data Used", "1.9", "GB")
+              percentageContainer(AppColors.blue, AppImages.global, "Data Used", kid.dataUsageStatus??"", "GB")
             ],
           ),
         ],
@@ -379,8 +401,9 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
- Widget customSwitch({bool showM = true}) {
+ Widget customSwitch({bool showM = true, required bool value}) {
     double size = 35;
+    bool switchButton = value;
     return customGestureDetecter(
       onTap: (){
         setState(() {
@@ -393,6 +416,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             Get.back();
           }
         }
+        Get.find<HomeController>().enableWallet(value: switchButton, kidId: widget.kidId);
       },
       child: Stack(
         alignment: switchButton ? Alignment.centerRight : Alignment.centerLeft,
@@ -452,7 +476,7 @@ and Wallet from kid devices here.
 
                   """),
                   verticalSpace(20),
-                  customSwitch(showM: false),
+                  customSwitch(showM: false, value: Get.find<HomeController>().getSelectedKid(widget.kidId).walletEnabled??false),
                 ],
               )
           ),

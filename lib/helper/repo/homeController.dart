@@ -1,3 +1,0 @@
-class HomeRepo {
-  // static ref
-}

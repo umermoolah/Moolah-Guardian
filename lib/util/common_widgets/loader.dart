@@ -8,7 +8,7 @@ import '../../controllers/authController.dart';
 class Loader extends StatefulWidget {
   Loader({required this.child, required this.c});
   Widget child;
-  AuthController c;
+  BaseController c;
 
   @override
   State<Loader> createState() => _LoaderState();
@@ -24,7 +24,7 @@ class _LoaderState extends State<Loader> {
     return WillPopScope(
       onWillPop: () async {
         return  loading ? false : true;
-        // return false;
+        // return true;
       },
       child: Container(
         height: height,

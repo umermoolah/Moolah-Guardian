@@ -18,7 +18,7 @@ class RouteHelper {
     Home.screenName: (_) => const Home(),
     Login.screenName: (_) => Login(fromSignup: Get.arguments?["fromSignup"] ?? false),
     ScanBarcode.screenName: (_) => const ScanBarcode(),
-    SyncDeviceDetailScreen.screenName: (_) => const SyncDeviceDetailScreen(),
+    SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments["kidId"]),
     ParentSecurityCheck.screenName: (_) => const ParentSecurityCheck(),
   };
 }

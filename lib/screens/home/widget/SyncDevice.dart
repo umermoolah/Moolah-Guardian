@@ -9,6 +9,7 @@ import 'package:moolah/util/images.dart';
 
 class SyncDevice extends StatefulWidget {
   SyncDevice({
+    required this.kidId,
     required this.name,
     required this.image,
     required this.active,
@@ -18,6 +19,7 @@ class SyncDevice extends StatefulWidget {
 
 });
 
+  int kidId;
   bool isIPad;
   String image;
   String name;
@@ -37,7 +39,7 @@ class _SyncDeviceState extends State<SyncDevice> {
     var height = MediaQuery.of(context).size.height;
     return customGestureDetecter(
       onTap: (){
-        Get.toNamed(SyncDeviceDetailScreen.screenName);
+        Get.toNamed(SyncDeviceDetailScreen.screenName, arguments: {"kidId": widget.kidId});
       },
       child: roundedContainer(
         width: width,
