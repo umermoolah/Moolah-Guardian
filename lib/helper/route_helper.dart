@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moolah/screens/forgot_password/widget/check_your_email.dart';
 import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/screens/login/login.dart';
+import 'package:moolah/screens/main_menu_profile/screens/change_password/widget/password_reset.dart';
+import 'package:moolah/screens/main_menu_profile/screens/edit_profile/edit_profile.dart';
+import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
 import 'package:moolah/screens/parent_security_check/parent_security_check.dart';
 import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
 import 'package:moolah/screens/signup/signup.dart';
 
+import '../screens/forgot_password/forgot_password.dart';
+import '../screens/main_menu_profile/main_menu_profile.dart';
+import '../screens/main_menu_profile/screens/change_password/change_password.dart';
 import '../screens/splash/splash.dart';
 import '../screens/sync_device_detail_screen/sync_device_detail_screen.dart';
 
@@ -20,5 +27,12 @@ class RouteHelper {
     ScanBarcode.screenName: (_) => const ScanBarcode(),
     SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments["kidId"]),
     ParentSecurityCheck.screenName: (_) => const ParentSecurityCheck(),
+    MainMenuProfile.screenName: (_) => const MainMenuProfile(),
+    Profile.screenName: (_) => const Profile(),
+    EditProfile.screenName: (_) => const EditProfile(),
+    ChangePassword.screenName: (_) => const ChangePassword(),
+    PasswordReset.screenName: (_) => const PasswordReset(),
+    ForgotPassword.screenName: (_) => const ForgotPassword(),
+    CheckYourEmail.screenName: (_) => const CheckYourEmail(),
   };
 }

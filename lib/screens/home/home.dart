@@ -14,6 +14,7 @@ import 'package:moolah/util/images.dart';
 import '../../controllers/authController.dart';
 import '../../helper/sharedHelper.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../main_menu_profile/main_menu_profile.dart';
 
 class Home extends StatefulWidget {
   static const screenName = "home";
@@ -107,12 +108,21 @@ class _HomeState extends State<Home> {
                           ),
                         ),
                         verticalSpace(30),
-                        ClipRRect(
-                            borderRadius: BorderRadius.circular(1000),
-                            child: SvgPicture.asset(AppImages.person)),
-                        verticalSpace(15),
-                        bigSubHeading(
-                            "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
+                        customGestureDetecter(
+                          onTap: (){
+                            Get.toNamed(MainMenuProfile.screenName);
+                          },
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: SvgPicture.asset(AppImages.person)),
+                              verticalSpace(15),
+                              bigSubHeading(
+                                  "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "Your Name" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
+                            ],
+                          ),
+                        ),
                         verticalSpace(15),
                         CustomButton(
                             text: "Connect Kids Device",

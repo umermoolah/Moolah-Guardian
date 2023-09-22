@@ -342,7 +342,11 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                 children: [
                   Row(
                     children: [
-                    SvgPicture.asset(AppImages.information),
+                    customGestureDetecter(
+                      onTap: (){
+                        _showAdDialog();
+                      },
+                        child: SvgPicture.asset(AppImages.information)),
                     horizontalSpace(10),
                     customSwitch(value: kid.walletEnabled??false)
                   ],),
@@ -410,11 +414,12 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           switchButton = !switchButton;
         });
         if(switchButton){
-          _showAdDialog();
+          // _showAdDialog();
         }else{
-          if(!showM){
-            Get.back();
-          }
+
+        }
+        if(!showM){
+          Get.back();
         }
         Get.find<HomeController>().enableWallet(value: switchButton, kidId: widget.kidId);
       },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:moolah/controllers/authController.dart';
+import 'package:moolah/screens/forgot_password/forgot_password.dart';
 import 'package:moolah/screens/signup/signup.dart';
 import 'package:moolah/util/common_widgets/loader.dart';
 
@@ -67,20 +68,29 @@ class _LoginState extends State<Login> {
                               hintText: "Password",
                               textInputType: TextInputType.visiblePassword,
                               textEditingController: passwordController,validators: Validators.password),
-                          verticalSpace(10),
-                          Align(
-                              alignment: Alignment.centerRight,
-                              child: subHeadingText("Forgot Password?",
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.black)),
-                          verticalSpace(30),
+                          customGestureDetecter(
+                            onTap: (){
+                              Get.toNamed(ForgotPassword.screenName);
+                            },
+                            child: Column(
+                              children: [
+                                verticalSpace(10),
+                                Align(
+                                    alignment: Alignment.centerRight,
+                                    child: subHeadingText("Forgot Password?",
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.black)),
+                                verticalSpace(30),
+                              ],
+                            ),
+                          ),
                           CustomButton(
                             text: "Login",
                             margin: EdgeInsets.zero,
                             onTap: () {
                               if(key.currentState!.validate()){
-                                authController.login(emailController.text,
-                                    passwordController.text);
+                                // authController.login(emailController.text, passwordController.text);
+                                Get.toNamed(Home.screenName);
                               }
 
                               // Get.toNamed(Home.screenName);

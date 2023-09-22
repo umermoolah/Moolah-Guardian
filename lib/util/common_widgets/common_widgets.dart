@@ -52,6 +52,24 @@ Widget roundedContainer({double borderRadius = 7, Color? color, Widget? child, d
   );
 }
 
+Widget customProfileViewer({double size = 80}) {
+  return roundedContainer(
+      borderRadius: 100,
+      height: size,
+      width: size,
+      color: Colors.lightGreen,
+      child: Center(
+          child: SizedBox(
+            // height: 65,
+            // width: 65,
+            child: ClipRRect(
+              child: Image.asset(AppImages.profileImage),
+            ),
+          )
+      )
+  );
+}
+
 Widget verticalSpace(double height){
   return SizedBox(height: height,);
 }

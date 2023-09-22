@@ -5,9 +5,10 @@ import 'colors.dart';
 String fontFamily = "DM Sans";
 String fontFamilyPraise = "praise";
 
+var textStyle = TextStyle(fontFamily:fontFamily);
 
 Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily}){
-  return Text(text, style: TextStyle(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign);
+  return Text(text, style: textStyle.copyWith(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign, );
 }
 
 Widget boldText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, String? customFontFamily}){

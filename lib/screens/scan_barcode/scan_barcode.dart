@@ -22,6 +22,9 @@ class ScanBarcode extends StatefulWidget {
 class _ScanBarcodeState extends State<ScanBarcode> {
   @override
   void initState() {
+    Future.delayed(Duration(seconds: 3), (){
+      showD();
+    });
     super.initState();
   }
   @override

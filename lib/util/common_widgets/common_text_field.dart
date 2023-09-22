@@ -13,10 +13,14 @@ class CustomTextField extends StatefulWidget {
         this.validators,
       this.textInputType = TextInputType.text,
         this.passwordForConfirmPassword,
-        this.onChange
+        this.onChange,
+        this.otherOne = false,
+        this.prefixIcon
       });
   String hintText;
+  String? prefixIcon;
   bool required;
+  bool otherOne;
   TextInputType textInputType;
   TextEditingController? textEditingController;
   Validators? validators;
@@ -46,7 +50,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return widget.otherOne ? otherOne() : Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpace(10),
@@ -110,6 +114,66 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
 
+  otherOne(){
+    return TextFormField(
+      controller: textEditingController,
+      validator: (String? text) {
+        String? t = validate(text?.trim()??"");
+        print("Errroorr: $t");
+        setState(() {
+          error = t!=null?true:false;
+          first = true;
+        });
+        return t!=null?"":null;
+      },
+      onChanged: (String? text){
+        widget.onChange != null?widget.onChange!(text??""):null;
+        if(first){
+          String? t = validate(text??"");
+          print("Errroorr: $t");
+          setState(() {
+            error = t!=null?true:false;
+
+          });
+        }
+      },
+      decoration: InputDecoration(
+          errorText: null,
+          hintText: widget.hintText,
+          hintStyle: textStyle.copyWith(fontWeight: FontWeight.w500, color: AppColors.grey9494),
+          border: error ? otherErrorBorder : otherBorder,
+          enabledBorder: error ? otherErrorBorder : otherBorder,
+          focusedBorder: error ? otherErrorBorder : otherBorder,
+          disabledBorder: error ? otherErrorBorder : otherBorder,
+          errorBorder: error ? otherErrorBorder : otherBorder,
+          focusedErrorBorder: error ? otherErrorBorder : otherBorder,
+          fillColor: AppColors.lightGrey,
+          filled: true,
+          prefixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              horizontalSpace(20),
+              SvgPicture.asset(widget.prefixIcon!),
+              horizontalSpace(15),
+            ],
+          ),
+          suffixIcon: widget.textInputType == TextInputType.visiblePassword
+              ? customGestureDetecter(
+            onTap: () {
+              setState(() {
+                obscure = !obscure;
+              });
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: SvgPicture.asset(AppImages.unHideIcon),
+            ),
+          )
+              : null),
+      obscureText: obscure,
+      keyboardType: widget.textInputType,
+    );
+  }
 
 
   validate(String text){
@@ -141,8 +205,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
 OutlineInputBorder border = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
     borderSide: const BorderSide(width: 0, color: Colors.transparent));
+OutlineInputBorder otherBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
+    borderSide: const BorderSide(width: 0, color: Colors.transparent));
 OutlineInputBorder errorBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
+    borderSide: const BorderSide(width: 1, color: Colors.red));
+OutlineInputBorder otherErrorBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(15),
     borderSide: const BorderSide(width: 1, color: Colors.red));
 
 enum Validators {notEmpty, email, password, confirmPassword}

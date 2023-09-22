@@ -5,6 +5,9 @@ class AppImages {
   /// Common Home Path
   static String pathToHomeImages = "assets/images/home";
 
+  /// Common Profile Path
+  static String pathToProfileImages = "assets/images/profile";
+
   static String appLogoSvg = "$pathToCommonImages/logo.svg";
   static String backButtonIcon = "$pathToCommonImages/back_button.svg";
   static String unHideIcon = "$pathToCommonImages/unhide.svg";
@@ -38,4 +41,22 @@ class AppImages {
   static String child2 = "$pathToHomeImages/child2.png";
   static String child3 = "$pathToHomeImages/child3.png";
   static String child4 = "$pathToHomeImages/child4.png";
+
+  ///Profile Icons
+  static String contactUs = "$pathToProfileImages/contact_us.svg";
+  static String editProfilePictureIcon = "$pathToProfileImages/edit_picture_icon.svg";
+  static String emailCheck = "$pathToProfileImages/email_check.svg";
+  static String emailField = "$pathToProfileImages/email_field.svg";
+  static String feedback = "$pathToProfileImages/feedback.svg";
+  static String logout = "$pathToProfileImages/logout.svg";
+  static String mobileField = "$pathToProfileImages/mobile_field.svg";
+  static String nameField = "$pathToProfileImages/name_field.svg";
+  static String password = "$pathToProfileImages/password.svg";
+  static String passwordField = "$pathToProfileImages/password_field.svg";
+  static String passwordReset = "$pathToProfileImages/password_reset.svg";
+  static String privacyPolicy = "$pathToProfileImages/privacy_policy.svg";
+  static String profile = "$pathToProfileImages/profile.svg";
+  static String tutorial = "$pathToProfileImages/tutorial.svg";
+
+  static String profileImage = "$pathToProfileImages/profile_image.png";
 }
