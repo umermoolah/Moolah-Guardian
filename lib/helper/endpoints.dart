@@ -1,5 +1,6 @@
 class EndPoints {
-  static String baseUrl = "http://api2.moolahmobile.com:3005";
+  // static String baseUrl = "http://api2.moolahmobile.com:3005";
+  static String baseUrl = "https://staging.api2.moolahmobile.com";
 
 
   static String login = "$baseUrl/login";

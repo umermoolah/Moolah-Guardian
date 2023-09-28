@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:moolah/screens/login/login.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/change_password.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/widget/password_reset.dart';
 import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
@@ -58,7 +59,9 @@ class _MainMenuProfileState extends State<MainMenuProfile> {
                     option(icon: AppImages.contactUs, text: "Contact us"),
                     option(icon: AppImages.privacyPolicy, text: "Privacy Policy"),
                     verticalSpace(20),
-                    CustomButton(text: "Logout", color: AppColors.lightRed.withOpacity(0.2), textColor: AppColors.red,icon: AppImages.logout,notExpanded: true,margin: EdgeInsets.zero),
+                    CustomButton(onTap: (){
+                      Get.offAllNamed(Login.screenName);
+                    },text: "Logout", color: AppColors.lightRed.withOpacity(0.2), textColor: AppColors.red,icon: AppImages.logout,notExpanded: true,margin: EdgeInsets.zero),
                     verticalSpace(10),
                   ],
                 ),
