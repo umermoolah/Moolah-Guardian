@@ -21,11 +21,14 @@ class ScanBarcode extends StatefulWidget {
 }
 
 class _ScanBarcodeState extends State<ScanBarcode> {
+
+  bool scanned = false;
+
   @override
   void initState() {
-    Future.delayed(Duration(seconds: 3), (){
-      showD();
-    });
+    // Future.delayed(Duration(seconds: 3), (){
+    //   showD();
+    // });
     super.initState();
   }
   @override
@@ -38,7 +41,7 @@ class _ScanBarcodeState extends State<ScanBarcode> {
         customGestureDetecter(
           onTap: (){
             // JUST TO TEST IT
-            showD();
+            // showD();
           },
             child: commonAppBar(heading: "Moolah Parent Code")),
         verticalSpace(20),
@@ -46,7 +49,12 @@ class _ScanBarcodeState extends State<ScanBarcode> {
           children: [
             MobileScanner(
               onDetect: (BarcodeCapture capture){
-                showD();
+                if(!scanned){
+                  scanned = true;
+                  showD();
+
+                }
+
               },
             ),
             ColorFiltered(
@@ -86,7 +94,7 @@ class _ScanBarcodeState extends State<ScanBarcode> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     // await Get.toNamed(ParentSecurityCheck.screenName);
-    showDialog(context: context, builder: (_){
+    await showDialog(context: context, builder: (_){
       return Material(
         type: MaterialType.transparency,
         child: Center(
@@ -115,5 +123,6 @@ class _ScanBarcodeState extends State<ScanBarcode> {
         ),
       );
     });
+    scanned = false;
   }
 }
