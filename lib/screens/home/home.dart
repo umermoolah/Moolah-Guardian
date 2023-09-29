@@ -15,6 +15,7 @@ import '../../controllers/authController.dart';
 import '../../helper/sharedHelper.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
 import '../main_menu_profile/main_menu_profile.dart';
+import '../parent_security_check/parent_security_check.dart';
 
 class Home extends StatefulWidget {
   static const screenName = "home";
@@ -77,31 +78,45 @@ class _HomeState extends State<Home> {
                                   ],
                                 ),
                               ),
+                              /// For Now
+                              // Positioned(
+                              //     right: 0,
+                              //     top: 0,
+                              //     bottom: 0,
+                              //     child: InkWell(
+                              //       onTap: () {
+                              //         Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //             builder: (_) => const ChatListScreen(),
+                              //           ),
+                              //         );
+                              //       },
+                              //       child: Stack(
+                              //         children: [
+                              //           SvgPicture.asset(AppImages.messaging),
+                              //           roundedContainer(
+                              //               color: Colors.red,
+                              //               height: 15,
+                              //               width: 15,
+                              //               child: Center(
+                              //                   child: regularText("1",
+                              //                       fontSize: 10,
+                              //                       color: AppColors.white)))
+                              //         ],
+                              //       ),
+                              //     ))
+                              /// /// /// /// /// /// 
                               Positioned(
-                                  right: 0,
-                                  top: 0,
-                                  bottom: 0,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => const ChatListScreen(),
-                                        ),
-                                      );
+                                top: 0,
+                                  left: 0,
+                                  child: customGestureDetecter(
+                                    onTap: (){
+                                      Get.toNamed(MainMenuProfile.screenName);
                                     },
-                                    child: Stack(
-                                      children: [
-                                        SvgPicture.asset(AppImages.messaging),
-                                        roundedContainer(
-                                            color: Colors.red,
-                                            height: 15,
-                                            width: 15,
-                                            child: Center(
-                                                child: regularText("1",
-                                                    fontSize: 10,
-                                                    color: AppColors.white)))
-                                      ],
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                      child: SvgPicture.asset(AppImages.menu),
                                     ),
                                   ))
                             ],
@@ -110,7 +125,7 @@ class _HomeState extends State<Home> {
                         verticalSpace(30),
                         customGestureDetecter(
                           onTap: (){
-                            Get.toNamed(MainMenuProfile.screenName);
+                            // Get.toNamed(MainMenuProfile.screenName);
                           },
                           child: Column(
                             children: [
@@ -130,7 +145,8 @@ class _HomeState extends State<Home> {
                             icon: AppImages.scanBarcode,
                             onTap: () {
                               // Get.find<AuthController>().refreshToken();
-                              Get.toNamed(ScanBarcode.screenName);
+                              // Get.toNamed(ScanBarcode.screenName);
+                              Get.toNamed(ParentSecurityCheck.screenName);
                             }),
                         verticalSpace(height * 0.07),
                         Align(

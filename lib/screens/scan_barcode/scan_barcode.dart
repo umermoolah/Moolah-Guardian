@@ -10,6 +10,7 @@ import 'package:moolah/util/common_widgets/common_widgets.dart';
 import '../../util/apptext.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
 import '../../util/images.dart';
+import '../home/home.dart';
 
 class ScanBarcode extends StatefulWidget {
   static const screenName = "scanbarcode";
@@ -84,7 +85,7 @@ class _ScanBarcodeState extends State<ScanBarcode> {
   void showD() async {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    await Get.toNamed(ParentSecurityCheck.screenName);
+    // await Get.toNamed(ParentSecurityCheck.screenName);
     showDialog(context: context, builder: (_){
       return Material(
         type: MaterialType.transparency,
@@ -104,8 +105,9 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                 subHeadingText("Congrats! You have successfully \nconnected to your Kids Device!"),
                 verticalSpace(20),
                 CustomButton(text: "Back to home", onTap: (){
-                  Get.back();
-                  Get.back();
+                  Get.offAllNamed(Home.screenName);
+                  // Get.back();
+                  // Get.back();
                 },)
               ],
             )

@@ -10,6 +10,7 @@ import 'package:moolah/util/images.dart';
 import '../../util/colors.dart';
 import '../../util/common_widgets/common_appbar.dart';
 import '../../util/common_widgets/common_text_field.dart';
+import '../scan_barcode/scan_barcode.dart';
 
 class ParentSecurityCheck extends StatefulWidget {
   static const screenName = "parentSecurityCheck";
@@ -20,6 +21,9 @@ class ParentSecurityCheck extends StatefulWidget {
 }
 
 class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
+  DateTime? dateOfBirth;
+
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -60,13 +64,13 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                 verticalSpace(10),
               customGestureDetecter(
                 onTap: () async {
-                  var dateOfBirth = await showDatePicker(
+                  dateOfBirth = await showDatePicker(
                       context: context,
                       initialDate:
                       DateTime(DateTime.now().year - 20),
                       firstDate: DateTime(1940),
                       lastDate:
-                      DateTime(DateTime.now().year - 20),
+                      DateTime(DateTime.now().year - 2),
                       builder: (context, child) {
                         return Theme(
                           data: Theme.of(context).copyWith(
@@ -98,10 +102,10 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         regularText(
-                        // dateOfBirth == null
-                        //     ?
+                        dateOfBirth == null
+                            ?
                         "__\\__\\___"
-                            // : getSortedDate()
+                            : getSortedDate(dateOfBirth)
                           ),
                         Align(
                           alignment: Alignment.centerRight,
@@ -111,7 +115,7 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                 ),),
                 verticalSpace(15),
                 CustomButton(text: "Submit", margin: EdgeInsets.zero,onTap: (){
-                  Get.back();
+                  Get.toNamed(ScanBarcode.screenName);
                 },)
               ],
             )

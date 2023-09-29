@@ -57,14 +57,17 @@ Widget customProfileViewer({double size = 80}) {
       borderRadius: 100,
       height: size,
       width: size,
-      color: Colors.lightGreen,
+      // color: Colors.lightGreen,
       child: Center(
           child: SizedBox(
-            // height: 65,
-            // width: 65,
+            height: 65,
+            width: 65,
+            // child: ClipRRect(
+            //   child: Image.asset(AppImages.profileImage),
+            // ),
             child: ClipRRect(
-              child: Image.asset(AppImages.profileImage),
-            ),
+                borderRadius: BorderRadius.circular(1000),
+                child: SvgPicture.asset(AppImages.person)),
           )
       )
   );
@@ -96,3 +99,6 @@ Widget iconText(String icon, String s, {bool isItalic = false}) {
   );
 }
 
+String getSortedDate(DateTime? dateOfBirth) {
+  return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}\\${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}\\${dateOfBirth!.year}";
+}

@@ -160,7 +160,7 @@ class _SignUpState extends State<SignUp> {
                                   children: [
                                     regularText(dateOfBirth == null
                                         ? "__\\__\\___"
-                                        : getSortedDate()),
+                                        : getSortedDate(dateOfBirth)),
                                   ],
                                 )),
                           ),
@@ -204,7 +204,7 @@ class _SignUpState extends State<SignUp> {
                                       lastNameController.text,
                                       phone,
                                       dateOfBirth != null
-                                          ? getSortedDate()
+                                          ? getSortedDate(dateOfBirth)
                                           : "",
                                       usernameController.text,
                                       emailController.text,
@@ -239,7 +239,5 @@ class _SignUpState extends State<SignUp> {
     }));
   }
 
-  getSortedDate() {
-    return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}\\${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}\\${dateOfBirth!.year}";
-  }
+
 }

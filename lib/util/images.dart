@@ -22,6 +22,7 @@ class AppImages {
   static String messaging = "$pathToHomeImages/messaging.svg";
   static String person = "$pathToHomeImages/person.svg";
   static String scanBarcode = "$pathToHomeImages/scanbarcode.svg";
+  static String menu = "$pathToHomeImages/menu.svg";
 
   static String emptyBattery = "$pathToHomeImages/battery-empty.svg";
   static String clock = "$pathToHomeImages/clock.svg";
