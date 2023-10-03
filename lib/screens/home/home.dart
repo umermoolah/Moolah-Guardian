@@ -146,18 +146,19 @@ class _HomeState extends State<Home> {
                             onTap: () {
                               // Get.find<AuthController>().refreshToken();
                               // Get.toNamed(ScanBarcode.screenName);
+                              Get.find<AuthController>().refreshToken();
                               Get.toNamed(ParentSecurityCheck.screenName);
                             }),
                         verticalSpace(height * 0.07),
                         Align(
                             alignment: Alignment.centerLeft,
-                            child: bigSubHeading("Sync Devices (4)")),
+                            child: bigSubHeading("Sync Devices (${homeController.connectedKids.length})")),
                         Expanded(
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 for(int i=0;i<homeController.connectedKids.length;i++)
-                                  SyncDevice(kidId: homeController.connectedKids[i].kidId!,name: homeController.connectedKids[i].name!, image: homeController.connectedKids[i].kidPic!, active: homeController.connectedKids[i].lastActive!, battery: homeController.connectedKids[i].batteryStatus!, mbps: homeController.connectedKids[i].dataUsageStatus!, isIPad: homeController.connectedKids[i].deviceType! == "tab",)
+                                  SyncDevice(kidId: homeController.connectedKids[i].kidId!,name: homeController.connectedKids[i].name!, image: homeController.connectedKids[i].kidPic, active: homeController.connectedKids[i].lastActive!, battery: homeController.connectedKids[i].batteryStatus!, mbps: homeController.connectedKids[i].dataUsageStatus!, isIPad: homeController.connectedKids[i].deviceType!.toString().toLowerCase().contains("tab"))
                                 // SyncDevice(
                                 //   image: AppImages.child1,
                                 //   name: "John Campbell",

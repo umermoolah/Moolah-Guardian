@@ -3,8 +3,8 @@ import '../models/response_model.dart';
 import '../network.dart';
 
 class SingleKidRepo {
-  static Future<ResponseModel> enableWallet({bool enable = false, int? kidId}) async {
-    return await Network.post("${EndPoints.getSyncedKidDevicesUrl}?kidID=$kidId&enabled=$enable");
+  static Future<ResponseModel> enableWallet({bool enable = false, String? kidId}) async {
+    return await Network.post("${EndPoints.enableWalletUrl}?kidID=$kidId&enabled=$enable");
   }
 
   static Future<ResponseModel> getAppUsage({int? kidId}) async {
@@ -39,6 +39,12 @@ class SingleKidRepo {
 
   static Future<ResponseModel> blacklistUrl({int? kidId}) async {
     return await Network.post("${EndPoints.blacklistUrl}?kidID=$kidId");
+    // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
+  }
+
+
+  static Future<ResponseModel> getDeviceDetails({String? kidId}) async {
+    return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
 }

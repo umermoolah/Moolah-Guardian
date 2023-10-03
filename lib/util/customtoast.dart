@@ -3,7 +3,7 @@ import 'package:moolah/helper/models/response_model.dart';
 
 import 'colors.dart';
 
-errorToast(String text){
+errorToast(String text) {
   Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
@@ -11,19 +11,20 @@ errorToast(String text){
       timeInSecForIosWeb: 1,
       backgroundColor: AppColors.red,
       textColor: AppColors.white,
-      fontSize: 16.0
-  );
+      fontSize: 16.0);
 }
-errorToastShow(Map? r){
-  if(r != null){
-    if(r["errorMsg"]!= null){
+
+errorToastShow(Map? r) {
+  if (r != null) {
+    if (r["errorMsg"] != null) {
       errorToast(r["errorMsg"]);
-    }else if(r["message"]!=null){
+    } else if (r["message"] != null) {
       errorToast(r["message"]);
     }
   }
 }
-successToast(String text){
+
+successToast(String text) {
   Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
@@ -31,6 +32,15 @@ successToast(String text){
       timeInSecForIosWeb: 1,
       backgroundColor: AppColors.normalGreen,
       textColor: AppColors.white,
-      fontSize: 16.0
-  );
+      fontSize: 16.0);
+}
+
+apiToast(ResponseModel res) {
+  if (res.message != null) {
+    if (!res.isSuccessful) {
+      errorToast(res.message!);
+    } else {
+      successToast(res.message!);
+    }
+  }
 }

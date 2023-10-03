@@ -19,9 +19,9 @@ class SyncDevice extends StatefulWidget {
 
 });
 
-  int kidId;
+  String kidId;
   bool isIPad;
-  String image;
+  String? image;
   String name;
   String battery;
   String mbps;
@@ -53,7 +53,9 @@ class _SyncDeviceState extends State<SyncDevice> {
               height: 55,
               width: 55,
               child: ClipRRect(
-                child: Image.asset(widget.image),
+                child: widget.image == null ? ClipRRect(
+                    borderRadius: BorderRadius.circular(1000),
+                    child: SvgPicture.asset(AppImages.person)) : Image.network(widget.image!),
               ),
             ),
             horizontalSpace(10),

@@ -10,13 +10,16 @@ class Network {
   static Future<ResponseModel> get(String url) async {
 
     var res = await http.get(Uri.parse(url), headers: getHeaders());
+    print("RES STATUS: ${res.statusCode}");
     return responseHandler(res: res);
 
   }
 
   static Future<ResponseModel> post(String url, {Map<String, dynamic> body = const {}}) async {
     try{
-      var res = await http.post(Uri.parse(url), body: body);
+      print("REQ BODY: $body");
+      print("HEADERS: ${getHeaders()}");
+      var res = await http.post(Uri.parse(url), body: body,headers: getHeaders());
       return responseHandler(res: res);
     }catch(e){
       print("e:::$e");
@@ -40,9 +43,9 @@ class Network {
     print("responceHandler: ${res!.body}");
     if((res?.statusCode ?? 0) == 200 && !empty){
       if(jsonDecode(res!.body)["status"] ?? true){
-        return ResponseModel(isSuccessful: true, data: jsonDecode(res.body));
+        return ResponseModel(isSuccessful: true, data: jsonDecode(res.body), message: jsonDecode(res!.body)["message"]);
       }else{
-        return ResponseModel(isSuccessful: false, data: jsonDecode(res.body));
+        return ResponseModel(isSuccessful: false, data: jsonDecode(res.body), message: jsonDecode(res!.body)["message"]);
       }
     }
     return ResponseModel(isSuccessful: false);

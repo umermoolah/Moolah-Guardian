@@ -13,48 +13,61 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonGradientBackground(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
-        child: Column(
-          children: [
-            commonAppBar(heading: "Inbox"),
-            Expanded(
-              child: SizedBox(
-                width: double.infinity,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15)),
-                      color: AppColors.white),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 16, right: 16, top: 16),
-                        child: boldText('Unread - 2', fontSize: 16),
-                      ),
-                      const SizedBox(height: 10),
-                      _buildMessageItem(context, AppImages.child1,
-                          'John Campbell', "Mom i need 5 more mins", "9:56am"),
-                      const Divider(),
-                      _buildMessageItem(
-                          context,
-                          AppImages.child2,
-                          "Anna Campbell",
-                          "Mom can i use my device",
-                          "Yesterday")
-                    ],
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
+    return Column(
+      children: [
+        _buildMessageItem(context, AppImages.child1,
+            'John Campbell', "Mom i need 5 more mins", "9:56am"),
+        const Divider(),
+        _buildMessageItem(
+            context,
+            AppImages.child2,
+            "Anna Campbell",
+            "Mom can i use my device",
+            "Yesterday")
+      ],
     );
+    // return CommonGradientBackground(
+    //   child: Padding(
+    //     padding: const EdgeInsets.only(top: 10.0, left: 10, right: 10),
+    //     child: Column(
+    //       children: [
+    //         commonAppBar(heading: "Inbox"),
+    //         Expanded(
+    //           child: SizedBox(
+    //             width: double.infinity,
+    //             child: DecoratedBox(
+    //               decoration: BoxDecoration(
+    //                   borderRadius: const BorderRadius.only(
+    //                       topLeft: Radius.circular(15),
+    //                       topRight: Radius.circular(15)),
+    //                   color: AppColors.white),
+    //               child: Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Padding(
+    //                     padding:
+    //                         const EdgeInsets.only(left: 16, right: 16, top: 16),
+    //                     child: boldText('Unread - 2', fontSize: 16),
+    //                   ),
+    //                   const SizedBox(height: 10),
+    //                   _buildMessageItem(context, AppImages.child1,
+    //                       'John Campbell', "Mom i need 5 more mins", "9:56am"),
+    //                   const Divider(),
+    //                   _buildMessageItem(
+    //                       context,
+    //                       AppImages.child2,
+    //                       "Anna Campbell",
+    //                       "Mom can i use my device",
+    //                       "Yesterday")
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //         )
+    //       ],
+    //     ),
+    //   ),
+    // );
   }
 
   Widget _buildMessageItem(BuildContext context, String imageRes, String name,

@@ -76,7 +76,7 @@ class AuthController extends BaseController {
     var res = await AuthRepo.refreshToken(Prefs.refreshToken.get());
     Prefs.accessToken.set(res.data["access"]["token"]);
     Prefs.refreshToken.set(res.data["refresh"]["token"]);
-    print("res:::$res");
+    print("res:::${res.data}");
   }
 
 }

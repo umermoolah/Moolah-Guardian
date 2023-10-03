@@ -11,7 +11,7 @@ Kid kidFromJson(String str) => Kid.fromJson(json.decode(str));
 String kidToJson(Kid data) => json.encode(data.toJson());
 
 class Kid {
-  int? kidId;
+  String? kidId;
   String? name;
   String? deviceType;
   String? batteryStatus;
@@ -36,7 +36,7 @@ class Kid {
   });
 
   Kid copyWith({
-    int? kidId,
+    String? kidId,
     String? name,
     String? deviceType,
     String? batteryStatus,

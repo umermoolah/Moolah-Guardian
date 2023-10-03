@@ -9,6 +9,7 @@ import 'package:moolah/helper/repo/homeRepo.dart';
 import 'package:moolah/util/images.dart';
 
 import '../helper/models/app_usage_model.dart';
+import '../helper/repo/singleKidRepo.dart';
 
 class HomeController extends BaseController {
   List<Kid> connectedKids = [];
@@ -16,70 +17,93 @@ class HomeController extends BaseController {
   AppUsage? appUsageOfSelectedKid;
 
   Future<void> getSyncedKidDevices() async {
-    // ResponseModel responseModel = await HomeRepo.getSyncedKidDevices();
+    ResponseModel responseModel = await HomeRepo.getSyncedKidDevices();
 
-    List<Kid> temp = [
-      Kid(
-          kidId: 1,
-          name: "Ronald Richards",
-          batteryStatus: "56",
-          connectId: "1",
-          dataUsageStatus: "9.2",
-          deviceType: "phone",
-          kidPic: AppImages.child1,
-          lastActive: "32 m ago",
-          walletEnabled: false),
-      Kid(
-          kidId: 2,
-          name: "Floyd Miles",
-          batteryStatus: "10",
-          connectId: "2",
-          dataUsageStatus: "3.2",
-          deviceType: "phone",
-          kidPic: AppImages.child2,
-          lastActive: "Now",
-          walletEnabled: false),
-      Kid(
-          kidId: 3,
-          name: "Jane Cooper",
-          batteryStatus: "100",
-          connectId: "3",
-          dataUsageStatus: "5.2",
-          deviceType: "tab",
-          kidPic: AppImages.child3,
-          lastActive: "14 m ago",
-          walletEnabled: false),
-      Kid(
-          kidId: 4,
-          name: "Floyd Miles",
-          batteryStatus: "90",
-          connectId: "4",
-          dataUsageStatus: "1.0",
-          deviceType: "phone",
-          kidPic: AppImages.child4,
-          lastActive: "2 m ago",
-          walletEnabled: false),
-    ];
+    List<Kid> temp = [];
+    //   Kid(
+    //       kidId: 1,
+    //       name: "Ronald Richards",
+    //       batteryStatus: "56",
+    //       connectId: "1",
+    //       dataUsageStatus: "9.2",
+    //       deviceType: "phone",
+    //       kidPic: AppImages.child1,
+    //       lastActive: "32 m ago",
+    //       walletEnabled: false),
+    //   Kid(
+    //       kidId: 2,
+    //       name: "Floyd Miles",
+    //       batteryStatus: "10",
+    //       connectId: "2",
+    //       dataUsageStatus: "3.2",
+    //       deviceType: "phone",
+    //       kidPic: AppImages.child2,
+    //       lastActive: "Now",
+    //       walletEnabled: false),
+    //   Kid(
+    //       kidId: 3,
+    //       name: "Jane Cooper",
+    //       batteryStatus: "100",
+    //       connectId: "3",
+    //       dataUsageStatus: "5.2",
+    //       deviceType: "tab",
+    //       kidPic: AppImages.child3,
+    //       lastActive: "14 m ago",
+    //       walletEnabled: false),
+    //   Kid(
+    //       kidId: 4,
+    //       name: "Floyd Miles",
+    //       batteryStatus: "90",
+    //       connectId: "4",
+    //       dataUsageStatus: "1.0",
+    //       deviceType: "phone",
+    //       kidPic: AppImages.child4,
+    //       lastActive: "2 m ago",
+    //       walletEnabled: false),
+    // ];
+
+
 
     // List temp = responseModel.data["kid"];
-    for (int i = 0; i < temp.length; i++) {
-      // connectedKids.add(Kid.fromJson(temp[i]));
-      connectedKids.add(temp[i]);
+    if(responseModel.isSuccessful){
+      for (int i = 0; i < responseModel.data["devices"].length; i++) {
+        // Kid(responseModel.data["devices"]);
+        print("Hweewkelkn");
+        var tem = responseModel.data["devices"][i];
+          temp.add(Kid(
+              kidId: tem["kidDeviceAccountUserID"],
+              name: tem["kidFullName"],
+              batteryStatus: "NA",
+              connectId: tem["kidDeviceAccountConnectID"],
+              dataUsageStatus: "NA",
+              deviceType: tem["kidDeviceType"],
+              kidPic: null,
+              lastActive: "NA",
+              walletEnabled: false));
+      }
+      if(temp.isNotEmpty){
+        connectedKids.clear();
+        for (int i = 0; i < temp.length; i++) {
+          // connectedKids.add(Kid.fromJson(temp[i]));
+          connectedKids.add(temp[i]);
+        }
+      }
     }
+
     update();
     //{"kidID": "String", "name": "String", "deviceType": "String", "batteryStatus": "String", "connectID": "String", "dataUsageStatus": "String", "lastActive": "String", "kidPic": "String", "walletEnabled": false}
   }
 
-  Future<void> enableWallet({required int kidId, required bool value}) async {
+  Future<void> enableWallet({required String kidId, required bool value}) async {
     if (isLoading) return;
     isLoading = true;
     int index = getSelectedKidIndex(kidId);
     connectedKids[index] = connectedKids[index].copyWith(walletEnabled: value);
-    // ResponseModel responseModel = await SingleKidRepo.enableWallet(kidId: kidId);
+    ResponseModel responseModel = await SingleKidRepo.enableWallet(kidId: kidId);
     isLoading = false;
   }
 
-  Future<void> getAppUsage({required int kidId}) async {
+  Future<void> getAppUsage({required String kidId}) async {
     // if (isLoading) return;
     // isLoading = true;
 
@@ -135,6 +159,14 @@ class HomeController extends BaseController {
     isLoading = false;
   }
 
+  Future<void> getDeviceDetail({required String kidId}) async {
+    // if (isLoading) return;
+    // isLoading = true;
+    ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: kidId);
+    print("responseModel::: ${responseModel.data}");
+    // isLoading = false;
+  }
+
   Future<void> blacklistApp({int? kidId}) async {
     if (isLoading) return;
     isLoading = true;
@@ -142,7 +174,7 @@ class HomeController extends BaseController {
     isLoading = false;
   }
 
-  Future<void> deleteApp({required int kidId, required int appId}) async {
+  Future<void> deleteApp({required String kidId, required int appId}) async {
     if (isLoading) return;
     isLoading = true;
     List<ListOfInstalledApp> apps = connectedKids[getSelectedKidIndex(kidId)].appUsage!.listOfInstalledApps??[];
@@ -192,7 +224,7 @@ class HomeController extends BaseController {
     isLoading = false;
   }
 
-  int getSelectedKidIndex(int kidId) {
+  int getSelectedKidIndex(String kidId) {
     int index = 0;
     for (int i = 0; i < connectedKids.length; i++) {
       if(kidId == connectedKids[i].kidId){
@@ -203,7 +235,7 @@ class HomeController extends BaseController {
     return index;
   }
 
-  Kid getSelectedKid(int kidId){
+  Kid getSelectedKid(String kidId){
     return connectedKids[getSelectedKidIndex(kidId)];
   }
 }

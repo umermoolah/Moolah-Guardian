@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/blacklist/blacklist_screen.dart';
+import 'package:moolah/screens/chat/chat_list_screen.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_appbar.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
@@ -20,7 +21,7 @@ class SyncDeviceDetailScreen extends StatefulWidget {
   static const screenName = "syncDeviceDetailScreen";
 
   SyncDeviceDetailScreen({required this.kidId});
-  int kidId;
+  String kidId;
 
   @override
   State<SyncDeviceDetailScreen> createState() => _SyncDeviceDetailScreenState();
@@ -37,7 +38,8 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   void initState() {
     super.initState();
     Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
-    tabController = TabController(length: 2, vsync: this);
+    Get.find<HomeController>().getDeviceDetail(kidId: widget.kidId);
+    tabController = TabController(length: 3, vsync: this);
     tabController?.addListener(() {
       final currentIndex = tabController?.index;
       if (currentIndex != prevIndex) {
@@ -75,6 +77,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                               child: Column(
                                 children: [
                                   tabBar(),
+                                  if(tabController?.index == 1)
                                   CustomButton(
                                     text: headingText,
                                     onTap: () {
@@ -89,11 +92,13 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                       }
                                     },
                                   ),
-                                  verticalSpace(30),
+                                  verticalSpace(0),
                                   if (tabController?.index == 0)
                                     appSection(homeController)
-                                  else
+                                  else if (tabController?.index == 1)
                                     urlSection()
+                                  else if (tabController?.index == 2)
+                                    messagesSection()
                                 ],
                               )),
                         ),
@@ -244,6 +249,20 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
+  messagesSection() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10).copyWith(top: 20),
+        child: ChatListScreen(),
+        // child: ListView.builder(
+        //   itemCount: 15,
+        //   itemBuilder: (context, index) =>
+        //       urlItem('https://www.fiverr.com/cp/product-release-2023'),
+        // ),
+      ),
+    );
+  }
+
   Widget urlItem(String url) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
@@ -325,7 +344,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     height: 55,
                     width: 55,
                     child: ClipRRect(
-                      child: Image.asset(kid.kidPic??""),
+                      child: ClipRRect(
+                          child: kid.kidPic == null ? ClipRRect(
+                              borderRadius: BorderRadius.circular(1000),
+                              child: SvgPicture.asset(AppImages.person)) : Image.network(kid.kidPic!),)
                     ),
                   ),
                   horizontalSpace(10),
@@ -375,10 +397,13 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
         ? Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: regularText(s,
-                color: AppColors.white, fontWeight: FontWeight.w500),
+                color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 10),
           )
-        : regularText(s,
-            color: AppColors.normalGreen, fontWeight: FontWeight.w500);
+        : Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: regularText(s,
+              color: AppColors.normalGreen, fontWeight: FontWeight.w500, fontSize: 10),
+        );
   }
 
   Widget tabBar() {
@@ -400,6 +425,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           tabs: [
             textForTab("Screen Time", tabController!.index == 0),
             textForTab("Browser History", tabController!.index == 1),
+            textForTab("Messages", tabController!.index == 2),
             // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
           ]),
     );
@@ -489,4 +515,6 @@ and Wallet from kid devices here.
       );
     });
   }
+
+
 }
