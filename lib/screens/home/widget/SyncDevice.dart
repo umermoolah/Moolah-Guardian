@@ -7,6 +7,8 @@ import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/images.dart';
 
+import '../../../controllers/authController.dart';
+
 class SyncDevice extends StatefulWidget {
   SyncDevice({
     required this.kidId,
@@ -39,6 +41,7 @@ class _SyncDeviceState extends State<SyncDevice> {
     var height = MediaQuery.of(context).size.height;
     return customGestureDetecter(
       onTap: (){
+
         Get.toNamed(SyncDeviceDetailScreen.screenName, arguments: {"kidId": widget.kidId});
       },
       child: roundedContainer(

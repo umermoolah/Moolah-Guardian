@@ -12,6 +12,7 @@ import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/common_widgets/loader.dart';
 import 'package:moolah/util/images.dart';
 
+import '../../controllers/authController.dart';
 import '../../helper/models/app_usage_model.dart';
 import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
@@ -37,8 +38,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   @override
   void initState() {
     super.initState();
-    Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
-    Get.find<HomeController>().getDeviceDetail(kidId: widget.kidId);
+    initAPIS();
     tabController = TabController(length: 3, vsync: this);
     tabController?.addListener(() {
       final currentIndex = tabController?.index;
@@ -77,11 +77,11 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                               child: Column(
                                 children: [
                                   tabBar(),
-                                  if(tabController?.index == 1)
+                                  if(tabController?.index != 2)
                                   CustomButton(
                                     text: headingText,
                                     onTap: () {
-                                      if (tabController?.index == 1) {
+                                      if (tabController?.index != 2) {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -123,10 +123,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                bigHeadingText("${homeController.getSelectedKid(widget.kidId).appUsage!.deviceDailyAvgUsage!} "),
+                bigHeadingText("${homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsage ?? ""} "),
                 Column(
                   children: [
-                    subHeadingText(homeController.getSelectedKid(widget.kidId).appUsage!.deviceDailyAvgUsageChange!,
+                    subHeadingText(homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsageChange??"",
                         color: AppColors.normalGreen),
                     verticalSpace(5)
                   ],
@@ -424,7 +424,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           controller: tabController,
           tabs: [
             textForTab("Screen Time", tabController!.index == 0),
-            textForTab("Browser History", tabController!.index == 1),
+            textForTab("Web History", tabController!.index == 1),
             textForTab("Messages", tabController!.index == 2),
             // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
           ]),
@@ -514,6 +514,12 @@ and Wallet from kid devices here.
         ),
       );
     });
+  }
+
+  void initAPIS() async {
+    Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
+    await Get.find<AuthController>().refreshToken();
+    Get.find<HomeController>().getDeviceDetail(kidId: "5d0c9d86ae470d30"/*widget.kidId*/);
   }
 
 

@@ -73,12 +73,12 @@ class HomeController extends BaseController {
           temp.add(Kid(
               kidId: tem["kidDeviceAccountUserID"],
               name: tem["kidFullName"],
-              batteryStatus: "NA",
+              batteryStatus: "0",
               connectId: tem["kidDeviceAccountConnectID"],
-              dataUsageStatus: "NA",
+              dataUsageStatus: "0",
               deviceType: tem["kidDeviceType"],
               kidPic: null,
-              lastActive: "NA",
+              lastActive: "0m",
               walletEnabled: false));
       }
       if(temp.isNotEmpty){
@@ -161,10 +161,16 @@ class HomeController extends BaseController {
 
   Future<void> getDeviceDetail({required String kidId}) async {
     // if (isLoading) return;
-    // isLoading = true;
+    isLoading = true;
     ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: kidId);
     print("responseModel::: ${responseModel.data}");
-    // isLoading = false;
+    Duration time = (DateTime.fromMillisecondsSinceEpoch(responseModel.data["data"]["lastReportedTime"]).difference(DateTime.now()));
+    String timee = "${time.inHours!=0?"${time.inHours % 24}h":""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
+    connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
+    print('responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
+    connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel.data["data"]["networkInfo"]["sim1"]["mDataRoaming"]?.toString() ?? "0";
+    connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel.data["data"]["realTimeStats"]["batteryLevel"]?.toString() ?? "0";
+    isLoading = false;
   }
 
   Future<void> blacklistApp({int? kidId}) async {

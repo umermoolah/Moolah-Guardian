@@ -79,7 +79,7 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                           onTap: () async {
                             dateOfBirth = await showDatePicker(
                                 context: context,
-                                initialDate: DateTime(DateTime.now().year - 20),
+                                initialDate: DateTime(DateTime.now().year - 8),
                                 firstDate: DateTime(1940),
                                 lastDate: DateTime(DateTime.now().year - 2),
                                 builder: (context, child) {

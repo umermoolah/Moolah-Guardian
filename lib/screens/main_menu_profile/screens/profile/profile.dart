@@ -6,6 +6,7 @@ import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
 
+import '../../../../helper/sharedHelper.dart';
 import '../../../../util/common_widgets/CommonGradientBackground.dart';
 import '../../../../util/common_widgets/common_appbar.dart';
 import '../../../../util/common_widgets/common_widgets.dart';
@@ -41,9 +42,9 @@ class _ProfileState extends State<Profile> {
                       verticalSpace(10),
                       customProfileViewer(),
                       verticalSpace(10),
-                      valueContainers(icon: AppImages.nameField, heading: "Full Name", value: "Wilson Saris"),
-                      valueContainers(icon: AppImages.emailField, heading: "Email", value: "wilsonsaris@mail.com"),
-                      valueContainers(icon: AppImages.mobileField, heading: "Mobile No.", value: "+1 652 123 112"),
+                      valueContainers(icon: AppImages.nameField, heading: "Full Name", value: "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
+                      valueContainers(icon: AppImages.emailField, heading: "Email", value: Prefs.email.get().isNotEmpty?Prefs.email.get():""),
+                      valueContainers(icon: AppImages.mobileField, heading: "Mobile No.", value: ""),
                       valueContainers(icon: AppImages.passwordField, heading: "Password", value: "**********"),
                       verticalSpace(20),
                       CustomButton(margin: EdgeInsets.zero,text: "Edit Profile", onTap: (){
