@@ -58,6 +58,7 @@ class _EditProfileState extends State<EditProfile> {
                       CustomTextField(
                           hintText: "Enter Email",
                           otherOne: true,
+                          textInputType: TextInputType.emailAddress,
                           prefixIcon: AppImages.emailField),
                       verticalSpace(15),
                       CustomTextField(

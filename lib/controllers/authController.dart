@@ -7,6 +7,7 @@ import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/util/customtoast.dart';
 
 import '../helper/models/user_model.dart';
+import 'homeController.dart';
 
 class AuthController extends BaseController {
   UserModel? user;
@@ -30,7 +31,7 @@ class AuthController extends BaseController {
         print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
         Prefs.firstName.set(user1?.firstName??"");
         Prefs.lastName.set(user1?.lastName??"");
-        Get.toNamed(Home.screenName);
+        Get.offAllNamed(Home.screenName);
         print("Login Successful: \n\n${r.data}");
       } else {
         errorToastShow(r.data);
@@ -79,4 +80,14 @@ class AuthController extends BaseController {
     print("res:::${res.data}");
   }
 
+  Future<void> logout() async {
+    Prefs.accessToken.clear();
+    Prefs.refreshToken.clear();
+    Prefs.userId.clear();
+    Prefs.isLoggedIn.clear();
+    Prefs.email.clear();
+    Prefs.firstName.clear();
+    Prefs.lastName.clear();
+    Get.find<HomeController>().logout();
+  }
 }

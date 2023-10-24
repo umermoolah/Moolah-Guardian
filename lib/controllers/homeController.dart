@@ -244,4 +244,9 @@ class HomeController extends BaseController {
   Kid getSelectedKid(String kidId){
     return connectedKids[getSelectedKidIndex(kidId)];
   }
+
+  void logout(){
+    connectedKids.clear();
+    appUsageOfSelectedKid = null;
+  }
 }

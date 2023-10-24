@@ -59,6 +59,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           verticalSpace(20),
                           CustomTextField(
                               hintText: "Email",
+                              textInputType: TextInputType.emailAddress,
                               textEditingController: emailController,
                               validators: Validators.email),
 

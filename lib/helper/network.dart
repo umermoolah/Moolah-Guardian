@@ -32,11 +32,11 @@ class Network {
     }
   }
 
-  static getHeaders() {
+  static Map<String, String>? getHeaders() {
     if (Prefs.accessToken.get().isNotEmpty) {
       return {"Authorization": "Bearer ${Prefs.accessToken.get()}"};
     } else {
-      return {};
+      return null;
     }
   }
 

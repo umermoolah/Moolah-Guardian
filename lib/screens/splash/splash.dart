@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../home/home.dart';
 
 class Splash extends StatefulWidget {
   static const screenName = "splash";
@@ -39,6 +41,10 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       setState(() {});
     });
     await animationController!.forward();
-    Get.offAllNamed(OnBoard.screenName);
+    if(Prefs.isLoggedIn.get()){
+      Get.offAllNamed(Home.screenName);
+    }else{
+      Get.offAllNamed(OnBoard.screenName);
+    }
   }
 }

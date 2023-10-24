@@ -75,30 +75,35 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                               borderRadiusWhole: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                               padding: const EdgeInsets.all(10),
                               child: Column(
+                                // mainAxisAlignment: tabController?.index == 0 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                                 children: [
                                   tabBar(),
-                                  if(tabController?.index != 2)
-                                  CustomButton(
-                                    text: headingText,
-                                    onTap: () {
-                                      if (tabController?.index != 2) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
+                                  if(tabController?.index == 0)
+                                  // section(homeController),
+                                    if(tabController?.index != 2)
+                                      CustomButton(
+                                        text: headingText,
+                                        onTap: () {
+                                          if (tabController?.index != 2) {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
                                                 const BlackListScreen(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
+                                              ),
+                                            );
+                                          }
+                                        },
+                                      ),
                                   verticalSpace(0),
                                   if (tabController?.index == 0)
                                     appSection(homeController)
-                                  else if (tabController?.index == 1)
+                                  else if (tabController?.index == 3)//1
                                     urlSection()
-                                  else if (tabController?.index == 2)
-                                    messagesSection()
+                                  else if (tabController?.index == 3)//1
+                                      messagesSection(),
+                                  if(tabController?.index != 0)
+                                    comingSoon()
                                 ],
                               )),
                         ),
@@ -520,6 +525,24 @@ and Wallet from kid devices here.
     Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
     await Get.find<AuthController>().refreshToken();
     Get.find<HomeController>().getDeviceDetail(kidId: "5d0c9d86ae470d30"/*widget.kidId*/);
+  }
+
+  // Widget section(homeController) {
+  //   return Column(
+  //     children: [
+  //     ],
+  //   );
+  // }
+
+  comingSoon() {
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(AppImages.comingSoon),
+        ],
+      ),
+    );
   }
 
 

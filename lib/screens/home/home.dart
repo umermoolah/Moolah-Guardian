@@ -29,8 +29,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    Get.find<AuthController>().refreshToken();
-    Get.find<HomeController>().getSyncedKidDevices();
+
+
+    setController();
     super.initState();
   }
 
@@ -199,5 +200,10 @@ class _HomeState extends State<Home> {
     });
           }
         ));
+  }
+
+  void setController() async {
+    await Get.find<AuthController>().refreshToken();
+    await Get.find<HomeController>().getSyncedKidDevices();
   }
 }

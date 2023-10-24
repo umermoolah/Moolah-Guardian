@@ -11,7 +11,7 @@ class MessagingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: _messageTextField(),
+      // bottomNavigationBar: _messageTextField(),
       backgroundColor: Colors.white,
       appBar: _buildAppBar(),
       body: SizedBox(
@@ -19,11 +19,13 @@ class MessagingScreen extends StatelessWidget {
         child: ListView(
           reverse: true,
           children: [
+            verticalSpace(20),
             _buildChildMessageTyping(),
             _buildMyMessage("Ok fine just 5 min"),
             _buildChildMessage('Mom i need 5 more minutes'),
             _buildMyMessage("Turn off your device"),
             _buildMyMessage("John"),
+
           ],
         ),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:moolah/helper/route_helper.dart';
 import 'package:moolah/helper/sharedHelper.dart';
@@ -10,6 +11,10 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   get_di.init();
   Prefs.init();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   runApp(const MyApp());
 }
 
