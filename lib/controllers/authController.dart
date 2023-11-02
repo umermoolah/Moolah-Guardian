@@ -20,13 +20,22 @@ class AuthController extends BaseController {
       print("LOGIN: $isLoading");
       var r = await AuthRepo.login(email, password);
       print("RESPNCE: ${r.data}");
+      print("RESPNCE: ${r.data["data"]}");
+      print("RESPNCE: ${r.isSuccessful}");
       if (r.isSuccessful) {
-        user1 = UserModel1.fromJson(r.data);
+        print("Hello 1;");
+        user1 = UserModel1.fromJson(r.data["data"][0]);
+        print("Hello 2;");
         Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
+        print("Hello 3;");
         Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
-        Prefs.userId.set(r.data["user_id"]);
+        print("Hello 4;");
+        Prefs.userId.set(r.data["data"][0]["user_id"]);
+        print("Hello 5;");
         Prefs.isLoggedIn.set(true);
-        Prefs.email.set(r.data["email"]);
+        print("Hello 6;");
+        Prefs.email.set(r.data["data"][0]["email"]);
+        print("Hello 7;");
         print("user model:::${user1?.toJson()}");
         print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
         Prefs.firstName.set(user1?.firstName??"");
@@ -42,6 +51,7 @@ class AuthController extends BaseController {
     print("LOGIN: $isLoading");
   }
   Future<void> signup(String firstName,String lastName,String phone,String dob,String username, String email, String password) async {
+    Prefs.accessToken.clear();
     if (isLoading) return;
     try {
       isLoading = true;

@@ -53,7 +53,7 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                   // JUST TO TEST IT
                   // showD();
                 },
-                  child: commonAppBar(heading: "Moolah Parent Code")),
+                  child: commonAppBar(heading: "Moolah Guardian Code")),
               verticalSpace(20),
               Expanded(child: Stack(
                 children: [
@@ -151,7 +151,7 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                 verticalSpace(20),
                 bigHeadingText("Device Synced"),
                 verticalSpace(20),
-                subHeadingText("Congrats! You have successfully \nconnected to your Kids Device!"),
+                subHeadingText("Congrats! You have successfully \n connected to your Moolah Device!"),
                 verticalSpace(20),
                 CustomButton(text: "Back to home", onTap: (){
                   Get.offAllNamed(Home.screenName);

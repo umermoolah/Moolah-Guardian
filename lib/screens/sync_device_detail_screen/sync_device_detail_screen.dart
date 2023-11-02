@@ -14,6 +14,7 @@ import 'package:moolah/util/images.dart';
 
 import '../../controllers/authController.dart';
 import '../../helper/models/app_usage_model.dart';
+import '../../helper/models/device_detail_model.dart';
 import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
@@ -34,7 +35,6 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   String headingText = "Black List App";
   int prevIndex = 0;
 
-
   @override
   void initState() {
     super.initState();
@@ -53,70 +53,72 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      builder: (homeController) {
-        return CommonGradientBackground(
-          child: Loader(
-            c: homeController,
-            child: Column(
-              children: [
-                verticalSpace(40),
-                commonAppBar(heading: "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
-                    child: Column(
-                      children: [
-                        headingWidget(homeController),
-                        verticalSpace(15),
-                        Expanded(
-                          child: roundedContainer(
-                              borderRadius: 15,
-                              borderRadiusWhole: const BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                // mainAxisAlignment: tabController?.index == 0 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
-                                children: [
-                                  tabBar(),
-                                  if(tabController?.index == 0)
+    return GetBuilder<HomeController>(builder: (homeController) {
+      return CommonGradientBackground(
+        child: Loader(
+          c: homeController,
+          child: Column(
+            children: [
+              verticalSpace(40),
+              commonAppBar(
+                  heading:
+                      "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
+                  child: Column(
+                    children: [
+                      headingWidget(homeController),
+                      verticalSpace(15),
+                      Expanded(
+                        child: roundedContainer(
+                            borderRadius: 15,
+                            borderRadiusWhole: const BorderRadius.only(
+                                topLeft: Radius.circular(15),
+                                topRight: Radius.circular(15)),
+                            padding: const EdgeInsets.all(10),
+                            child: Column(
+                              // mainAxisAlignment: tabController?.index == 0 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                              children: [
+                                tabBar(),
+                                if (tabController?.index == 0)
                                   // section(homeController),
-                                    if(tabController?.index != 2)
-                                      CustomButton(
-                                        text: headingText,
-                                        onTap: () {
-                                          if (tabController?.index != 2) {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                const BlackListScreen(),
-                                              ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                  verticalSpace(0),
-                                  if (tabController?.index == 0)
-                                    appSection(homeController)
-                                  else if (tabController?.index == 3)//1
-                                    urlSection()
-                                  else if (tabController?.index == 3)//1
-                                      messagesSection(),
-                                  if(tabController?.index != 0)
-                                    comingSoon()
-                                ],
-                              )),
-                        ),
-                      ],
-                    ),
+                                  if (tabController?.index != 2)
+                                    CustomButton(
+                                      text: headingText,
+                                      onTap: () {
+                                        if (tabController?.index != 2) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const BlackListScreen(),
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                verticalSpace(0),
+                                if (tabController?.index == 0)
+                                  appSection(homeController)
+                                else if (tabController?.index == 1) //1
+                                  urlSection()
+                                else if (tabController?.index == 2) //2
+                                  messagesSection(),
+                                // if(tabController?.index != 0)
+                                //   comingSoon()
+                              ],
+                            )),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 
   Widget appSection(HomeController homeController) {
@@ -128,10 +130,16 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                bigHeadingText("${homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsage ?? ""} "),
+                bigHeadingText(
+                    "${homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsage ?? ""} "),
                 Column(
                   children: [
-                    subHeadingText(homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsageChange??"",
+                    subHeadingText(
+                        homeController
+                                .getSelectedKid(widget.kidId)
+                                .appUsage
+                                ?.deviceDailyAvgUsageChange ??
+                            "",
                         color: AppColors.normalGreen),
                     verticalSpace(5)
                   ],
@@ -143,9 +151,52 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: boldText('All Apps', fontSize: 18),
             ),
+
+            ///FOR PRODUCTION
+            // for (int i = 0;
+            //     i <
+            //         ((homeController
+            //                     .getSelectedKid(widget.kidId)
+            //                     .deviceDetail
+            //                     ?.data
+            //                     ?.realTimeStats
+            //                     ?.appUsageData
+            //                     ?.length)
+            //                 ?.toInt() ??
+            //             0) /*.appUsage!.listOfInstalledApps!.length*/;
+            //     i++)
+            //   ((homeController
+            //                   .getSelectedKid(widget.kidId)
+            //                   .deviceDetail!
+            //                   .data!
+            //                   .realTimeStats!
+            //                   .appUsageData![i]
+            //                   .mFgUsageTime ??
+            //               0) <
+            //           1000)
+            //       ? const SizedBox()
+            //       : appItem(
+            //           homeController
+            //               .getSelectedKid(widget.kidId)
+            //               .deviceDetail!
+            //               .data!
+            //               .realTimeStats!
+            //               .appUsageData![i],
+            //           // totalTime: homeController
+            //           //         .getSelectedKid(widget.kidId)
+            //           //         .deviceDetail!
+            //           //         .data!
+            //           //         .realTimeStats!
+            //           //         .totalAppUsageData
+            //           //         ?.toInt() ??
+            //           //     0
+            //   ),
+            ///FOR PRODUCTION
+            ///FOR Staging
             for(int i=0;i<homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps!.length;i++)
-            appItem(
-                homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps![i]),
+              appItemStagging(
+                  homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps![i]),
+            ///FOR Staging
             // appItem('assets/images/home/instagram.svg', 'Instagram', 4,
             //     "1h 29 mins"),
             // appItem(
@@ -158,7 +209,95 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
-  Widget appItem(ListOfInstalledApp listOfInstalledApp) {
+  Widget appItem(AppUsageDatum listOfInstalledApp, {int totalTime = 0}) {
+    // String iconPath = listOfInstalledApp//.appIcon!;
+    var width = MediaQuery.of(context).size.width;
+    print("listOfInstalledApp.mFgUsageTime!:::${totalTime}");
+    String appName = listOfInstalledApp.mPackageName!; //.appName!;
+    double flex = ((listOfInstalledApp.mFgUsageTime) ?? 0) /
+        totalTime; //listOfInstalledApp.//.percentUsage! ~/ 10;
+    String time =
+        "${Duration(milliseconds: listOfInstalledApp.mFgUsageTime!).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.mFgUsageTime!).inSeconds % 60} sec"; //.durationOfUsage!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        children: [
+          // SvgPicture.asset(iconPath),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                boldText(appName, fontSize: 14),
+                Row(
+                  children: [
+                    Flexible(
+                      flex: (7).toInt(),
+                      child: Container(
+                        height: 5,
+                        width: ((width * .5) * flex),
+                        decoration: BoxDecoration(
+                            color: const Color(0xffE8EAE3),
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Flexible(
+                      flex: 3,
+                      child: regularText(time,
+                          fontSize: 12, color: AppColors.grey),
+                    )
+                  ],
+                )
+              ],
+            ),
+          ),
+          PopupMenuButton(
+            icon: SvgPicture.asset('assets/images/home/more.svg'),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                onTap: () {
+                  print("deleteApp");
+                  // Get.find<HomeController>().deleteApp(kidId: widget.kidId, appId: listOfInstalledApp.mPackageName);
+                },
+                padding: const EdgeInsets.only(left: 5),
+                height: 30,
+                value: 1,
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/images/home/trash.svg'),
+                    const SizedBox(
+                      // sized box with width 10
+                      width: 10,
+                    ),
+                    regularText("Remove App",
+                        color: AppColors.red, fontSize: 13)
+                  ],
+                ),
+              ),
+              PopupMenuItem(
+                padding: const EdgeInsets.only(left: 5),
+                height: 30,
+                value: 2,
+                child: Row(
+                  children: [
+                    SvgPicture.asset('assets/images/home/slash.svg'),
+                    const SizedBox(
+                      // sized box with width 10
+                      width: 10,
+                    ),
+                    regularText("Blacklist App", fontSize: 13)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget appItemStagging(ListOfInstalledApp listOfInstalledApp) {
     String iconPath = listOfInstalledApp.appIcon!;
     String appName = listOfInstalledApp.appName!;
     int flex = listOfInstalledApp.percentUsage! ~/ 10;
@@ -257,7 +396,8 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   messagesSection() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10).copyWith(top: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10)
+            .copyWith(top: 20),
         child: ChatListScreen(),
         // child: ListView.builder(
         //   itemCount: 15,
@@ -349,18 +489,21 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     height: 55,
                     width: 55,
                     child: ClipRRect(
-                      child: ClipRRect(
-                          child: kid.kidPic == null ? ClipRRect(
+                        child: ClipRRect(
+                      child: kid.kidPic == null
+                          ? ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
-                              child: SvgPicture.asset(AppImages.person)) : Image.network(kid.kidPic!),)
-                    ),
+                              child: SvgPicture.asset(AppImages.person))
+                          : Image.network(kid.kidPic!),
+                    )),
                   ),
                   horizontalSpace(10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       bigSubHeading(kid.name),
-                      iconText(AppImages.clock, "Active ${kid.lastActive}", isItalic: true),
+                      iconText(AppImages.clock, "Active ${kid.lastActive}",
+                          isItalic: true),
                     ],
                   ),
                 ],
@@ -369,16 +512,25 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                 children: [
                   Row(
                     children: [
-                    customGestureDetecter(
-                      onTap: (){
-                        _showAdDialog();
-                      },
-                        child: SvgPicture.asset(AppImages.information)),
-                    horizontalSpace(10),
-                    customSwitch(value: kid.walletEnabled??false)
-                  ],),
+                      customGestureDetecter(
+                          onTap: () {
+                            _showAdDialog();
+                          },
+                          child: SvgPicture.asset(AppImages.information)),
+                      horizontalSpace(10),
+                      customSwitch(value: kid.walletEnabled ?? false)
+                    ],
+                  ),
                   verticalSpace(2),
-                  regularText(kid.walletEnabled??false ? "Wallet Enabled" : "Wallet Disabled", color: kid.walletEnabled??false ? AppColors.normalGreen : AppColors.grey, fontSize: 10, italic: true)
+                  regularText(
+                      kid.walletEnabled ?? false
+                          ? "Wallet Enabled"
+                          : "Wallet Disabled",
+                      color: kid.walletEnabled ?? false
+                          ? AppColors.normalGreen
+                          : AppColors.grey,
+                      fontSize: 10,
+                      italic: true)
                 ],
               )
             ],
@@ -387,9 +539,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           Row(
             children: [
               percentageContainer(AppColors.yellow, AppImages.emptyBattery,
-                  "Battery %", kid.batteryStatus??"", "%"),
+                  "Battery %", kid.batteryStatus ?? "", "%"),
               horizontalSpace(10),
-              percentageContainer(AppColors.blue, AppImages.global, "Data Used", kid.dataUsageStatus??"", "GB")
+              percentageContainer(AppColors.blue, AppImages.global, "Data Used",
+                  kid.dataUsageStatus ?? "", "GB")
             ],
           ),
         ],
@@ -402,13 +555,17 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
         ? Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: regularText(s,
-                color: AppColors.white, fontWeight: FontWeight.w500, fontSize: 10),
+                color: AppColors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 10),
           )
         : Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-          child: regularText(s,
-              color: AppColors.normalGreen, fontWeight: FontWeight.w500, fontSize: 10),
-        );
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: regularText(s,
+                color: AppColors.normalGreen,
+                fontWeight: FontWeight.w500,
+                fontSize: 10),
+          );
   }
 
   Widget tabBar() {
@@ -431,100 +588,115 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             textForTab("Screen Time", tabController!.index == 0),
             textForTab("Web History", tabController!.index == 1),
             textForTab("Messages", tabController!.index == 2),
+
+            /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
             // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
           ]),
     );
   }
 
- Widget customSwitch({bool showM = true, required bool value}) {
+  Widget customSwitch({bool showM = true, required bool value}) {
     double size = 35;
     bool switchButton = value;
     return customGestureDetecter(
-      onTap: (){
+      onTap: () {
         setState(() {
           switchButton = !switchButton;
         });
-        if(switchButton){
+        if (switchButton) {
           // _showAdDialog();
-        }else{
-
-        }
-        if(!showM){
+        } else {}
+        if (!showM) {
           Get.back();
         }
-        Get.find<HomeController>().enableWallet(value: switchButton, kidId: widget.kidId);
+        Get.find<HomeController>()
+            .enableWallet(value: switchButton, kidId: widget.kidId);
       },
       child: Stack(
         alignment: switchButton ? Alignment.centerRight : Alignment.centerLeft,
         children: [
           roundedContainer(
-            borderRadius: 30,
-            color: switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
-            height: size * 0.65,
-            width: size * 1.2
-          ),
+              borderRadius: 30,
+              color:
+                  switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
+              height: size * 0.65,
+              width: size * 1.2),
           Stack(
             alignment: AlignmentDirectional.center,
             children: [
               roundedContainer(
-                  borderRadius: 30,
-                  color: Colors.white,
-                  margin: EdgeInsets.all(size * 0.083),//2.5
-                  height: size * 0.5,
-                  width: size * 0.5,
+                borderRadius: 30,
+                color: Colors.white,
+                margin: EdgeInsets.all(size * 0.083), //2.5
+                height: size * 0.5,
+                width: size * 0.5,
               ),
-              if(showM)
-              regularText("M!",customFontFamily: fontFamilyPraise, color: switchButton ? AppColors.lightGreen : AppColors.darkLightGrey, fontSize: 11)
+              if (showM)
+                regularText("M!",
+                    customFontFamily: fontFamilyPraise,
+                    color: switchButton
+                        ? AppColors.lightGreen
+                        : AppColors.darkLightGrey,
+                    fontSize: 11)
             ],
           ),
         ],
       ),
     );
- }
+  }
 
   void _showAdDialog() {
-    showDialog(context: context, builder: (_){
-      return Material(
-        type: MaterialType.transparency,
-        child: Center(
-          child: roundedContainer(
-            // height: 100,
-              margin: const EdgeInsets.all(30),
-              padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-              color: Colors.white,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Image.asset(AppImages.earningImage),
-                  verticalSpace(20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+    showDialog(
+        context: context,
+        builder: (_) {
+          return Material(
+            type: MaterialType.transparency,
+            child: Center(
+              child: roundedContainer(
+                  // height: 100,
+                  margin: const EdgeInsets.all(30),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      bigHeadingText("Enable Earning "),
-                      bigHeadingText("M!",customFontFamily: fontFamilyPraise),
-                    ],
-                  ),
-                  verticalSpace(20),
-                  subHeadingText("""Earning M! is enabled by default
+                      Image.asset(AppImages.earningImage),
+                      verticalSpace(20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          bigHeadingText("Enable Earning "),
+                          bigHeadingText("M!",
+                              customFontFamily: fontFamilyPraise),
+                        ],
+                      ),
+                      verticalSpace(20),
+                      subHeadingText("""Earning M! is enabled by default
  in all Moolah M1 tablets. Parents
 can choose to disable Moolah Ads
 and Wallet from kid devices here.
 
                   """),
-                  verticalSpace(20),
-                  customSwitch(showM: false, value: Get.find<HomeController>().getSelectedKid(widget.kidId).walletEnabled??false),
-                ],
-              )
-          ),
-        ),
-      );
-    });
+                      verticalSpace(20),
+                      customSwitch(
+                          showM: false,
+                          value: Get.find<HomeController>()
+                                  .getSelectedKid(widget.kidId)
+                                  .walletEnabled ??
+                              false),
+                    ],
+                  )),
+            ),
+          );
+        });
   }
 
   void initAPIS() async {
     Get.find<HomeController>().getAppUsage(kidId: widget.kidId);
     await Get.find<AuthController>().refreshToken();
-    Get.find<HomeController>().getDeviceDetail(kidId: "5d0c9d86ae470d30"/*widget.kidId*/);
+    Get.find<HomeController>()
+        .getDeviceDetail(kidId: /*"97eb1071c123c76b"*/ widget.kidId);
   }
 
   // Widget section(homeController) {
@@ -544,6 +716,4 @@ and Wallet from kid devices here.
       ),
     );
   }
-
-
 }

@@ -5,6 +5,7 @@
 import 'dart:convert';
 
 import 'app_usage_model.dart';
+import 'device_detail_model.dart';
 
 Kid kidFromJson(String str) => Kid.fromJson(json.decode(str));
 
@@ -21,6 +22,7 @@ class Kid {
   String? kidPic;
   bool? walletEnabled;
   AppUsage? appUsage;
+  DeviceDetail? deviceDetail;
 
   Kid({
     this.kidId,
@@ -32,7 +34,8 @@ class Kid {
     this.lastActive,
     this.kidPic,
     this.walletEnabled,
-    this.appUsage
+    this.appUsage,
+    this.deviceDetail
   });
 
   Kid copyWith({
@@ -45,7 +48,8 @@ class Kid {
     String? lastActive,
     String? kidPic,
     bool? walletEnabled,
-    AppUsage? appUsage
+    AppUsage? appUsage,
+    DeviceDetail? deviceDetail
   }) =>
       Kid(
         kidId: kidId ?? this.kidId,
@@ -57,7 +61,8 @@ class Kid {
         lastActive: lastActive ?? this.lastActive,
         kidPic: kidPic ?? this.kidPic,
         walletEnabled: walletEnabled ?? this.walletEnabled,
-        appUsage: appUsage ?? this.appUsage
+        appUsage: appUsage ?? this.appUsage,
+        deviceDetail: deviceDetail ?? this.deviceDetail
       );
 
   factory Kid.fromJson(Map<String, dynamic> json) => Kid(
@@ -82,5 +87,6 @@ class Kid {
     "lastActive": lastActive,
     "kidPic": kidPic,
     "walletEnabled": walletEnabled,
+    "deviceDetail": deviceDetail?.toJson()
   };
 }

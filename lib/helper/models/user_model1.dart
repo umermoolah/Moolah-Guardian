@@ -9,165 +9,390 @@ UserModel1 userModel1FromJson(String str) => UserModel1.fromJson(json.decode(str
 String userModel1ToJson(UserModel1 data) => json.encode(data.toJson());
 
 class UserModel1 {
-  int? loginAlert;
-  String? loginAlertMsg;
-  bool? status;
-  String? userId;
+  int? id;
   String? firstName;
   String? lastName;
-  String? username;
-  int? inviteContactsSent;
-  String? email;
-  dynamic photo;
-  dynamic notifications;
-  String? gender;
-  String? carrier;
-  String? referrerId;
-  int? userRole;
+  dynamic dobOld;
   String? dob;
-  dynamic passwordOtp;
+  String? username;
+  String? deviceId;
+  String? sim;
+  DateTime? lastLogin;
+  String? userId;
+  dynamic photo;
+  String? gender;
+  dynamic latitude;
+  dynamic longitude;
+  dynamic pushToken;
+  String? email;
+  String? phone;
+  String? smsEnabled;
+  dynamic notifications;
+  int? approvedVendor;
+  dynamic paypalActive;
+  dynamic paypalEmail;
+  int? activeDailyCount;
   int? mulaahScore;
   int? lifetimeMulaah;
   int? monthlyMulaah;
-  int? availableMulaah;
-  String? referrerUsername;
-  String? shareSent;
-  int? adLevel;
-  int? wifi;
+  int? availableMoolah;
+  dynamic boost;
+  String? signupDate;
+  int? authVerified;
+  String? boostExp;
+  String? carrier;
   int? mobileServiceProvider;
-  String? phone;
+  int? inviteContactsSent;
+  dynamic lastWalletVisit;
+  String? referrerUsername;
+  String? referrerId;
   int? autopayEnrolled;
   String? autopayStatus;
   dynamic autopayStart;
   dynamic autopayEnd;
-  String? errorMsg;
+  String? imei;
+  int? adLevel;
+  int? wifi;
+  String? shareSent;
+  dynamic shares;
+  dynamic dataUsed;
+  dynamic usageTime;
+  dynamic passwordOtp;
+  int? userRole;
   String? moolahWirelessStatus;
-  String? minimumUpdateVersion;
+  String? adNetworks;
   int? activeTheme;
   dynamic organizationId;
+  bool? updatedPassword;
   bool? verifiedEmail;
   List<String>? moolahApps;
+  bool? walletEnabled;
+  int? earnedMoolah;
+  dynamic mixPanelId;
+  int? legacyMoolah;
+  dynamic ethnicity;
 
   UserModel1({
-    this.loginAlert,
-    this.loginAlertMsg,
-    this.status,
-    this.userId,
+    this.id,
     this.firstName,
     this.lastName,
-    this.username,
-    this.inviteContactsSent,
-    this.email,
-    this.photo,
-    this.notifications,
-    this.gender,
-    this.carrier,
-    this.referrerId,
-    this.userRole,
+    this.dobOld,
     this.dob,
-    this.passwordOtp,
+    this.username,
+    this.deviceId,
+    this.sim,
+    this.lastLogin,
+    this.userId,
+    this.photo,
+    this.gender,
+    this.latitude,
+    this.longitude,
+    this.pushToken,
+    this.email,
+    this.phone,
+    this.smsEnabled,
+    this.notifications,
+    this.approvedVendor,
+    this.paypalActive,
+    this.paypalEmail,
+    this.activeDailyCount,
     this.mulaahScore,
     this.lifetimeMulaah,
     this.monthlyMulaah,
-    this.availableMulaah,
-    this.referrerUsername,
-    this.shareSent,
-    this.adLevel,
-    this.wifi,
+    this.availableMoolah,
+    this.boost,
+    this.signupDate,
+    this.authVerified,
+    this.boostExp,
+    this.carrier,
     this.mobileServiceProvider,
-    this.phone,
+    this.inviteContactsSent,
+    this.lastWalletVisit,
+    this.referrerUsername,
+    this.referrerId,
     this.autopayEnrolled,
     this.autopayStatus,
     this.autopayStart,
     this.autopayEnd,
-    this.errorMsg,
+    this.imei,
+    this.adLevel,
+    this.wifi,
+    this.shareSent,
+    this.shares,
+    this.dataUsed,
+    this.usageTime,
+    this.passwordOtp,
+    this.userRole,
     this.moolahWirelessStatus,
-    this.minimumUpdateVersion,
+    this.adNetworks,
     this.activeTheme,
     this.organizationId,
+    this.updatedPassword,
     this.verifiedEmail,
     this.moolahApps,
+    this.walletEnabled,
+    this.earnedMoolah,
+    this.mixPanelId,
+    this.legacyMoolah,
+    this.ethnicity,
   });
 
+  UserModel1 copyWith({
+    int? id,
+    String? firstName,
+    String? lastName,
+    dynamic dobOld,
+    String? dob,
+    String? username,
+    String? deviceId,
+    String? sim,
+    DateTime? lastLogin,
+    String? userId,
+    dynamic photo,
+    String? gender,
+    dynamic latitude,
+    dynamic longitude,
+    dynamic pushToken,
+    String? email,
+    String? phone,
+    String? smsEnabled,
+    dynamic notifications,
+    int? approvedVendor,
+    dynamic paypalActive,
+    dynamic paypalEmail,
+    int? activeDailyCount,
+    int? mulaahScore,
+    int? lifetimeMulaah,
+    int? monthlyMulaah,
+    int? availableMoolah,
+    dynamic boost,
+    String? signupDate,
+    int? authVerified,
+    String? boostExp,
+    String? carrier,
+    int? mobileServiceProvider,
+    int? inviteContactsSent,
+    dynamic lastWalletVisit,
+    String? referrerUsername,
+    String? referrerId,
+    int? autopayEnrolled,
+    String? autopayStatus,
+    dynamic autopayStart,
+    dynamic autopayEnd,
+    String? imei,
+    int? adLevel,
+    int? wifi,
+    String? shareSent,
+    dynamic shares,
+    dynamic dataUsed,
+    dynamic usageTime,
+    dynamic passwordOtp,
+    int? userRole,
+    String? moolahWirelessStatus,
+    String? adNetworks,
+    int? activeTheme,
+    dynamic organizationId,
+    bool? updatedPassword,
+    bool? verifiedEmail,
+    List<String>? moolahApps,
+    bool? walletEnabled,
+    int? earnedMoolah,
+    dynamic mixPanelId,
+    int? legacyMoolah,
+    dynamic ethnicity,
+  }) =>
+      UserModel1(
+        id: id ?? this.id,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        dobOld: dobOld ?? this.dobOld,
+        dob: dob ?? this.dob,
+        username: username ?? this.username,
+        deviceId: deviceId ?? this.deviceId,
+        sim: sim ?? this.sim,
+        lastLogin: lastLogin ?? this.lastLogin,
+        userId: userId ?? this.userId,
+        photo: photo ?? this.photo,
+        gender: gender ?? this.gender,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        pushToken: pushToken ?? this.pushToken,
+        email: email ?? this.email,
+        phone: phone ?? this.phone,
+        smsEnabled: smsEnabled ?? this.smsEnabled,
+        notifications: notifications ?? this.notifications,
+        approvedVendor: approvedVendor ?? this.approvedVendor,
+        paypalActive: paypalActive ?? this.paypalActive,
+        paypalEmail: paypalEmail ?? this.paypalEmail,
+        activeDailyCount: activeDailyCount ?? this.activeDailyCount,
+        mulaahScore: mulaahScore ?? this.mulaahScore,
+        lifetimeMulaah: lifetimeMulaah ?? this.lifetimeMulaah,
+        monthlyMulaah: monthlyMulaah ?? this.monthlyMulaah,
+        availableMoolah: availableMoolah ?? this.availableMoolah,
+        boost: boost ?? this.boost,
+        signupDate: signupDate ?? this.signupDate,
+        authVerified: authVerified ?? this.authVerified,
+        boostExp: boostExp ?? this.boostExp,
+        carrier: carrier ?? this.carrier,
+        mobileServiceProvider: mobileServiceProvider ?? this.mobileServiceProvider,
+        inviteContactsSent: inviteContactsSent ?? this.inviteContactsSent,
+        lastWalletVisit: lastWalletVisit ?? this.lastWalletVisit,
+        referrerUsername: referrerUsername ?? this.referrerUsername,
+        referrerId: referrerId ?? this.referrerId,
+        autopayEnrolled: autopayEnrolled ?? this.autopayEnrolled,
+        autopayStatus: autopayStatus ?? this.autopayStatus,
+        autopayStart: autopayStart ?? this.autopayStart,
+        autopayEnd: autopayEnd ?? this.autopayEnd,
+        imei: imei ?? this.imei,
+        adLevel: adLevel ?? this.adLevel,
+        wifi: wifi ?? this.wifi,
+        shareSent: shareSent ?? this.shareSent,
+        shares: shares ?? this.shares,
+        dataUsed: dataUsed ?? this.dataUsed,
+        usageTime: usageTime ?? this.usageTime,
+        passwordOtp: passwordOtp ?? this.passwordOtp,
+        userRole: userRole ?? this.userRole,
+        moolahWirelessStatus: moolahWirelessStatus ?? this.moolahWirelessStatus,
+        adNetworks: adNetworks ?? this.adNetworks,
+        activeTheme: activeTheme ?? this.activeTheme,
+        organizationId: organizationId ?? this.organizationId,
+        updatedPassword: updatedPassword ?? this.updatedPassword,
+        verifiedEmail: verifiedEmail ?? this.verifiedEmail,
+        moolahApps: moolahApps ?? this.moolahApps,
+        walletEnabled: walletEnabled ?? this.walletEnabled,
+        earnedMoolah: earnedMoolah ?? this.earnedMoolah,
+        mixPanelId: mixPanelId ?? this.mixPanelId,
+        legacyMoolah: legacyMoolah ?? this.legacyMoolah,
+        ethnicity: ethnicity ?? this.ethnicity,
+      );
+
   factory UserModel1.fromJson(Map<String, dynamic> json) => UserModel1(
-    loginAlert: json["loginAlert"],
-    loginAlertMsg: json["loginAlertMsg"],
-    status: json["status"],
-    userId: json["user_id"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    username: json["username"],
-    inviteContactsSent: json["invite_contacts_sent"],
-    email: json["email"],
-    photo: json["photo"],
-    notifications: json["notifications"],
-    gender: json["gender"],
-    carrier: json["carrier"],
-    referrerId: json["referrer_id"],
-    userRole: json["user_role"],
+    id: json["id"],
+    firstName: json["first_name"],
+    lastName: json["last_name"],
+    dobOld: json["dobOld"],
     dob: json["dob"],
-    passwordOtp: json["password_otp"],
+    username: json["username"],
+    deviceId: json["device_id"],
+    sim: json["sim"],
+    lastLogin: json["last_login"] == null ? null : DateTime.parse(json["last_login"]),
+    userId: json["user_id"],
+    photo: json["photo"],
+    gender: json["gender"],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+    pushToken: json["push_token"],
+    email: json["email"],
+    phone: json["phone"],
+    smsEnabled: json["smsEnabled"],
+    notifications: json["notifications"],
+    approvedVendor: json["approved_vendor"],
+    paypalActive: json["paypal_active"],
+    paypalEmail: json["paypal_email"],
+    activeDailyCount: json["active_daily_count"],
     mulaahScore: json["mulaah_score"],
     lifetimeMulaah: json["lifetime_mulaah"],
     monthlyMulaah: json["monthly_mulaah"],
-    availableMulaah: json["available_mulaah"],
-    referrerUsername: json["referrer_username"],
-    shareSent: json["shareSent"],
-    adLevel: json["adLevel"],
-    wifi: json["wifi"],
+    availableMoolah: json["available_moolah"],
+    boost: json["boost"],
+    signupDate: json["signup_date"],
+    authVerified: json["authVerified"],
+    boostExp: json["boost_exp"],
+    carrier: json["carrier"],
     mobileServiceProvider: json["mobileServiceProvider"],
-    phone: json["phone"],
+    inviteContactsSent: json["invite_contacts_sent"],
+    lastWalletVisit: json["last_wallet_visit"],
+    referrerUsername: json["referrer_username"],
+    referrerId: json["referrer_id"],
     autopayEnrolled: json["autopayEnrolled"],
     autopayStatus: json["autopayStatus"],
     autopayStart: json["autopayStart"],
     autopayEnd: json["autopayEnd"],
-    errorMsg: json["errorMsg"],
+    imei: json["imei"],
+    adLevel: json["adLevel"],
+    wifi: json["wifi"],
+    shareSent: json["shareSent"],
+    shares: json["shares"],
+    dataUsed: json["data_used"],
+    usageTime: json["usage_time"],
+    passwordOtp: json["password_otp"],
+    userRole: json["user_role"],
     moolahWirelessStatus: json["moolah_wireless_status"],
-    minimumUpdateVersion: json["minimum_update_version"],
-    activeTheme: json["active_theme"],
+    adNetworks: json["ad_networks"],
+    activeTheme: json["activeTheme"],
     organizationId: json["organizationID"],
+    updatedPassword: json["updatedPassword"],
     verifiedEmail: json["verifiedEmail"],
     moolahApps: json["moolahApps"] == null ? [] : List<String>.from(json["moolahApps"]!.map((x) => x)),
+    walletEnabled: json["walletEnabled"],
+    earnedMoolah: json["earned_moolah"],
+    mixPanelId: json["mixPanelId"],
+    legacyMoolah: json["legacy_moolah"],
+    ethnicity: json["ethnicity"],
   );
 
   Map<String, dynamic> toJson() => {
-    "loginAlert": loginAlert,
-    "loginAlertMsg": loginAlertMsg,
-    "status": status,
-    "user_id": userId,
-    "firstName": firstName,
-    "lastName": lastName,
-    "username": username,
-    "invite_contacts_sent": inviteContactsSent,
-    "email": email,
-    "photo": photo,
-    "notifications": notifications,
-    "gender": gender,
-    "carrier": carrier,
-    "referrer_id": referrerId,
-    "user_role": userRole,
+    "id": id,
+    "first_name": firstName,
+    "last_name": lastName,
+    "dobOld": dobOld,
     "dob": dob,
-    "password_otp": passwordOtp,
+    "username": username,
+    "device_id": deviceId,
+    "sim": sim,
+    "last_login": lastLogin?.toIso8601String(),
+    "user_id": userId,
+    "photo": photo,
+    "gender": gender,
+    "latitude": latitude,
+    "longitude": longitude,
+    "push_token": pushToken,
+    "email": email,
+    "phone": phone,
+    "smsEnabled": smsEnabled,
+    "notifications": notifications,
+    "approved_vendor": approvedVendor,
+    "paypal_active": paypalActive,
+    "paypal_email": paypalEmail,
+    "active_daily_count": activeDailyCount,
     "mulaah_score": mulaahScore,
     "lifetime_mulaah": lifetimeMulaah,
     "monthly_mulaah": monthlyMulaah,
-    "available_mulaah": availableMulaah,
-    "referrer_username": referrerUsername,
-    "shareSent": shareSent,
-    "adLevel": adLevel,
-    "wifi": wifi,
+    "available_moolah": availableMoolah,
+    "boost": boost,
+    "signup_date": signupDate,
+    "authVerified": authVerified,
+    "boost_exp": boostExp,
+    "carrier": carrier,
     "mobileServiceProvider": mobileServiceProvider,
-    "phone": phone,
+    "invite_contacts_sent": inviteContactsSent,
+    "last_wallet_visit": lastWalletVisit,
+    "referrer_username": referrerUsername,
+    "referrer_id": referrerId,
     "autopayEnrolled": autopayEnrolled,
     "autopayStatus": autopayStatus,
     "autopayStart": autopayStart,
     "autopayEnd": autopayEnd,
-    "errorMsg": errorMsg,
+    "imei": imei,
+    "adLevel": adLevel,
+    "wifi": wifi,
+    "shareSent": shareSent,
+    "shares": shares,
+    "data_used": dataUsed,
+    "usage_time": usageTime,
+    "password_otp": passwordOtp,
+    "user_role": userRole,
     "moolah_wireless_status": moolahWirelessStatus,
-    "minimum_update_version": minimumUpdateVersion,
-    "active_theme": activeTheme,
+    "ad_networks": adNetworks,
+    "activeTheme": activeTheme,
     "organizationID": organizationId,
+    "updatedPassword": updatedPassword,
     "verifiedEmail": verifiedEmail,
     "moolahApps": moolahApps == null ? [] : List<dynamic>.from(moolahApps!.map((x) => x)),
+    "walletEnabled": walletEnabled,
+    "earned_moolah": earnedMoolah,
+    "mixPanelId": mixPanelId,
+    "legacy_moolah": legacyMoolah,
+    "ethnicity": ethnicity,
   };
 }

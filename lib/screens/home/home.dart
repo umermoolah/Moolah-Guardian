@@ -141,7 +141,7 @@ class _HomeState extends State<Home> {
                         ),
                         verticalSpace(15),
                         CustomButton(
-                            text: "Connect Kids Device",
+                            text: "Connect a Moolah Device",
                             notExpanded: true,
                             icon: AppImages.scanBarcode,
                             onTap: () {

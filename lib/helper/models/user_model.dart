@@ -1,3 +1,6 @@
+// To parse this JSON data, do
+//
+//     final userModel = userModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -16,9 +19,6 @@ class UserModel {
   String? sim;
   DateTime? lastLogin;
   String? userId;
-  String? passwordText;
-  dynamic passwordNum;
-  String? hash;
   dynamic photo;
   String? gender;
   dynamic latitude;
@@ -37,19 +37,13 @@ class UserModel {
   int? monthlyMulaah;
   int? availableMoolah;
   dynamic boost;
-  dynamic authSentDate;
-  dynamic authCode;
-  String? signupDate;
-  String? moolahRolloverDate;
+  DateTime? signupDate;
   int? authVerified;
   String? boostExp;
-  dynamic giftCodeId;
   String? carrier;
   int? mobileServiceProvider;
-  dynamic peanutLabsId;
   int? inviteContactsSent;
   dynamic lastWalletVisit;
-  int? distributorApproved;
   String? referrerUsername;
   String? referrerId;
   int? autopayEnrolled;
@@ -63,30 +57,20 @@ class UserModel {
   dynamic shares;
   dynamic dataUsed;
   dynamic usageTime;
-  dynamic moolah02021;
-  dynamic moolah12021;
-  dynamic moolah32021;
-  dynamic moolah42021;
-  dynamic moolah52021;
-  dynamic moolah62021;
-  dynamic moolah72021;
-  dynamic moolah82021;
-  dynamic moolah92021;
-  dynamic moolah102021;
-  dynamic moolah112021;
-  dynamic distributorId;
-  dynamic distributorUsername;
   dynamic passwordOtp;
   int? userRole;
-  String? randKey;
-  dynamic userProfileKey;
   String? moolahWirelessStatus;
   String? adNetworks;
   int? activeTheme;
   dynamic organizationId;
-  int? updatedPassword;
+  bool? updatedPassword;
   bool? verifiedEmail;
   String? moolahApps;
+  bool? walletEnabled;
+  int? earnedMoolah;
+  String? mixPanelId;
+  int? legacyMoolah;
+  String? ethnicity;
 
   UserModel({
     this.id,
@@ -99,9 +83,6 @@ class UserModel {
     this.sim,
     this.lastLogin,
     this.userId,
-    this.passwordText,
-    this.passwordNum,
-    this.hash,
     this.photo,
     this.gender,
     this.latitude,
@@ -120,19 +101,13 @@ class UserModel {
     this.monthlyMulaah,
     this.availableMoolah,
     this.boost,
-    this.authSentDate,
-    this.authCode,
     this.signupDate,
-    this.moolahRolloverDate,
     this.authVerified,
     this.boostExp,
-    this.giftCodeId,
     this.carrier,
     this.mobileServiceProvider,
-    this.peanutLabsId,
     this.inviteContactsSent,
     this.lastWalletVisit,
-    this.distributorApproved,
     this.referrerUsername,
     this.referrerId,
     this.autopayEnrolled,
@@ -146,23 +121,8 @@ class UserModel {
     this.shares,
     this.dataUsed,
     this.usageTime,
-    this.moolah02021,
-    this.moolah12021,
-    this.moolah32021,
-    this.moolah42021,
-    this.moolah52021,
-    this.moolah62021,
-    this.moolah72021,
-    this.moolah82021,
-    this.moolah92021,
-    this.moolah102021,
-    this.moolah112021,
-    this.distributorId,
-    this.distributorUsername,
     this.passwordOtp,
     this.userRole,
-    this.randKey,
-    this.userProfileKey,
     this.moolahWirelessStatus,
     this.adNetworks,
     this.activeTheme,
@@ -170,7 +130,141 @@ class UserModel {
     this.updatedPassword,
     this.verifiedEmail,
     this.moolahApps,
+    this.walletEnabled,
+    this.earnedMoolah,
+    this.mixPanelId,
+    this.legacyMoolah,
+    this.ethnicity,
   });
+
+  UserModel copyWith({
+    int? id,
+    String? firstName,
+    String? lastName,
+    dynamic dobOld,
+    String? dob,
+    String? username,
+    String? deviceId,
+    String? sim,
+    DateTime? lastLogin,
+    String? userId,
+    dynamic photo,
+    String? gender,
+    dynamic latitude,
+    dynamic longitude,
+    dynamic pushToken,
+    String? email,
+    String? phone,
+    String? smsEnabled,
+    dynamic notifications,
+    int? approvedVendor,
+    dynamic paypalActive,
+    dynamic paypalEmail,
+    int? activeDailyCount,
+    int? mulaahScore,
+    int? lifetimeMulaah,
+    int? monthlyMulaah,
+    int? availableMoolah,
+    dynamic boost,
+    DateTime? signupDate,
+    int? authVerified,
+    String? boostExp,
+    String? carrier,
+    int? mobileServiceProvider,
+    int? inviteContactsSent,
+    dynamic lastWalletVisit,
+    String? referrerUsername,
+    String? referrerId,
+    int? autopayEnrolled,
+    String? autopayStatus,
+    dynamic autopayStart,
+    dynamic autopayEnd,
+    String? imei,
+    int? adLevel,
+    int? wifi,
+    String? shareSent,
+    dynamic shares,
+    dynamic dataUsed,
+    dynamic usageTime,
+    dynamic passwordOtp,
+    int? userRole,
+    String? moolahWirelessStatus,
+    String? adNetworks,
+    int? activeTheme,
+    dynamic organizationId,
+    bool? updatedPassword,
+    bool? verifiedEmail,
+    String? moolahApps,
+    bool? walletEnabled,
+    int? earnedMoolah,
+    String? mixPanelId,
+    int? legacyMoolah,
+    String? ethnicity,
+  }) =>
+      UserModel(
+        id: id ?? this.id,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
+        dobOld: dobOld ?? this.dobOld,
+        dob: dob ?? this.dob,
+        username: username ?? this.username,
+        deviceId: deviceId ?? this.deviceId,
+        sim: sim ?? this.sim,
+        lastLogin: lastLogin ?? this.lastLogin,
+        userId: userId ?? this.userId,
+        photo: photo ?? this.photo,
+        gender: gender ?? this.gender,
+        latitude: latitude ?? this.latitude,
+        longitude: longitude ?? this.longitude,
+        pushToken: pushToken ?? this.pushToken,
+        email: email ?? this.email,
+        phone: phone ?? this.phone,
+        smsEnabled: smsEnabled ?? this.smsEnabled,
+        notifications: notifications ?? this.notifications,
+        approvedVendor: approvedVendor ?? this.approvedVendor,
+        paypalActive: paypalActive ?? this.paypalActive,
+        paypalEmail: paypalEmail ?? this.paypalEmail,
+        activeDailyCount: activeDailyCount ?? this.activeDailyCount,
+        mulaahScore: mulaahScore ?? this.mulaahScore,
+        lifetimeMulaah: lifetimeMulaah ?? this.lifetimeMulaah,
+        monthlyMulaah: monthlyMulaah ?? this.monthlyMulaah,
+        availableMoolah: availableMoolah ?? this.availableMoolah,
+        boost: boost ?? this.boost,
+        signupDate: signupDate ?? this.signupDate,
+        authVerified: authVerified ?? this.authVerified,
+        boostExp: boostExp ?? this.boostExp,
+        carrier: carrier ?? this.carrier,
+        mobileServiceProvider: mobileServiceProvider ?? this.mobileServiceProvider,
+        inviteContactsSent: inviteContactsSent ?? this.inviteContactsSent,
+        lastWalletVisit: lastWalletVisit ?? this.lastWalletVisit,
+        referrerUsername: referrerUsername ?? this.referrerUsername,
+        referrerId: referrerId ?? this.referrerId,
+        autopayEnrolled: autopayEnrolled ?? this.autopayEnrolled,
+        autopayStatus: autopayStatus ?? this.autopayStatus,
+        autopayStart: autopayStart ?? this.autopayStart,
+        autopayEnd: autopayEnd ?? this.autopayEnd,
+        imei: imei ?? this.imei,
+        adLevel: adLevel ?? this.adLevel,
+        wifi: wifi ?? this.wifi,
+        shareSent: shareSent ?? this.shareSent,
+        shares: shares ?? this.shares,
+        dataUsed: dataUsed ?? this.dataUsed,
+        usageTime: usageTime ?? this.usageTime,
+        passwordOtp: passwordOtp ?? this.passwordOtp,
+        userRole: userRole ?? this.userRole,
+        moolahWirelessStatus: moolahWirelessStatus ?? this.moolahWirelessStatus,
+        adNetworks: adNetworks ?? this.adNetworks,
+        activeTheme: activeTheme ?? this.activeTheme,
+        organizationId: organizationId ?? this.organizationId,
+        updatedPassword: updatedPassword ?? this.updatedPassword,
+        verifiedEmail: verifiedEmail ?? this.verifiedEmail,
+        moolahApps: moolahApps ?? this.moolahApps,
+        walletEnabled: walletEnabled ?? this.walletEnabled,
+        earnedMoolah: earnedMoolah ?? this.earnedMoolah,
+        mixPanelId: mixPanelId ?? this.mixPanelId,
+        legacyMoolah: legacyMoolah ?? this.legacyMoolah,
+        ethnicity: ethnicity ?? this.ethnicity,
+      );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
     id: json["id"],
@@ -183,9 +277,6 @@ class UserModel {
     sim: json["sim"],
     lastLogin: json["last_login"] == null ? null : DateTime.parse(json["last_login"]),
     userId: json["user_id"],
-    passwordText: json["password_text"],
-    passwordNum: json["password_num"],
-    hash: json["hash"],
     photo: json["photo"],
     gender: json["gender"],
     latitude: json["latitude"],
@@ -204,19 +295,13 @@ class UserModel {
     monthlyMulaah: json["monthly_mulaah"],
     availableMoolah: json["available_moolah"],
     boost: json["boost"],
-    authSentDate: json["authSentDate"],
-    authCode: json["authCode"],
-    signupDate: json["signup_date"],
-    moolahRolloverDate: json["moolah_rollover_date"],
+    signupDate: json["signup_date"] == null ? null : DateTime.parse(json["signup_date"]),
     authVerified: json["authVerified"],
     boostExp: json["boost_exp"],
-    giftCodeId: json["giftCode_id"],
     carrier: json["carrier"],
     mobileServiceProvider: json["mobileServiceProvider"],
-    peanutLabsId: json["peanutLabs_id"],
     inviteContactsSent: json["invite_contacts_sent"],
     lastWalletVisit: json["last_wallet_visit"],
-    distributorApproved: json["distributor_approved"],
     referrerUsername: json["referrer_username"],
     referrerId: json["referrer_id"],
     autopayEnrolled: json["autopayEnrolled"],
@@ -230,30 +315,20 @@ class UserModel {
     shares: json["shares"],
     dataUsed: json["data_used"],
     usageTime: json["usage_time"],
-    moolah02021: json["Moolah_0_2021"],
-    moolah12021: json["Moolah_1_2021"],
-    moolah32021: json["Moolah_3_2021"],
-    moolah42021: json["Moolah_4_2021"],
-    moolah52021: json["Moolah_5_2021"],
-    moolah62021: json["Moolah_6_2021"],
-    moolah72021: json["Moolah_7_2021"],
-    moolah82021: json["Moolah_8_2021"],
-    moolah92021: json["Moolah_9_2021"],
-    moolah102021: json["Moolah_10_2021"],
-    moolah112021: json["Moolah_11_2021"],
-    distributorId: json["distributor_id"],
-    distributorUsername: json["distributor_username"],
     passwordOtp: json["password_otp"],
     userRole: json["user_role"],
-    randKey: json["randKey"],
-    userProfileKey: json["userProfileKey"],
     moolahWirelessStatus: json["moolah_wireless_status"],
     adNetworks: json["ad_networks"],
     activeTheme: json["activeTheme"],
     organizationId: json["organizationID"],
     updatedPassword: json["updatedPassword"],
     verifiedEmail: json["verifiedEmail"],
-    moolahApps: json["moolahApps"].toString(),
+    moolahApps: json["moolahApps"],
+    walletEnabled: json["walletEnabled"],
+    earnedMoolah: json["earned_moolah"],
+    mixPanelId: json["mixPanelId"],
+    legacyMoolah: json["legacy_moolah"],
+    ethnicity: json["ethnicity"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -267,9 +342,6 @@ class UserModel {
     "sim": sim,
     "last_login": lastLogin?.toIso8601String(),
     "user_id": userId,
-    "password_text": passwordText,
-    "password_num": passwordNum,
-    "hash": hash,
     "photo": photo,
     "gender": gender,
     "latitude": latitude,
@@ -288,19 +360,13 @@ class UserModel {
     "monthly_mulaah": monthlyMulaah,
     "available_moolah": availableMoolah,
     "boost": boost,
-    "authSentDate": authSentDate,
-    "authCode": authCode,
-    "signup_date": signupDate,
-    "moolah_rollover_date": moolahRolloverDate,
+    "signup_date": signupDate?.toIso8601String(),
     "authVerified": authVerified,
     "boost_exp": boostExp,
-    "giftCode_id": giftCodeId,
     "carrier": carrier,
     "mobileServiceProvider": mobileServiceProvider,
-    "peanutLabs_id": peanutLabsId,
     "invite_contacts_sent": inviteContactsSent,
     "last_wallet_visit": lastWalletVisit,
-    "distributor_approved": distributorApproved,
     "referrer_username": referrerUsername,
     "referrer_id": referrerId,
     "autopayEnrolled": autopayEnrolled,
@@ -314,23 +380,8 @@ class UserModel {
     "shares": shares,
     "data_used": dataUsed,
     "usage_time": usageTime,
-    "Moolah_0_2021": moolah02021,
-    "Moolah_1_2021": moolah12021,
-    "Moolah_3_2021": moolah32021,
-    "Moolah_4_2021": moolah42021,
-    "Moolah_5_2021": moolah52021,
-    "Moolah_6_2021": moolah62021,
-    "Moolah_7_2021": moolah72021,
-    "Moolah_8_2021": moolah82021,
-    "Moolah_9_2021": moolah92021,
-    "Moolah_10_2021": moolah102021,
-    "Moolah_11_2021": moolah112021,
-    "distributor_id": distributorId,
-    "distributor_username": distributorUsername,
     "password_otp": passwordOtp,
     "user_role": userRole,
-    "randKey": randKey,
-    "userProfileKey": userProfileKey,
     "moolah_wireless_status": moolahWirelessStatus,
     "ad_networks": adNetworks,
     "activeTheme": activeTheme,
@@ -338,5 +389,10 @@ class UserModel {
     "updatedPassword": updatedPassword,
     "verifiedEmail": verifiedEmail,
     "moolahApps": moolahApps,
+    "walletEnabled": walletEnabled,
+    "earned_moolah": earnedMoolah,
+    "mixPanelId": mixPanelId,
+    "legacy_moolah": legacyMoolah,
+    "ethnicity": ethnicity,
   };
 }

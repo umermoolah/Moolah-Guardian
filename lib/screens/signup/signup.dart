@@ -62,7 +62,7 @@ class _SignUpState extends State<SignUp> {
                           bigHeadingText("Signup"),
                           verticalSpace(5),
                           subHeadingText(
-                              "Start Securing your Kid's Moolah Device"),
+                              "Start Securing your Moolah Devices"),
                           verticalSpace(20),
                           Row(
                             children: [

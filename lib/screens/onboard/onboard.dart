@@ -35,7 +35,7 @@ class _OnBoardState extends State<OnBoard> {
             verticalSpace(30),
             bigHeadingText("Moolah Guardians", color: AppColors.white),
             verticalSpace(20),
-            subHeadingText("Empowering Parents to Safeguard, Monitor, and Nurture Their Kids' Digital World", color: AppColors.white, textAlign: TextAlign.center, fontSize: 18),
+            subHeadingText("Equipping Moolah Users with tools to  Secure, Monitor and Protect Moolah Devices", color: AppColors.white, textAlign: TextAlign.center, fontSize: 18),
             verticalSpace(height*0.06),
             CustomButton(text: "Sign Up", onTap: (){
               Get.toNamed(SignUp.screenName);

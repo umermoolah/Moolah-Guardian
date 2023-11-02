@@ -2,10 +2,12 @@ import 'dart:math';
 
 import 'package:moolah/controllers/baseController.dart';
 import 'package:moolah/helper/endpoints.dart';
+import 'package:moolah/helper/models/device_detail_model.dart';
 import 'package:moolah/helper/models/kids_model.dart';
 import 'package:moolah/helper/models/response_model.dart';
 import 'package:moolah/helper/network.dart';
 import 'package:moolah/helper/repo/homeRepo.dart';
+import 'package:moolah/util/customtoast.dart';
 import 'package:moolah/util/images.dart';
 
 import '../helper/models/app_usage_model.dart';
@@ -70,6 +72,7 @@ class HomeController extends BaseController {
         // Kid(responseModel.data["devices"]);
         print("Hweewkelkn");
         var tem = responseModel.data["devices"][i];
+        print('tem["kidDeviceAccountUserID"]::::${tem["kidDeviceAccountUserID"]}');
           temp.add(Kid(
               kidId: tem["kidDeviceAccountUserID"],
               name: tem["kidFullName"],
@@ -143,7 +146,7 @@ class HomeController extends BaseController {
                 appName: "Facebook",
                 durationOfUsage: "5 mins",
                 percentUsage: Random().nextInt(100)),
-          ],
+          ],///ONLY FOR STAGING
           msg: "",
           success: true);
     }
@@ -164,12 +167,39 @@ class HomeController extends BaseController {
     isLoading = true;
     ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: kidId);
     print("responseModel::: ${responseModel.data}");
-    Duration time = (DateTime.fromMillisecondsSinceEpoch(responseModel.data["data"]["lastReportedTime"]).difference(DateTime.now()));
-    String timee = "${time.inHours!=0?"${time.inHours % 24}h":""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
-    connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
-    print('responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
-    connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel.data["data"]["networkInfo"]["sim1"]["mDataRoaming"]?.toString() ?? "0";
-    connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel.data["data"]["realTimeStats"]["batteryLevel"]?.toString() ?? "0";
+    print("DateTime.now()::${DateTime.now()}");
+    if(responseModel.data["code"] == 200) {
+      Duration time = (DateTime.now()
+          .difference(DateTime.fromMillisecondsSinceEpoch(
+          responseModel.data["data"]["lastReportedTime"])));
+      String timee =
+          "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
+      connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
+      print(
+          'responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
+      connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel
+              .data["data"]["networkInfo"]["sim1"]["mDataRoaming"]
+              ?.toString() ??
+          "0";
+      connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel
+              .data["data"]["realTimeStats"]["batteryLevel"]
+              ?.toString() ??
+          "0";
+      /// ONLY FOR PRODUCTION
+      // DeviceDetail d = DeviceDetail.fromJson(responseModel.data);
+      // double totalTime = 0;
+      // for (int i = 0;
+      //     i < (d.data?.realTimeStats?.appUsageData?.length ?? 0);
+      //     i++) {
+      //   totalTime += d.data!.realTimeStats!.appUsageData![i].mFgUsageTime ?? 0;
+      // }
+      // d.data?.realTimeStats?.totalAppUsageData = totalTime;
+      // connectedKids[getSelectedKidIndex(kidId)].deviceDetail = d;
+      /// ONLY FOR PRODUCTION
+    }else{
+      // errorToast("Something went wrong!");
+    }
+    update();
     isLoading = false;
   }
 

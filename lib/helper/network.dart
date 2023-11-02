@@ -33,17 +33,21 @@ class Network {
   }
 
   static Map<String, String>? getHeaders() {
+    Map<String, String> header = {
+      "X-API-VERSION":"0.0.0.1"
+    };
     if (Prefs.accessToken.get().isNotEmpty) {
-      return {"Authorization": "Bearer ${Prefs.accessToken.get()}"};
-    } else {
-      return null;
+      header.addAll({"Authorization": "Bearer ${Prefs.accessToken.get()}"});
     }
+
+    return header;
   }
 
   static Future<ResponseModel> responseHandler(
       {http.Response? res, bool empty = false}) async {
     print("responceHandler: ${res!.body}");
-    if ((res?.statusCode ?? 0) == 200 && !empty) {
+    print("responceHandler:Status Code: ${res!.statusCode}");
+    if (((res?.statusCode ?? 0) == 200 || (res?.statusCode ?? 0) == 201) && !empty) {
       if (jsonDecode(res!.body)["status"] ?? true) {
         return ResponseModel(
             isSuccessful: true,
@@ -56,6 +60,7 @@ class Network {
             message: jsonDecode(res!.body)["message"]);
       }
     }
-    return ResponseModel(isSuccessful: false);
+    print("HELLO ${res.statusCode}");
+    return ResponseModel(isSuccessful: false, message: jsonDecode(res.body)["message"], data: jsonDecode(res.body));
   }
 }

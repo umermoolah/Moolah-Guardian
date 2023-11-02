@@ -54,25 +54,25 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("Parent Security Check", fontSize: 27),
+                        bigHeadingText("Security Check", fontSize: 27),
                         verticalSpace(4),
                         subHeadingText(
                             "Please provide the following data for security"),
                         verticalSpace(7),
                         subHeadingText(
-                            "purposes before syncing to your kids device. "),
+                            "purposes before syncing to your device. "),
                         verticalSpace(10),
                         CustomTextField(
-                            hintText: "Kid Account Email",
+                            hintText: "Device Account Email",
                             textEditingController: emailController,
                             validators: Validators.email),
                         CustomTextField(
-                            hintText: "Kid Account Password",
+                            hintText: "Device Account Password",
                             textEditingController: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             validators: Validators.password),
                         verticalSpace(10),
-                        subHeadingText("Kid Account Birthday",
+                        subHeadingText("Device Account Birthday",
                             fontWeight: FontWeight.w500, color: Colors.grey),
                         verticalSpace(10),
                         customGestureDetecter(

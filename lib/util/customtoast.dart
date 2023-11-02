@@ -15,6 +15,7 @@ errorToast(String text) {
 }
 
 errorToastShow(Map? r) {
+  print("EROOR:$r");
   if (r != null) {
     if (r["errorMsg"] != null) {
       errorToast(r["errorMsg"]);

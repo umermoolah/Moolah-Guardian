@@ -8,7 +8,7 @@ import 'package:moolah/helper/network.dart';
 class AuthRepo {
   static Future<ResponseModel> login(String email, String password) async {
     return await Network.post(EndPoints.login,
-        body: {"email": email, "password": password, "moolahApp": "parents"});
+        body: {"email": email, "password": password, "moolahApp": "guardian"});
   }
 
   static Future<ResponseModel> signUp(
@@ -22,7 +22,7 @@ class AuthRepo {
 
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     String deviceId = Platform.isAndroid?(await deviceInfo.androidInfo).id:Platform.isIOS?(await deviceInfo.iosInfo).identifierForVendor??"":"";
-    String moolahApp = "parents";
+    String moolahApp = "guardian";
     return await Network.post(EndPoints.signUp, body: {
       "email": email,
       "password": password,

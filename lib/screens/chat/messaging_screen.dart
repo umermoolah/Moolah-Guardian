@@ -20,7 +20,7 @@ class MessagingScreen extends StatelessWidget {
           reverse: true,
           children: [
             verticalSpace(20),
-            _buildChildMessageTyping(),
+            // _buildChildMessageTyping(),
             _buildMyMessage("Ok fine just 5 min"),
             _buildChildMessage('Mom i need 5 more minutes'),
             _buildMyMessage("Turn off your device"),

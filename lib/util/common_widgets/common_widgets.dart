@@ -100,5 +100,5 @@ Widget iconText(String icon, String s, {bool isItalic = false}) {
 }
 
 String getSortedDate(DateTime? dateOfBirth) {
-  return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}/${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}/${dateOfBirth!.year}";
+  return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}-${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}-${dateOfBirth!.year}";
 }
