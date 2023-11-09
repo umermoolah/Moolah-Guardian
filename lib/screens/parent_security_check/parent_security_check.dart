@@ -63,65 +63,65 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                             "purposes before syncing to your device. "),
                         verticalSpace(10),
                         CustomTextField(
-                            hintText: "Device Account Email",
+                            hintText: "Moolah Wallet Device Email",
                             textEditingController: emailController,
                             validators: Validators.email),
                         CustomTextField(
-                            hintText: "Device Account Password",
+                            hintText: "Moolah Wallet Device Password",
                             textEditingController: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             validators: Validators.password),
                         verticalSpace(10),
-                        subHeadingText("Device Account Birthday",
-                            fontWeight: FontWeight.w500, color: Colors.grey),
-                        verticalSpace(10),
-                        customGestureDetecter(
-                          onTap: () async {
-                            dateOfBirth = await showDatePicker(
-                                context: context,
-                                initialDate: DateTime(DateTime.now().year - 8),
-                                firstDate: DateTime(1940),
-                                lastDate: DateTime(DateTime.now().year - 2),
-                                builder: (context, child) {
-                                  return Theme(
-                                    data: Theme.of(context).copyWith(
-                                      colorScheme: ColorScheme.light(
-                                        primary: AppColors
-                                            .normalGreen, // header background color
-                                        onPrimary: AppColors
-                                            .black, // header text color
-                                        onSurface: AppColors
-                                            .normalGreen, // body text color
-                                      ),
-                                      textButtonTheme: TextButtonThemeData(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor:
-                                              Colors.black, // button text color
-                                        ),
-                                      ),
-                                    ),
-                                    child: child!,
-                                  );
-                                });
-                            setState(() {});
-                          },
-                          child: roundedContainer(
-                            padding: EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 10),
-                            color: AppColors.lightGrey,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                regularText(dateOfBirth == null
-                                    ? "__/__/____"
-                                    : getSortedDate(dateOfBirth)),
-                                Align(
-                                    alignment: Alignment.centerRight,
-                                    child: SvgPicture.asset(AppImages.date))
-                              ],
-                            ),
-                          ),
-                        ),
+                        // subHeadingText("Device Account Birthday",
+                        //     fontWeight: FontWeight.w500, color: Colors.grey),
+                        // verticalSpace(10),
+                        // customGestureDetecter(
+                        //   onTap: () async {
+                        //     dateOfBirth = await showDatePicker(
+                        //         context: context,
+                        //         initialDate: DateTime(DateTime.now().year - 8),
+                        //         firstDate: DateTime(1940),
+                        //         lastDate: DateTime(DateTime.now().year - 2),
+                        //         builder: (context, child) {
+                        //           return Theme(
+                        //             data: Theme.of(context).copyWith(
+                        //               colorScheme: ColorScheme.light(
+                        //                 primary: AppColors
+                        //                     .normalGreen, // header background color
+                        //                 onPrimary: AppColors
+                        //                     .black, // header text color
+                        //                 onSurface: AppColors
+                        //                     .normalGreen, // body text color
+                        //               ),
+                        //               textButtonTheme: TextButtonThemeData(
+                        //                 style: TextButton.styleFrom(
+                        //                   foregroundColor:
+                        //                       Colors.black, // button text color
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //             child: child!,
+                        //           );
+                        //         });
+                        //     setState(() {});
+                        //   },
+                        //   child: roundedContainer(
+                        //     padding: EdgeInsets.symmetric(
+                        //         vertical: 15, horizontal: 10),
+                        //     color: AppColors.lightGrey,
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //       children: [
+                        //         regularText(dateOfBirth == null
+                        //             ? "__/__/____"
+                        //             : getSortedDate(dateOfBirth)),
+                        //         Align(
+                        //             alignment: Alignment.centerRight,
+                        //             child: SvgPicture.asset(AppImages.date))
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         verticalSpace(15),
                         CustomButton(
                           text: "Submit",
@@ -129,21 +129,22 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                           onTap: () async {
 
                             if (key.currentState!.validate()) {
-                              if (dateOfBirth != null) {
+                              // if (dateOfBirth != null) {
                                 if (await connectDeviceController
                                     .parentSecurityCheck(
                                         kidEmail: emailController.text,
-                                        kidPassword: passwordController.text,
-                                        birthday: getSortedDate(dateOfBirth))) {
+                                        kidPassword: passwordController.text
+                                    )
+                                ) {
                                   Get.toNamed(ScanBarcode.screenName,
                                       // arguments: {
                                     // "kidDeviceAccountUserID":
                                   // }
                                   );
                                 }
-                              }else{
-                                errorToast("Please enter date of birth");
-                              }
+                              // }else{
+                              //   errorToast("Please enter date of birth");
+                              // }
                             }
                           },
                         )

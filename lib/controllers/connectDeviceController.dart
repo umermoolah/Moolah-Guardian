@@ -10,13 +10,16 @@ class ConnectDeviceController extends BaseController {
   String kidDeviceAccountUserID = "";
 
   Future<bool> parentSecurityCheck(
-      {required String kidEmail,
-      required String kidPassword,
-      required String birthday}) async {
+      {
+        required String kidEmail,
+        required String kidPassword
+      }) async {
     kidDeviceAccountUserID = "";
     isLoading = true;
     ResponseModel res = await ConnectDeviceRepo.parentSecurityCheck(
-        kidEmail: kidEmail, kidPassword: kidPassword, birthday: birthday);
+        kidEmail: kidEmail,
+        kidPassword: kidPassword
+    );
     if(res.isSuccessful){
       kidDeviceAccountUserID = res.data["kidDeviceAccountUserID"];
     }
@@ -26,7 +29,7 @@ class ConnectDeviceController extends BaseController {
   }
 
   Future<bool> parentKidDeviceConnect(
-      {required String kidDeviceAccountConnectID,}
+      {required String kidDeviceAccountConnectID}
       // required String kidDeviceAccountUserID}
       )
   async {

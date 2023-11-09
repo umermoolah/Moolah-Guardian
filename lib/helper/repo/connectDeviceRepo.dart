@@ -3,13 +3,13 @@ import '../network.dart';
 
 class ConnectDeviceRepo {
   static parentSecurityCheck(
-      {required String kidEmail,
-      required String kidPassword,
-      required String birthday}) async {
+      {
+        required String kidEmail,
+        required String kidPassword
+      }) async {
     return await Network.post(EndPoints.parentAppSecurityCheck, body: {
       "kidAccountEmail": kidEmail,
       "kidAccountPassword": kidPassword,
-      "kidAccountBirthday": birthday,
       "moolahApp": "guardian"
     });
   }
