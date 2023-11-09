@@ -9,7 +9,8 @@ class ConnectDeviceRepo {
     return await Network.post(EndPoints.parentAppSecurityCheck, body: {
       "kidAccountEmail": kidEmail,
       "kidAccountPassword": kidPassword,
-      "kidAccountBirthday": birthday
+      "kidAccountBirthday": birthday,
+      "moolahApp": "guardian"
     });
   }
 
@@ -18,7 +19,8 @@ class ConnectDeviceRepo {
       required String kidDeviceAccountUserID}) async {
     return await Network.post(EndPoints.parentKidDeviceConnect, body: {
       "kidDeviceAccountConnectID": kidDeviceAccountConnectID,
-      "kidDeviceAccountUserID": kidDeviceAccountUserID
+      "kidDeviceAccountUserID": kidDeviceAccountUserID,
+      "moolahApp": "guardian"
     });
   }
 }
