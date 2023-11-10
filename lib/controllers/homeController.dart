@@ -73,16 +73,16 @@ class HomeController extends BaseController {
         print("Hweewkelkn");
         var tem = responseModel.data["devices"][i];
         print('tem["kidDeviceAccountUserID"]::::${tem["kidDeviceAccountUserID"]}');
-          temp.add(Kid(
-              kidId: tem["kidDeviceAccountUserID"],
-              name: tem["kidFullName"],
-              batteryStatus: "0",
-              connectId: tem["kidDeviceAccountConnectID"],
-              dataUsageStatus: "0",
-              deviceType: tem["kidDeviceType"],
-              kidPic: null,
-              lastActive: "0m",
-              walletEnabled: false));
+        temp.add(Kid(
+            kidId: tem["kidDeviceAccountUserID"],
+            name: tem["kidFullName"],
+            batteryStatus: "0",
+            connectId: tem["kidDeviceAccountConnectID"],
+            dataUsageStatus: "0",
+            deviceType: tem["kidDeviceType"],
+            kidPic: null,
+            lastActive: "0m",
+            walletEnabled: false));
       }
       if(temp.isNotEmpty){
         connectedKids.clear();
@@ -116,36 +116,36 @@ class HomeController extends BaseController {
           deviceDailyAvgUsageChange: "+35% from last Week",
           installedAppsCount: 4,
           listOfInstalledApps: [
-            ListOfInstalledApp(
-                appId: 1,
-                appIcon: AppImages.twitter,
-                appName: "Twitter",
-                durationOfUsage: "2h 29 mins",
-                percentUsage: Random().nextInt(100)),
-            ListOfInstalledApp(
-                appId: 2,
-                appIcon: AppImages.instagram,
-                appName: "Instagram",
-                durationOfUsage: "1h 29 mins",
-                percentUsage: Random().nextInt(100)),
-            ListOfInstalledApp(
-                appId: 3,
-                appIcon: AppImages.snapchat,
-                appName: "Snapchat",
-                durationOfUsage: "30 mins",
-                percentUsage: Random().nextInt(100)),
-            ListOfInstalledApp(
-                appId: 4,
-                appIcon: AppImages.tiktok,
-                appName: "Tiktok",
-                durationOfUsage: "15 mins",
-                percentUsage: Random().nextInt(100)),
-            ListOfInstalledApp(
-                appId: 5,
-                appIcon: AppImages.facebook,
-                appName: "Facebook",
-                durationOfUsage: "5 mins",
-                percentUsage: Random().nextInt(100)),
+            // ListOfInstalledApp(
+            //     appId: 1,
+            //     appIcon: AppImages.twitter,
+            //     appName: "Twitter",
+            //     durationOfUsage: "2h 29 mins",
+            //     percentUsage: Random().nextInt(100)),
+            // ListOfInstalledApp(
+            //     appId: 2,
+            //     appIcon: AppImages.instagram,
+            //     appName: "Instagram",
+            //     durationOfUsage: "1h 29 mins",
+            //     percentUsage: Random().nextInt(100)),
+            // ListOfInstalledApp(
+            //     appId: 3,
+            //     appIcon: AppImages.snapchat,
+            //     appName: "Snapchat",
+            //     durationOfUsage: "30 mins",
+            //     percentUsage: Random().nextInt(100)),
+            // ListOfInstalledApp(
+            //     appId: 4,
+            //     appIcon: AppImages.tiktok,
+            //     appName: "Tiktok",
+            //     durationOfUsage: "15 mins",
+            //     percentUsage: Random().nextInt(100)),
+            // ListOfInstalledApp(
+            //     appId: 5,
+            //     appIcon: AppImages.facebook,
+            //     appName: "Facebook",
+            //     durationOfUsage: "5 mins",
+            //     percentUsage: Random().nextInt(100)),
           ],///ONLY FOR STAGING
           msg: "",
           success: true);
@@ -178,23 +178,23 @@ class HomeController extends BaseController {
       print(
           'responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
       connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel
-              .data["data"]["networkInfo"]["sim1"]["mDataRoaming"]
-              ?.toString() ??
+          .data["data"]["networkInfo"]["sim1"]["mDataRoaming"]
+          ?.toString() ??
           "0";
       connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel
-              .data["data"]["realTimeStats"]["batteryLevel"]
-              ?.toString() ??
+          .data["data"]["realTimeStats"]["batteryLevel"]
+          ?.toString() ??
           "0";
       /// ONLY FOR PRODUCTION
-      // DeviceDetail d = DeviceDetail.fromJson(responseModel.data);
-      // double totalTime = 0;
-      // for (int i = 0;
-      //     i < (d.data?.realTimeStats?.appUsageData?.length ?? 0);
-      //     i++) {
-      //   totalTime += d.data!.realTimeStats!.appUsageData![i].mFgUsageTime ?? 0;
-      // }
-      // d.data?.realTimeStats?.totalAppUsageData = totalTime;
-      // connectedKids[getSelectedKidIndex(kidId)].deviceDetail = d;
+      DeviceDetail d = DeviceDetail.fromJson(responseModel.data);
+      double totalTime = 0;
+      for (int i = 0;
+      i < (d.data?.realTimeStats?.appUsageData?.length ?? 0);
+      i++) {
+        totalTime += d.data!.realTimeStats!.appUsageData![i].mFgUsageTime ?? 0;
+      }
+      d.data?.realTimeStats?.totalAppUsageData = totalTime;
+      connectedKids[getSelectedKidIndex(kidId)].deviceDetail = d;
       /// ONLY FOR PRODUCTION
     }else{
       // errorToast("Something went wrong!");

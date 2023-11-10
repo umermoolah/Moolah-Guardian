@@ -40,6 +40,7 @@ class AuthController extends BaseController {
         print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
         Prefs.firstName.set(user1?.firstName??"");
         Prefs.lastName.set(user1?.lastName??"");
+        Prefs.phone.set(user1?.phone??"");
         Get.offAllNamed(Home.screenName);
         print("Login Successful: \n\n${r.data}");
       } else {

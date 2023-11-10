@@ -44,7 +44,7 @@ class _ProfileState extends State<Profile> {
                       verticalSpace(10),
                       valueContainers(icon: AppImages.nameField, heading: "Full Name", value: "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
                       valueContainers(icon: AppImages.emailField, heading: "Email", value: Prefs.email.get().isNotEmpty?Prefs.email.get():""),
-                      valueContainers(icon: AppImages.mobileField, heading: "Mobile No.", value: ""),
+                      valueContainers(icon: AppImages.mobileField, heading: "Mobile No.", value: Prefs.phone.get().isNotEmpty?Prefs.phone.get():""),
                       valueContainers(icon: AppImages.passwordField, heading: "Password", value: "**********"),
                       verticalSpace(20),
                       CustomButton(margin: EdgeInsets.zero,text: "Edit Profile", onTap: (){
@@ -65,27 +65,27 @@ class _ProfileState extends State<Profile> {
 
   valueContainers({required String icon, required String heading, required String value}) {
     return roundedContainer(
-      color: AppColors.greyFAFA,
-      // color: AppColors.red,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-      margin: const EdgeInsets.only(top: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SvgPicture.asset(icon),
-          horizontalSpace(25),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              verticalSpace(3),
-              subHeadingText(heading, fontWeight: FontWeight.w500),
-              verticalSpace(5),
-              subHeadingText(value, fontWeight: FontWeight.w500, color: Colors.black),
-            ],
-          )
-        ],
-      )
+        color: AppColors.greyFAFA,
+        // color: AppColors.red,
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+        margin: const EdgeInsets.only(top: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SvgPicture.asset(icon),
+            horizontalSpace(25),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                verticalSpace(3),
+                subHeadingText(heading, fontWeight: FontWeight.w500),
+                verticalSpace(5),
+                subHeadingText(value, fontWeight: FontWeight.w500, color: Colors.black),
+              ],
+            )
+          ],
+        )
     );
   }
 }

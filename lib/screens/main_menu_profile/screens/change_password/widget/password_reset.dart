@@ -28,23 +28,23 @@ class _PasswordResetState extends State<PasswordReset> {
             commonAppBar(withIcon: true),
             verticalSpace(50),
             roundedContainer(
-              borderRadius: 20,
-              margin: const EdgeInsets.all(15),
-              padding: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
-              width: width,
-              child: Column(
-                children: [
-                  SvgPicture.asset(AppImages.passwordReset),
-                  verticalSpace(30),
-                  bigHeadingText("Password Reset"),
-                  verticalSpace(10),
-                  subHeadingText("You Password is Successfully changed"),
-                  verticalSpace(10),
-                  CustomButton(text: "Back to Home", onTap: (){
-                    Get.offAllNamed(Home.screenName);
-                  },)
-                ],
-              )
+                borderRadius: 20,
+                margin: const EdgeInsets.all(15),
+                padding: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
+                width: width,
+                child: Column(
+                  children: [
+                    SvgPicture.asset(AppImages.passwordReset),
+                    verticalSpace(30),
+                    bigHeadingText("Password Reset"),
+                    verticalSpace(10),
+                    subHeadingText("Your Password is Successfully changed"),
+                    verticalSpace(10),
+                    CustomButton(text: "Back to Home", onTap: (){
+                      Get.offAllNamed(Home.screenName);
+                    },)
+                  ],
+                )
             )
           ],
         ),

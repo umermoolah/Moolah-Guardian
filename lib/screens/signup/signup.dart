@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:moolah/screens/login/login.dart';
@@ -30,8 +31,12 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   String phone = "";
+  String withoutCCPhone = "";
   DateTime? dateOfBirth;
+  bool phoneError = false;
+  bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
+  GlobalKey<FormState> key1 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,204 +44,252 @@ class _SignUpState extends State<SignUp> {
     var height = MediaQuery.of(context).size.height;
     return CommonGradientBackground(
         child: GetBuilder<AuthController>(builder: (controller) {
-      return Loader(
-        c: controller,
-        child: Column(
-          children: [
-            verticalSpace(40),
-            commonAppBar(withIcon: true),
-            Expanded(
-              child: roundedContainer(
-                  borderRadiusWhole: BorderRadius.circular(13).copyWith(
-                      bottomRight: Radius.zero, bottomLeft: Radius.zero),
-                  padding:
+          return Loader(
+            c: controller,
+            child: Column(
+              children: [
+                verticalSpace(40),
+                commonAppBar(withIcon: true),
+                Expanded(
+                  child: roundedContainer(
+                      borderRadiusWhole: BorderRadius.circular(13).copyWith(
+                          bottomRight: Radius.zero, bottomLeft: Radius.zero),
+                      padding:
                       const EdgeInsets.all(25).copyWith(bottom: 0, left: 15),
-                  margin: const EdgeInsets.all(10).copyWith(bottom: 0),
-                  width: width,
-                  child: SingleChildScrollView(
-                    child: Form(
-                      key: key,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          bigHeadingText("Signup"),
-                          verticalSpace(5),
-                          subHeadingText(
-                              "Start Securing your Moolah Devices"),
-                          verticalSpace(20),
-                          Row(
+                      margin: const EdgeInsets.all(10).copyWith(bottom: 0),
+                      width: width,
+                      child: SingleChildScrollView(
+                        child: Form(
+                          key: key,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                  child: CustomTextField(
-                                hintText: "First Name",
-                                validators: Validators.notEmpty,
-                                textEditingController: firstNameController,
-                              )),
-                              SizedBox(
-                                width: 10,
+                              bigHeadingText("Signup"),
+                              verticalSpace(5),
+                              subHeadingText(
+                                  "Start Securing your Moolah Devices"),
+                              verticalSpace(20),
+                              Row(
+                                children: [
+                                  Expanded(
+                                      child: CustomTextField(
+                                        hintText: "First Name",
+                                        validators: Validators.notEmpty,
+                                        textEditingController: firstNameController,
+                                      )),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: CustomTextField(
+                                        hintText: "Last Name",
+                                        validators: Validators.notEmpty,
+                                        textEditingController: lastNameController,
+                                      )),
+                                ],
                               ),
-                              Expanded(
-                                  child: CustomTextField(
-                                hintText: "Last Name",
-                                validators: Validators.notEmpty,
-                                textEditingController: lastNameController,
-                              )),
-                            ],
-                          ),
-                          verticalSpace(15),
-                          subHeadingText("Phone Number",
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey),
-                          verticalSpace(10),
-                          IntlPhoneField(
-                            decoration: InputDecoration(
-                              border: border,
-                              enabledBorder: border,
-                              focusedBorder: border,
-                              disabledBorder: border,
-                              errorBorder: errorBorder,
-                              focusedErrorBorder: border,
-                              fillColor: AppColors.lightGrey,
-                              filled: true,
-                              errorText: null,
-                            ),
-                            onChanged: (number) {
-                              phone = number.completeNumber;
-                              print("phone: $phone");
-                            },
-                            validator: (number) {
-                              if (number != null) {
-                                try {
-                                  if (!number.isValidNumber()) {
-                                    return "";
+                              verticalSpace(15),
+                              subHeadingText("Phone Number",
+                                  fontWeight: FontWeight.w500,
+                                  color: phoneError?Colors.red:Colors.grey),
+                              verticalSpace(10),
+                              IntlPhoneField(
+                                key: key1,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  counter: const SizedBox.shrink(),
+                                  border: phoneError?errorBorder:border,
+                                  enabledBorder: phoneError?errorBorder:border,
+                                  focusedBorder: phoneError?errorBorder:border,
+                                  disabledBorder: phoneError?errorBorder:border,
+                                  errorBorder: errorBorder,
+                                  focusedErrorBorder: phoneError?errorBorder:border,
+                                  fillColor: AppColors.lightGrey,
+                                  filled: true,
+                                  errorStyle: const TextStyle(height: 0),
+                                  errorText: null,
+                                ),
+                                onChanged: (number) {
+                                  phone = number.completeNumber;
+                                  withoutCCPhone = number.number;
+                                  print("phone: $phone");
+                                  print("withoutCCPhone: $withoutCCPhone");
+                                  try{
+                                    if(number.isValidNumber()){
+                                      phoneError = false;
+                                    }else{
+                                      phoneError = true;
+                                    }
+                                  }catch(e){
+                                    phoneError = true;
                                   }
-                                } catch (e) {}
-                              }
-                              return null;
-                            },
-                          ),
-                          verticalSpace(15),
-                          subHeadingText("Date of Birth",
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey),
-                          verticalSpace(10),
-                          customGestureDetecter(
-                            onTap: () async {
-                              dateOfBirth = await showDatePicker(
-                                  context: context,
-                                  initialDate:
-                                      DateTime(DateTime.now().year - 20),
-                                  firstDate: DateTime(1940),
-                                  lastDate:
-                                      DateTime(DateTime.now().year - 20),
-                                  builder: (context, child) {
-                                    return Theme(
-                                      data: Theme.of(context).copyWith(
-                                        colorScheme: ColorScheme.light(
-                                          primary: AppColors
-                                              .normalGreen, // header background color
-                                          onPrimary: AppColors
-                                              .black, // header text color
-                                          onSurface: AppColors
-                                              .normalGreen, // body text color
-                                        ),
-                                        textButtonTheme: TextButtonThemeData(
-                                          style: TextButton.styleFrom(
-                                            foregroundColor: Colors
-                                                .black, // button text color
-                                          ),
-                                        ),
-                                      ),
-                                      child: child!,
-                                    );
+                                  setState(() {
+
                                   });
-                              setState(() {});
-                            },
-                            child: roundedContainer(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 20, horizontal: 10),
-                                color: AppColors.lightGrey,
-                                child: Row(
-                                  children: [
-                                    regularText(dateOfBirth == null
-                                        ? "__\\__\\___"
-                                        : getSortedDate(dateOfBirth)),
-                                  ],
-                                )),
-                          ),
-                          verticalSpace(10),
-                          CustomTextField(
-                            hintText: "Username",
-                            textInputType: TextInputType.emailAddress,
-                            validators: Validators.notEmpty,
-                            textEditingController: usernameController,
-                          ),
-                          CustomTextField(
-                            hintText: "Email",
-                            required: true,
-                            textInputType: TextInputType.emailAddress,
-                            validators: Validators.email,
-                            textEditingController: emailController,
-                          ),
-                          CustomTextField(
-                            hintText: "Password",
-                            textInputType: TextInputType.visiblePassword,
-                            validators: Validators.password,
-                            textEditingController: passwordController,
-                            onChange: (c){setState(() {});},
-                          ),
-                          CustomTextField(
-                            hintText: "Confirm Password",
-                            textInputType: TextInputType.visiblePassword,
-                            validators: Validators.confirmPassword,
-                            textEditingController: confirmPasswordController,
-                            passwordForConfirmPassword:
-                                passwordController.text,
-                          ),
-                          verticalSpace(30),
-                          CustomButton(
-                              text: "Sign Up",
-                              margin: EdgeInsets.zero,
-                              onTap: () {
-                                if (key.currentState!.validate()) {
-                                  controller.signup(
-                                      firstNameController.text,
-                                      lastNameController.text,
-                                      phone,
-                                      dateOfBirth != null
-                                          ? getSortedDate(dateOfBirth)
-                                          : "",
-                                      usernameController.text,
-                                      emailController.text,
-                                      passwordController.text);
-                                }
-                                // Get.toNamed(Home.screenName);
-                              }),
-                          verticalSpace(20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              subHeadingText("Already have an account?"),
+                                },
+                                validator: (number) {
+                                  if (number != null) {
+                                    try {
+                                      if (!number.isValidNumber()) {
+                                        return "";
+                                      }
+                                    } catch (e) {}
+                                  }
+                                  return null;
+                                },
+                              ),
+                              phoneError&&withoutCCPhone.isEmpty?Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: errorMsg("Please enter Phone Number"),
+                              ) :const SizedBox.shrink(),
+                              verticalSpace(15),
+                              subHeadingText("Date of Birth",
+                                  fontWeight: FontWeight.w500,
+                                  color: dateError?Colors.red:Colors.grey),
+                              verticalSpace(10),
                               customGestureDetecter(
+                                onTap: () async {
+                                  var tempDate = await showDatePicker(
+                                      context: context,
+                                      initialDate:
+                                      DateTime(DateTime.now().year - 20),
+                                      firstDate: DateTime(1940),
+                                      lastDate:
+                                      DateTime(DateTime.now().year - 20),
+                                      builder: (context, child) {
+                                        return Theme(
+                                          data: Theme.of(context).copyWith(
+                                            colorScheme: ColorScheme.light(
+                                              primary: AppColors
+                                                  .normalGreen, // header background color
+                                              onPrimary: AppColors
+                                                  .black, // header text color
+                                              onSurface: AppColors
+                                                  .normalGreen, // body text color
+                                            ),
+                                            textButtonTheme: TextButtonThemeData(
+                                              style: TextButton.styleFrom(
+                                                foregroundColor: Colors
+                                                    .black, // button text color
+                                              ),
+                                            ),
+                                          ),
+                                          child: child!,
+                                        );
+                                      });
+                                  if(tempDate!=null){
+                                    dateOfBirth = tempDate;
+                                    dateError = false;
+                                  }
+                                  setState(() {});
+                                },
+                                child: roundedContainer(
+                                    borderRadius: 10,
+                                    border: dateError?Border.all(color: AppColors.red):null,
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 10),
+                                    color: AppColors.lightGrey,
+                                    child: Row(
+                                      children: [
+                                        regularText(dateOfBirth == null
+                                            ? "__\\__\\___"
+                                            : getSortedDate(dateOfBirth)),
+                                      ],
+                                    )),
+                              ),
+                              dateError?Padding(
+                                padding: const EdgeInsets.only(left: 10.0, top: 8),
+                                child: errorMsg("Please enter Date of Birth"),
+                              ):const SizedBox.shrink(),
+                              verticalSpace(10),
+                              CustomTextField(
+                                hintText: "Username",
+                                textInputType: TextInputType.emailAddress,
+                                validators: Validators.notEmpty,
+                                textEditingController: usernameController,
+                              ),
+                              CustomTextField(
+                                hintText: "Email",
+                                required: true,
+                                textInputType: TextInputType.emailAddress,
+                                validators: Validators.email,
+                                textEditingController: emailController,
+                              ),
+                              CustomTextField(
+                                hintText: "Password",
+                                textInputType: TextInputType.visiblePassword,
+                                validators: Validators.passwordForSignup,
+                                textEditingController: passwordController,
+                                onChange: (c){setState(() {});},
+                              ),
+                              CustomTextField(
+                                hintText: "Confirm Password",
+                                textInputType: TextInputType.visiblePassword,
+                                validators: Validators.confirmPassword,
+                                textEditingController: confirmPasswordController,
+                                passwordForConfirmPassword:
+                                passwordController.text,
+                              ),
+                              verticalSpace(30),
+                              CustomButton(
+                                  text: "Sign Up",
+                                  margin: EdgeInsets.zero,
                                   onTap: () {
-                                    Get.toNamed(Login.screenName,
-                                        arguments: {"fromSignup": true});
-                                  },
-                                  child: subHeadingText(" Login here",
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black)),
+                                    if(withoutCCPhone.isEmpty){
+                                      phoneError = true;
+                                    }
+                                    if(dateOfBirth == null){
+                                      dateError = true;
+                                    }
+                                    setState(() {
+
+                                    });
+                                    if (key.currentState!.validate() && key1.currentState!.validate() && !phoneError) {
+                                      controller.signup(
+                                          firstNameController.text,
+                                          lastNameController.text,
+                                          phone,
+                                          dateOfBirth != null
+                                              ? getSortedDate(dateOfBirth)
+                                              : "",
+                                          usernameController.text,
+                                          emailController.text,
+                                          passwordController.text);
+                                    }
+                                    // Get.toNamed(Home.screenName);
+                                  }),
+                              verticalSpace(20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  subHeadingText("Already have an account?"),
+                                  customGestureDetecter(
+                                      onTap: () {
+                                        Get.toNamed(Login.screenName,
+                                            arguments: {"fromSignup": true});
+                                      },
+                                      child: subHeadingText(" Login here",
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.black)),
+                                ],
+                              ),
+                              verticalSpace(50),
                             ],
                           ),
-                          verticalSpace(50),
-                        ],
-                      ),
-                    ),
-                  )),
-            )
-          ],
-        ),
-      );
-    }));
+                        ),
+                      )),
+                )
+              ],
+            ),
+          );
+        }));
+  }
+
+  Widget errorMsg(String s) {
+    return regularText(s, color: AppColors.red,fontSize: 11);
   }
 
 

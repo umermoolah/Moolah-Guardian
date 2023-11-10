@@ -11,6 +11,7 @@ class Network {
       print("HEADERS: ${getHeaders()}");
       var res = await http.get(Uri.parse(url), headers: getHeaders());
       print("RES STATUS: ${res.statusCode}");
+      print("RES:::${res.body}");
       return responseHandler(res: res);
     } catch (e) {
       print("e:::$e");
@@ -24,7 +25,7 @@ class Network {
       print("REQ BODY: $body");
       print("HEADERS: ${getHeaders()}");
       var res =
-          await http.post(Uri.parse(url), body: body, headers: getHeaders());
+      await http.post(Uri.parse(url), body: body, headers: getHeaders());
       return responseHandler(res: res);
     } catch (e) {
       print("e:::$e");

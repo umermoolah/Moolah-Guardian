@@ -16,6 +16,7 @@ class Prefs {
   static final email = SharedPrefValue<String>('email', prefs);
   static final firstName = SharedPrefValue<String>('first_name', prefs);
   static final lastName = SharedPrefValue<String>('last_name', prefs);
+  static final phone = SharedPrefValue<String>('phone', prefs);
   static final accessToken = SharedPrefValue<String>('access_token', prefs);
   static final refreshToken = SharedPrefValue<String>('refresh_token', prefs);
 

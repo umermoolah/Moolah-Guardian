@@ -19,6 +19,12 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+  GlobalKey<FormState> key = GlobalKey<FormState>();
+  TextEditingController oldPasswordController = TextEditingController();
+  TextEditingController newPasswordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -35,34 +41,48 @@ class _ChangePasswordState extends State<ChangePassword> {
                 margin: const EdgeInsets.all(10).copyWith(bottom: 0),
                 width: width,
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      verticalSpace(20),
-                      CustomTextField(
-                          hintText: "Enter Current Password",
-                          otherOne: true,
-                          prefixIcon: AppImages.passwordField),
-                      verticalSpace(15),
-                      CustomTextField(
-                          hintText: "Enter New Password",
-                          otherOne: true,
-                          prefixIcon: AppImages.passwordField),
-                      verticalSpace(15),
-                      CustomTextField(
-                          hintText: "Confirm New Password",
-                          otherOne: true,
-                          prefixIcon: AppImages.passwordField),
+                  child: Form(
+                    key: key,
+                    child: Column(
+                      children: [
+                        verticalSpace(20),
+                        CustomTextField(
+                            textEditingController: oldPasswordController,
+                            hintText: "Enter Current Password",
+                            otherOne: true,
+                            validators: Validators.password,
+                            prefixIcon: AppImages.passwordField),
+                        verticalSpace(15),
+                        CustomTextField(
+                            textEditingController: newPasswordController,
+                            hintText: "Enter New Password",
+                            otherOne: true,
+                            onChange: (e)=>setState((){}),
+                            validators: Validators.passwordForSignup,
+                            prefixIcon: AppImages.passwordField),
+                        verticalSpace(15),
+                        CustomTextField(
+                            textEditingController: confirmPasswordController,
+                            hintText: "Confirm New Password",
+                            otherOne: true,
+                            onChange: (e)=>setState((){}),
+                            passwordForConfirmPassword: newPasswordController.text,
+                            validators: Validators.confirmPassword,
+                            prefixIcon: AppImages.passwordField),
 
-                      verticalSpace(35),
-                      CustomButton(
-                        text: "Save Password",
-                        margin: EdgeInsets.zero,
-                        onTap: (){
-                          Get.toNamed(PasswordReset.screenName);
-                        },
-                      ),
-                      verticalSpace(30),
-                    ],
+                        verticalSpace(35),
+                        CustomButton(
+                          text: "Save Password",
+                          margin: EdgeInsets.zero,
+                          onTap: (){
+                            if(key.currentState!.validate()) {
+                              Get.toNamed(PasswordReset.screenName);
+                            }
+                          },
+                        ),
+                        verticalSpace(30),
+                      ],
+                    ),
                   ),
                 ),
               ),

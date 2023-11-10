@@ -32,68 +32,68 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     var height = MediaQuery.of(context).size.height;
     return CommonGradientBackground(
         child: GetBuilder<AuthController>(builder: (authController) {
-      return Loader(
-        c: authController,
-        child: Form(
-          key: key,
-          child: Column(
-            children: [
-              verticalSpace(40),
-              commonAppBar(withIcon: true),
-              Expanded(
-                child: roundedContainer(
-                    borderRadiusWhole: BorderRadius.circular(13).copyWith(
-                        bottomRight: Radius.zero, bottomLeft: Radius.zero),
-                    padding:
+          return Loader(
+            c: authController,
+            child: Form(
+              key: key,
+              child: Column(
+                children: [
+                  verticalSpace(40),
+                  commonAppBar(withIcon: true),
+                  Expanded(
+                    child: roundedContainer(
+                        borderRadiusWhole: BorderRadius.circular(13).copyWith(
+                            bottomRight: Radius.zero, bottomLeft: Radius.zero),
+                        padding:
                         const EdgeInsets.all(25).copyWith(bottom: 0, left: 15),
-                    margin: const EdgeInsets.all(10).copyWith(bottom: 0),
-                    width: width,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          bigHeadingText("Forgot Password"),
-                          verticalSpace(5),
-                          subHeadingText(
-                              "No worrie we will send you reset instruction"),
-                          verticalSpace(20),
-                          CustomTextField(
-                              hintText: "Email",
-                              textInputType: TextInputType.emailAddress,
-                              textEditingController: emailController,
-                              validators: Validators.email),
-
-                          verticalSpace(30),
-                          CustomButton(
-                            text: "Reset",
-                            margin: EdgeInsets.zero,
-                            onTap: () {
-                              Get.toNamed(CheckYourEmail.screenName);
-                            },
-                          ),
-                          verticalSpace(20),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                        margin: const EdgeInsets.all(10).copyWith(bottom: 0),
+                        width: width,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              subHeadingText("Already have an account?"),
-                              customGestureDetecter(
-                                  onTap: () {
-                                    Get.toNamed(Login.screenName);
-                                  },
-                                  child: subHeadingText(" Login here",
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black)),
+                              bigHeadingText("Forgot Password"),
+                              verticalSpace(5),
+                              subHeadingText(
+                                  "No Worries we will send you reset instructions"),
+                              verticalSpace(20),
+                              CustomTextField(
+                                  hintText: "Email",
+                                  textInputType: TextInputType.emailAddress,
+                                  textEditingController: emailController,
+                                  validators: Validators.email),
+
+                              verticalSpace(30),
+                              CustomButton(
+                                text: "Reset",
+                                margin: EdgeInsets.zero,
+                                onTap: () {
+                                  Get.toNamed(CheckYourEmail.screenName);
+                                },
+                              ),
+                              verticalSpace(20),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  subHeadingText("Already have an account?"),
+                                  customGestureDetecter(
+                                      onTap: () {
+                                        Get.toNamed(Login.screenName);
+                                      },
+                                      child: subHeadingText(" Login here",
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.black)),
+                                ],
+                              ),
+                              verticalSpace(50),
                             ],
                           ),
-                          verticalSpace(50),
-                        ],
-                      ),
-                    )),
-              )
-            ],
-          ),
-        ),
-      );
-    }));
+                        )),
+                  )
+                ],
+              ),
+            ),
+          );
+        }));
   }
 }
