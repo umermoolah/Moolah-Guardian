@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/chat/chat_list_screen.dart';
 import 'package:moolah/screens/home/widget/SyncDevice.dart';
+import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
 import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
@@ -148,7 +149,8 @@ class _HomeState extends State<Home> {
                               // Get.find<AuthController>().refreshToken();
                               // Get.toNamed(ScanBarcode.screenName);
                               Get.find<AuthController>().refreshToken();
-                              Get.toNamed(ParentSecurityCheck.screenName);
+                              Get.toNamed(EnterEmailParentSecurityCheck.screenName);
+                              // Get.toNamed(ParentSecurityCheck.screenName);
                             }),
                         verticalSpace(height * 0.07),
                         Align(

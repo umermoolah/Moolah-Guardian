@@ -4,6 +4,8 @@ import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 
+import '../images.dart';
+
 class CustomButton extends StatefulWidget {
   CustomButton(
       {this.color,
@@ -12,7 +14,10 @@ class CustomButton extends StatefulWidget {
       this.onTap,
       this.margin,
       this.icon,
-        this.notExpanded = false
+        this.notExpanded = false,
+        this.isImage = false,
+        this.border,
+        this.borderRadius = 10
       });
 
   Color? color;
@@ -21,7 +26,10 @@ class CustomButton extends StatefulWidget {
   String text;
   EdgeInsets? margin;
   String? icon;
+  BoxBorder? border;
+  double borderRadius;
   bool notExpanded;
+  bool isImage;
 
   @override
   State<CustomButton> createState() => _CustomButtonState();
@@ -35,21 +43,21 @@ class _CustomButtonState extends State<CustomButton> {
     return customGestureDetecter(
       onTap: widget.onTap,
       child: roundedContainer(
-          border: bg != AppColors.black
+          border: widget.border ?? (bg != AppColors.black
               ? Border.all(color: AppColors.white, width: 1.5)
-              : null,
+              : null),
           color: bg,
           margin: widget.margin ??
               const EdgeInsets.all(10).copyWith(bottom: 0, top: 14),
           padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 15),
-          borderRadius: 10,
+          borderRadius: widget.borderRadius,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (widget.icon != null)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: SvgPicture.asset(widget.icon!),
+                  child: widget.isImage ? Image.asset(widget.icon!, width: 20,) : SvgPicture.asset(widget.icon!),
                 ),
               widget.notExpanded ? rest() :
               Expanded(child: rest()),
@@ -65,4 +73,18 @@ class _CustomButtonState extends State<CustomButton> {
             fontWeight: FontWeight.w500,
             color: widget.textColor ?? AppColors.white));
   }
+}
+
+Widget googleButton(){
+  return CustomButton(
+    border: Border.all(color: AppColors.buttonBorderGrey),
+      color: Colors.white,
+      icon: AppImages.googlePng,
+      isImage: true,
+      notExpanded: true,
+      textColor: AppColors.black,
+      text: "Sign in with Google",
+      onTap: () {
+        // Get.toNamed(Login.screenName);
+      });
 }

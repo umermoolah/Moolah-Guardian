@@ -247,17 +247,17 @@ class _SignUpState extends State<SignUp> {
                                     setState(() {
 
                                     });
-                                    if (key.currentState!.validate() && key1.currentState!.validate() && !phoneError) {
-                                      controller.signup(
-                                          firstNameController.text,
-                                          lastNameController.text,
-                                          phone,
-                                          dateOfBirth != null
-                                              ? getSortedDate(dateOfBirth)
-                                              : "",
-                                          usernameController.text,
-                                          emailController.text,
-                                          passwordController.text);
+                                    if (key.currentState!.validate() && (key1.currentState?.validate()??true) && !phoneError) {
+                                      // controller.signup(
+                                      //     firstNameController.text,
+                                      //     lastNameController.text,
+                                      //     phone,
+                                      //     dateOfBirth != null
+                                      //         ? getSortedDate(dateOfBirth)
+                                      //         : "",
+                                      //     usernameController.text,
+                                      //     emailController.text,
+                                      //     passwordController.text);
                                     }
                                     // Get.toNamed(Home.screenName);
                                   }),

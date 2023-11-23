@@ -13,12 +13,88 @@ class AuthController extends BaseController {
   UserModel? user;
   UserModel1? user1;
 
-  Future<void> login(String email, String password) async {
+  String emailGlob = "";
+  String passwordGlob = "";
+  String fullNameGlob = "";
+
+
+  ///Old One
+  // Future<void> login(String email, String password) async {
+  //   if (isLoading) return;
+  //   try {
+  //     isLoading = true;
+  //     print("LOGIN: $isLoading");
+  //     var r = await AuthRepo.login(email, password);
+  //     print("RESPNCE: ${r.data}");
+  //     print("RESPNCE: ${r.data["data"]}");
+  //     print("RESPNCE: ${r.isSuccessful}");
+  //     if (r.isSuccessful) {
+  //       print("Hello 1;");
+  //       user1 = UserModel1.fromJson(r.data["data"][0]);
+  //       print("Hello 2;");
+  //       Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
+  //       print("Hello 3;");
+  //       Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
+  //       print("Hello 4;");
+  //       Prefs.userId.set(r.data["data"][0]["user_id"]);
+  //       print("Hello 5;");
+  //       Prefs.isLoggedIn.set(true);
+  //       print("Hello 6;");
+  //       Prefs.email.set(r.data["data"][0]["email"]);
+  //       print("Hello 7;");
+  //       print("user model:::${user1?.toJson()}");
+  //       print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
+  //       Prefs.firstName.set(user1?.firstName??"");
+  //       Prefs.lastName.set(user1?.lastName??"");
+  //       Prefs.phone.set(user1?.phone??"");
+  //       Get.offAllNamed(Home.screenName);
+  //       print("Login Successful: \n\n${r.data}");
+  //     } else {
+  //       errorToastShow(r.data);
+  //     }
+  //   } catch (e) {}
+  //
+  //   isLoading = false;
+  //   print("LOGIN: $isLoading");
+  // }
+  // Future<void> signup(String firstName,String lastName,String phone,String dob,String username, String email, String password) async {
+  //   Prefs.accessToken.clear();
+  //   if (isLoading) return;
+  //   try {
+  //     isLoading = true;
+  //     print("signupsignupsignup: $isLoading");
+  //     var r = await AuthRepo.signUp(email, password, firstName, lastName, phone, dob, username);
+  //     print("RESPNCE: ${r.data}");
+  //     if (r.isSuccessful) {
+  //
+  //       Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
+  //       Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
+  //       Prefs.userId.set(r.data["data"][0]["user_id"]);
+  //       Prefs.isLoggedIn.set(true);
+  //       Prefs.email.set(r.data["data"][0]["email"]);
+  //       print("UserModel.fromJson");
+  //       user = UserModel.fromJson(r.data["data"][0]);
+  //       Prefs.firstName.set(user?.firstName??"");
+  //       Prefs.lastName.set(user?.lastName??"");
+  //       Get.offAllNamed(Home.screenName);
+  //       print("SignUp Successful: \n\n${r.data}");
+  //     } else {
+  //       errorToastShow(r.data);
+  //     }
+  //   } catch (e) {
+  //     print("object$e");
+  //   }
+  //
+  //   isLoading = false;
+  //   print("LOGIN: $isLoading");
+  // }
+  ///Old One
+  Future<void> login() async {
     if (isLoading) return;
     try {
       isLoading = true;
       print("LOGIN: $isLoading");
-      var r = await AuthRepo.login(email, password);
+      var r = await AuthRepo.login(emailGlob, passwordGlob);
       print("RESPNCE: ${r.data}");
       print("RESPNCE: ${r.data["data"]}");
       print("RESPNCE: ${r.isSuccessful}");
@@ -51,13 +127,13 @@ class AuthController extends BaseController {
     isLoading = false;
     print("LOGIN: $isLoading");
   }
-  Future<void> signup(String firstName,String lastName,String phone,String dob,String username, String email, String password) async {
+  Future<void> signup() async {
     Prefs.accessToken.clear();
     if (isLoading) return;
     try {
       isLoading = true;
       print("signupsignupsignup: $isLoading");
-      var r = await AuthRepo.signUp(email, password, firstName, lastName, phone, dob, username);
+      var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, "", "", "22-01-2001", emailGlob);
       print("RESPNCE: ${r.data}");
       if (r.isSuccessful) {
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moolah/screens/login/login.dart';
+import 'package:moolah/screens/login/screens/enter_email_login.dart';
 import 'package:moolah/screens/signup/signup.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
@@ -8,8 +9,10 @@ import 'package:moolah/util/common_widgets/common_appbar.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
 import 'package:moolah/util/common_widgets/common_text_field.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
+import 'package:moolah/util/images.dart';
 
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../signup/screens/enter_email.dart';
 
 class OnBoard extends StatefulWidget {
   static const screenName = "onboard";
@@ -24,7 +27,8 @@ class _OnBoardState extends State<OnBoard> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return CommonGradientBackground(child: SafeArea(
+    return CommonGradientBackground(
+        child: SafeArea(
       child: SizedBox(
         width: width,
         child: Column(
@@ -35,14 +39,25 @@ class _OnBoardState extends State<OnBoard> {
             verticalSpace(30),
             bigHeadingText("Moolah Guardians", color: AppColors.white),
             verticalSpace(20),
-            subHeadingText("Equipping Moolah Users with tools to  Secure, Monitor and Protect Moolah Devices", color: AppColors.white, textAlign: TextAlign.center, fontSize: 18),
-            verticalSpace(height*0.06),
-            CustomButton(text: "Sign Up", onTap: (){
-              Get.toNamed(SignUp.screenName);
-            }),
-            CustomButton(color: Colors.transparent, textColor: AppColors.white, text: "Login", onTap: (){
-              Get.toNamed(Login.screenName);
-            }),
+            subHeadingText(
+                "Equipping Moolah Users with tools to  Secure, Monitor and Protect Moolah Devices",
+                color: AppColors.white,
+                textAlign: TextAlign.center,
+                fontSize: 18),
+            verticalSpace(height * 0.06),
+            CustomButton(
+                text: "Sign Up",
+                onTap: () {
+                  Get.toNamed(EnterEmailSignUp.screenName);
+                }),
+            CustomButton(
+                color: Colors.transparent,
+                textColor: AppColors.white,
+                text: "Login",
+                onTap: () {
+                  Get.toNamed(EnterEmailLogin.screenName);
+                }),
+            googleButton()
           ],
         ),
       ),

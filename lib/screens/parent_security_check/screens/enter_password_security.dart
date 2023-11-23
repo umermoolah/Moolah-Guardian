@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:moolah/controllers/connectDeviceController.dart';
+import 'package:moolah/screens/parent_security_check/screens/enter_dob_security.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/common_widgets/CommonGradientBackground.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
@@ -10,22 +11,22 @@ import 'package:moolah/util/common_widgets/loader.dart';
 import 'package:moolah/util/customtoast.dart';
 import 'package:moolah/util/images.dart';
 
-import '../../util/colors.dart';
-import '../../util/common_widgets/common_appbar.dart';
-import '../../util/common_widgets/common_text_field.dart';
-import '../scan_barcode/scan_barcode.dart';
+import '../../../util/colors.dart';
+import '../../../util/common_widgets/common_appbar.dart';
+import '../../../util/common_widgets/common_text_field.dart';
+import '../../scan_barcode/scan_barcode.dart';
 
-class ParentSecurityCheck extends StatefulWidget {
-  static const screenName = "parentSecurityCheck";
-  const ParentSecurityCheck({Key? key}) : super(key: key);
+class EnterPasswordParentSecurityCheck extends StatefulWidget {
+  static const screenName = "enterPasswordParentSecurityCheck";
+  const EnterPasswordParentSecurityCheck({Key? key}) : super(key: key);
 
   @override
-  State<ParentSecurityCheck> createState() => _ParentSecurityCheckState();
+  State<EnterPasswordParentSecurityCheck> createState() => _EnterPasswordParentSecurityCheckState();
 }
 
-class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
+class _EnterPasswordParentSecurityCheckState extends State<EnterPasswordParentSecurityCheck> {
   DateTime? dateOfBirth;
-  TextEditingController emailController = TextEditingController();
+  // TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey<FormState>();
 
@@ -34,7 +35,7 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return CommonGradientBackground(child:
-        GetBuilder<ConnectDeviceController>(builder: (connectDeviceController) {
+    GetBuilder<ConnectDeviceController>(builder: (connectDeviceController) {
       return Loader(
         c: connectDeviceController,
         child: Column(
@@ -54,7 +55,7 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("Security Check", fontSize: 27),
+                        bigHeadingText("Parent Security Check", fontSize: 27),
                         verticalSpace(4),
                         subHeadingText(
                             "Please provide the following data for security"),
@@ -62,12 +63,12 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                         subHeadingText(
                             "purposes before syncing to your device. "),
                         verticalSpace(10),
+                        // CustomTextField(
+                        //     hintText: "Moolah Wallet Device Email",
+                        //     textEditingController: emailController,
+                        //     validators: Validators.email),
                         CustomTextField(
-                            hintText: "Moolah Wallet Device Email",
-                            textEditingController: emailController,
-                            validators: Validators.email),
-                        CustomTextField(
-                            hintText: "Moolah Wallet Device Password",
+                            hintText: "Kid Device Password",
                             textEditingController: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             validators: Validators.password),
@@ -124,27 +125,30 @@ class _ParentSecurityCheckState extends State<ParentSecurityCheck> {
                         // ),
                         verticalSpace(15),
                         CustomButton(
-                          text: "Submit",
+                          text: "Next",
                           margin: EdgeInsets.zero,
                           onTap: () async {
 
                             if (key.currentState!.validate()) {
-                            //   // if (dateOfBirth != null) {
-                            //     if (await connectDeviceController
-                            //         .parentSecurityCheck(
-                            //             kidEmail: emailController.text,
-                            //             kidPassword: passwordController.text
-                            //         )
-                            //     ) {
-                            //       Get.toNamed(ScanBarcode.screenName,
-                            //           // arguments: {
-                            //         // "kidDeviceAccountUserID":
-                            //       // }
-                            //       );
-                            //     }
-                            //   // }else{
-                            //   //   errorToast("Please enter date of birth");
-                            //   // }
+                              connectDeviceController.passwordGlob = passwordController.text;
+                              Get.toNamed(EnterDobParentSecurityCheck.screenName);
+                              // if (key.currentState!.validate()) {
+                              //   // if (dateOfBirth != null) {
+                              //   if (await connectDeviceController
+                              //       .parentSecurityCheck(
+                              //       kidEmail: emailController.text,
+                              //       kidPassword: passwordController.text
+                              //   )
+                              //   ) {
+                              //     Get.toNamed(ScanBarcode.screenName,
+                              //       // arguments: {
+                              //       // "kidDeviceAccountUserID":
+                              //       // }
+                              //     );
+                              //   }
+                              //   // }else{
+                              //   //   errorToast("Please enter date of birth");
+                              //   // }
                             }
                           },
                         )

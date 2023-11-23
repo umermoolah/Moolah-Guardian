@@ -16,6 +16,7 @@ import 'package:moolah/util/images.dart';
 
 import '../../helper/sharedHelper.dart';
 import '../../util/common_widgets/common_widgets.dart';
+import '../onboard/onboard.dart';
 
 class MainMenuProfile extends StatefulWidget {
   static const screenName = "main_menu_profile";
@@ -66,7 +67,7 @@ class _MainMenuProfileState extends State<MainMenuProfile> {
                         verticalSpace(20),
                         CustomButton(onTap: (){
                           Get.find<AuthController>().logout();
-                          Get.offAllNamed(Login.screenName);
+                          Get.offAllNamed(OnBoard.screenName);
                         },text: "Logout", color: AppColors.lightRed.withOpacity(0.2), textColor: AppColors.red,icon: AppImages.logout,notExpanded: true,margin: EdgeInsets.zero),
                         verticalSpace(10),
                       ],

@@ -9,16 +9,34 @@ class ConnectDeviceController extends BaseController {
 
   String kidDeviceAccountUserID = "";
 
-  Future<bool> parentSecurityCheck(
-      {
-        required String kidEmail,
-        required String kidPassword
-      }) async {
+  String emailGlob = "";
+  String passwordGlob = "";
+
+  // Future<bool> parentSecurityCheck(
+  //     {
+  //       required String kidEmail,
+  //       required String kidPassword
+  //     }) async {
+  //   kidDeviceAccountUserID = "";
+  //   isLoading = true;
+  //   ResponseModel res = await ConnectDeviceRepo.parentSecurityCheck(
+  //       kidEmail: kidEmail,
+  //       kidPassword: kidPassword
+  //   );
+  //   if(res.isSuccessful){
+  //     kidDeviceAccountUserID = res.data["kidDeviceAccountUserID"];
+  //   }
+  //   apiToast(res);
+  //   isLoading = false;
+  //   return res.isSuccessful;
+  // }
+
+  Future<bool> parentSecurityCheck() async {
     kidDeviceAccountUserID = "";
     isLoading = true;
     ResponseModel res = await ConnectDeviceRepo.parentSecurityCheck(
-        kidEmail: kidEmail,
-        kidPassword: kidPassword
+        kidEmail: emailGlob,
+        kidPassword: passwordGlob
     );
     if(res.isSuccessful){
       kidDeviceAccountUserID = res.data["kidDeviceAccountUserID"];

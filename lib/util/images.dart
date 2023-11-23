@@ -18,6 +18,8 @@ class AppImages {
   static String date = "$pathToCommonImages/date.svg";
   static String earningImage = "$pathToCommonImages/earning_image.png";
   static String comingSoon = "$pathToCommonImages/comming_soon.svg";
+  static String google = "$pathToCommonImages/google.svg";
+  static String googlePng = "$pathToCommonImages/google.png";
 
   ///HOME ICONS (SVG)
   static String messaging = "$pathToHomeImages/messaging.svg";

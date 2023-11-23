@@ -3,12 +3,20 @@ import 'package:get/get.dart';
 import 'package:moolah/screens/forgot_password/widget/check_your_email.dart';
 import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/screens/login/login.dart';
+import 'package:moolah/screens/login/screens/enter_email_login.dart';
+import 'package:moolah/screens/login/screens/enter_password_login.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/widget/password_reset.dart';
 import 'package:moolah/screens/main_menu_profile/screens/edit_profile/edit_profile.dart';
 import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
 import 'package:moolah/screens/parent_security_check/parent_security_check.dart';
+import 'package:moolah/screens/parent_security_check/screens/enter_dob_security.dart';
+import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
+import 'package:moolah/screens/parent_security_check/screens/enter_password_security.dart';
 import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
+import 'package:moolah/screens/signup/screens/enter_email.dart';
+import 'package:moolah/screens/signup/screens/enter_full_name.dart';
+import 'package:moolah/screens/signup/screens/enter_password.dart';
 import 'package:moolah/screens/signup/signup.dart';
 
 import '../screens/forgot_password/forgot_password.dart';
@@ -22,11 +30,19 @@ class RouteHelper {
     Splash.screenName: (_) => const Splash(),
     OnBoard.screenName: (_) => const OnBoard(),
     SignUp.screenName: (_) => const SignUp(),
+    EnterEmailSignUp.screenName: (_) => const EnterEmailSignUp(),
+    EnterFullNameSignUp.screenName: (_) => const EnterFullNameSignUp(),
+    EnterPasswordSignUp.screenName: (_) => const EnterPasswordSignUp(),
     Home.screenName: (_) => const Home(),
     Login.screenName: (_) => Login(fromSignup: Get.arguments?["fromSignup"] ?? false),
+    EnterEmailLogin.screenName: (_) => EnterEmailLogin(fromSignup: Get.arguments?["fromEnterEmailSignUp"] ?? false),
+    EnterPasswordLogin.screenName: (_) => EnterPasswordLogin(fromSignup: Get.arguments?["fromSignup"] ?? false),
     ScanBarcode.screenName: (_) => const ScanBarcode(),
     SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments["kidId"]),
     ParentSecurityCheck.screenName: (_) => const ParentSecurityCheck(),
+    EnterEmailParentSecurityCheck.screenName: (_) => const EnterEmailParentSecurityCheck(),
+    EnterPasswordParentSecurityCheck.screenName: (_) => const EnterPasswordParentSecurityCheck(),
+    EnterDobParentSecurityCheck.screenName: (_) => const EnterDobParentSecurityCheck(),
     MainMenuProfile.screenName: (_) => const MainMenuProfile(),
     Profile.screenName: (_) => const Profile(),
     EditProfile.screenName: (_) => const EditProfile(),
