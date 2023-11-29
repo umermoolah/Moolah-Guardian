@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:moolah/controllers/baseController.dart';
 import 'package:moolah/helper/models/user_model1.dart';
 import 'package:moolah/helper/repo/authRepo.dart';
@@ -16,6 +17,9 @@ class AuthController extends BaseController {
   String emailGlob = "";
   String passwordGlob = "";
   String fullNameGlob = "";
+  String phoneGlob = "";
+  String dobGlob = "";
+  String usernameGlob = "";
 
 
   ///Old One
@@ -133,7 +137,7 @@ class AuthController extends BaseController {
     try {
       isLoading = true;
       print("signupsignupsignup: $isLoading");
-      var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, "", "", "22-01-2001", emailGlob);
+      var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, "", phoneGlob, dobGlob, usernameGlob);
       print("RESPNCE: ${r.data}");
       if (r.isSuccessful) {
 
@@ -157,6 +161,19 @@ class AuthController extends BaseController {
 
     isLoading = false;
     print("LOGIN: $isLoading");
+  }
+
+  Future<void> googleSignIn() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+      ],
+    );
+    try {
+      await _googleSignIn.signIn().then((value) => print(value));
+    } catch (error) {
+      print(error);
+    }
   }
 
 

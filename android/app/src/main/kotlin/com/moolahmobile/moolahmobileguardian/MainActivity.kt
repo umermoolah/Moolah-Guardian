@@ -1,4 +1,4 @@
-package com.example.moolah
+package com.moolahmobile.moolahmobileguardian
 
 import io.flutter.embedding.android.FlutterActivity
 

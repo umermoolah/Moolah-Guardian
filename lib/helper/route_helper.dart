@@ -14,9 +14,12 @@ import 'package:moolah/screens/parent_security_check/screens/enter_dob_security.
 import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
 import 'package:moolah/screens/parent_security_check/screens/enter_password_security.dart';
 import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
+import 'package:moolah/screens/signup/screens/enter_dob.dart';
 import 'package:moolah/screens/signup/screens/enter_email.dart';
 import 'package:moolah/screens/signup/screens/enter_full_name.dart';
 import 'package:moolah/screens/signup/screens/enter_password.dart';
+import 'package:moolah/screens/signup/screens/enter_phone_number.dart';
+import 'package:moolah/screens/signup/screens/enter_username.dart';
 import 'package:moolah/screens/signup/signup.dart';
 
 import '../screens/forgot_password/forgot_password.dart';
@@ -33,6 +36,9 @@ class RouteHelper {
     EnterEmailSignUp.screenName: (_) => const EnterEmailSignUp(),
     EnterFullNameSignUp.screenName: (_) => const EnterFullNameSignUp(),
     EnterPasswordSignUp.screenName: (_) => const EnterPasswordSignUp(),
+    EnterPhoneNumberSignUp.screenName: (_) => const EnterPhoneNumberSignUp(),
+    EnterDobSignUp.screenName: (_) => const EnterDobSignUp(),
+    EnterUsernameSignUp.screenName: (_) => const EnterUsernameSignUp(),
     Home.screenName: (_) => const Home(),
     Login.screenName: (_) => Login(fromSignup: Get.arguments?["fromSignup"] ?? false),
     EnterEmailLogin.screenName: (_) => EnterEmailLogin(fromSignup: Get.arguments?["fromEnterEmailSignUp"] ?? false),

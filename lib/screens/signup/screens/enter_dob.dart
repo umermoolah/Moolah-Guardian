@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:moolah/screens/login/login.dart';
 import 'package:moolah/screens/signup/screens/enter_password.dart';
-import 'package:moolah/screens/signup/screens/enter_phone_number.dart';
+import 'package:moolah/screens/signup/screens/enter_username.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
 import 'package:moolah/util/common_widgets/loader.dart';
@@ -17,16 +17,16 @@ import '../../../util/common_widgets/common_text_field.dart';
 import '../../../util/common_widgets/common_widgets.dart';
 import '../../home/home.dart';
 
-class EnterFullNameSignUp extends StatefulWidget {
-  static const screenName = "EnterFullNameSignUp";
-  const EnterFullNameSignUp({Key? key}) : super(key: key);
+class EnterDobSignUp extends StatefulWidget {
+  static const screenName = "enterDobSignUp";
+  const EnterDobSignUp({Key? key}) : super(key: key);
 
   @override
-  State<EnterFullNameSignUp> createState() => _EnterFullNameSignUpState();
+  State<EnterDobSignUp> createState() => _EnterDobSignUpState();
 }
 
-class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
-  TextEditingController nameController = TextEditingController();
+class _EnterDobSignUpState extends State<EnterDobSignUp> {
+  // TextEditingController nameController = TextEditingController();
   // TextEditingController lastNameController = TextEditingController();
   // TextEditingController usernameController = TextEditingController();
   // TextEditingController emailController = TextEditingController();
@@ -34,9 +34,9 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
   // TextEditingController confirmPasswordController = TextEditingController();
   // String phone = "";
   // String withoutCCPhone = "";
-  // DateTime? dateOfBirth;
+  DateTime? dateOfBirth;
   // bool phoneError = false;
-  // bool dateError = false;
+  bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
   // GlobalKey<FormState> key1 = GlobalKey<FormState>();
 
@@ -74,11 +74,11 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
                           //   children: [
                           //     Expanded(
                           //         child:
-                          CustomTextField(
-                            hintText: "Full Name",
-                            validators: Validators.notEmpty,
-                            textEditingController: nameController,
-                          ),
+                          // CustomTextField(
+                          //   hintText: "Full Name",
+                          //   validators: Validators.notEmpty,
+                          //   textEditingController: nameController,
+                          // ),
                           //         ),
                           //     SizedBox(
                           //       width: 10,
@@ -149,64 +149,68 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
                           //   child: errorMsg("Please enter Phone Number"),
                           // ) :const SizedBox.shrink(),
                           // verticalSpace(15),
-                          // subHeadingText("Date of Birth",
-                          //     fontWeight: FontWeight.w500,
-                          //     color: dateError?Colors.red:Colors.grey),
-                          // verticalSpace(10),
-                          // customGestureDetecter(
-                          //   onTap: () async {
-                          //     var tempDate = await showDatePicker(
-                          //         context: context,
-                          //         initialDate:
-                          //         DateTime(DateTime.now().year - 20),
-                          //         firstDate: DateTime(1940),
-                          //         lastDate:
-                          //         DateTime(DateTime.now().year - 20),
-                          //         builder: (context, child) {
-                          //           return Theme(
-                          //             data: Theme.of(context).copyWith(
-                          //               colorScheme: ColorScheme.light(
-                          //                 primary: AppColors
-                          //                     .normalGreen, // header background color
-                          //                 onPrimary: AppColors
-                          //                     .black, // header text color
-                          //                 onSurface: AppColors
-                          //                     .normalGreen, // body text color
-                          //               ),
-                          //               textButtonTheme: TextButtonThemeData(
-                          //                 style: TextButton.styleFrom(
-                          //                   foregroundColor: Colors
-                          //                       .black, // button text color
-                          //                 ),
-                          //               ),
-                          //             ),
-                          //             child: child!,
-                          //           );
-                          //         });
-                          //     if(tempDate!=null){
-                          //       dateOfBirth = tempDate;
-                          //       dateError = false;
-                          //     }
-                          //     setState(() {});
-                          //   },
-                          //   child: roundedContainer(
-                          //       borderRadius: 10,
-                          //       border: dateError?Border.all(color: AppColors.red):null,
-                          //       padding: EdgeInsets.symmetric(
-                          //           vertical: 20, horizontal: 10),
-                          //       color: AppColors.lightGrey,
-                          //       child: Row(
-                          //         children: [
-                          //           regularText(dateOfBirth == null
-                          //               ? "__\\__\\___"
-                          //               : getSortedDate(dateOfBirth)),
-                          //         ],
-                          //       )),
-                          // ),
-                          // dateError?Padding(
-                          //   padding: const EdgeInsets.only(left: 10.0, top: 8),
-                          //   child: errorMsg("Please enter Date of Birth"),
-                          // ):const SizedBox.shrink(),
+                          subHeadingText("Date of Birth",
+                              fontWeight: FontWeight.w500,
+                              color: dateError ? Colors.red : Colors.grey),
+                          verticalSpace(10),
+                          customGestureDetecter(
+                            onTap: () async {
+                              var tempDate = await showDatePicker(
+                                  context: context,
+                                  initialDate:
+                                      DateTime(DateTime.now().year - 20),
+                                  firstDate: DateTime(1940),
+                                  lastDate: DateTime(DateTime.now().year - 20),
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: AppColors
+                                              .normalGreen, // header background color
+                                          onPrimary: AppColors
+                                              .black, // header text color
+                                          onSurface: AppColors
+                                              .normalGreen, // body text color
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: Colors
+                                                .black, // button text color
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  });
+                              if (tempDate != null) {
+                                dateOfBirth = tempDate;
+                                dateError = false;
+                              }
+                              setState(() {});
+                            },
+                            child: roundedContainer(
+                                borderRadius: 10,
+                                border: dateError
+                                    ? Border.all(color: AppColors.red)
+                                    : null,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: 10),
+                                color: AppColors.lightGrey,
+                                child: Row(
+                                  children: [
+                                    regularText(dateOfBirth == null
+                                        ? "__\\__\\___"
+                                        : getSortedDate(dateOfBirth)),
+                                  ],
+                                )),
+                          ),
+                          dateError
+                              ? Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 10.0, top: 8),
+                                  child: errorMsg("Please enter Date of Birth"),
+                                )
+                              : const SizedBox.shrink(),
                           // verticalSpace(10),
                           // CustomTextField(
                           //   hintText: "Username",
@@ -242,9 +246,17 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
                               text: "Next",
                               margin: EdgeInsets.zero,
                               onTap: () {
-                                if (key.currentState!.validate()) {
-                                  controller.fullNameGlob = nameController.text.trim();
-                                  Get.toNamed(EnterPhoneNumberSignUp.screenName);
+                                if (dateOfBirth == null) {
+                                  dateError = true;
+                                }
+                                setState(() {});
+                                if (key.currentState!.validate() &&
+                                    !dateError) {
+                                  controller.dobGlob = dateOfBirth != null
+                                      ? getSortedDate(dateOfBirth)
+                                      : "";
+                                  // controller.fullNameGlob = nameController.text.trim();
+                                  Get.toNamed(EnterUsernameSignUp.screenName);
                                   // Get.toNamed(EnterPasswordSignUp.screenName);
                                 }
                               }),

@@ -57,7 +57,7 @@ class _EnterEmailSignUpState extends State<EnterEmailSignUp> {
                       borderRadiusWhole: BorderRadius.circular(13).copyWith(
                           bottomRight: Radius.zero, bottomLeft: Radius.zero),
                       padding:
-                      const EdgeInsets.all(25).copyWith(bottom: 0, left: 15),
+                      const EdgeInsets.all(25).copyWith(bottom: 0, left: 15, right: 15),
                       margin: const EdgeInsets.all(10).copyWith(bottom: 0),
                       width: width,
                       child: SingleChildScrollView(

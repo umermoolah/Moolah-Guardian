@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:moolah/screens/login/login.dart';
+import 'package:moolah/screens/signup/screens/enter_dob.dart';
+import 'package:moolah/screens/signup/screens/enter_password.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
 import 'package:moolah/util/common_widgets/loader.dart';
@@ -15,28 +17,28 @@ import '../../../util/common_widgets/common_text_field.dart';
 import '../../../util/common_widgets/common_widgets.dart';
 import '../../home/home.dart';
 
-class EnterPasswordSignUp extends StatefulWidget {
-  static const screenName = "EnterPasswordSignUp";
-  const EnterPasswordSignUp({Key? key}) : super(key: key);
+class EnterPhoneNumberSignUp extends StatefulWidget {
+  static const screenName = "enterPhoneNumberSignUp";
+  const EnterPhoneNumberSignUp({Key? key}) : super(key: key);
 
   @override
-  State<EnterPasswordSignUp> createState() => _EnterPasswordSignUpState();
+  State<EnterPhoneNumberSignUp> createState() => _EnterPhoneNumberSignUpState();
 }
 
-class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
-  // TextEditingController firstNameController = TextEditingController();
+class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
+  // TextEditingController nameController = TextEditingController();
   // TextEditingController lastNameController = TextEditingController();
   // TextEditingController usernameController = TextEditingController();
   // TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
-  // String phone = "";
-  // String withoutCCPhone = "";
+  // TextEditingController passwordController = TextEditingController();
+  // TextEditingController confirmPasswordController = TextEditingController();
+  String phone = "";
+  String withoutCCPhone = "";
   // DateTime? dateOfBirth;
-  // bool phoneError = false;
+  bool phoneError = false;
   // bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
-  // GlobalKey<FormState> key1 = GlobalKey<FormState>();
+  GlobalKey<FormState> key1 = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +68,18 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
                             children: [
                               bigHeadingText("Signup"),
                               verticalSpace(5),
-                              subHeadingText(
-                                  "Start Securing your Moolah Devices"),
+                              subHeadingText("Start Securing your Moolah Devices"),
                               verticalSpace(20),
                               // Row(
                               //   children: [
                               //     Expanded(
-                              //         child: CustomTextField(
-                              //           hintText: "First Name",
-                              //           validators: Validators.notEmpty,
-                              //           textEditingController: firstNameController,
-                              //         )),
+                              //         child:
+                              // CustomTextField(
+                              //   hintText: "Full Name",
+                              //   validators: Validators.notEmpty,
+                              //   textEditingController: nameController,
+                              // ),
+                              //         ),
                               //     SizedBox(
                               //       width: 10,
                               //     ),
@@ -89,62 +92,62 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
                               //   ],
                               // ),
                               // verticalSpace(15),
-                              // subHeadingText("Phone Number",
-                              //     fontWeight: FontWeight.w500,
-                              //     color: phoneError?Colors.red:Colors.grey),
-                              // verticalSpace(10),
-                              // IntlPhoneField(
-                              //   key: key1,
-                              //   inputFormatters: <TextInputFormatter>[
-                              //     FilteringTextInputFormatter.digitsOnly
-                              //   ],
-                              //   keyboardType: TextInputType.number,
-                              //   decoration: InputDecoration(
-                              //     counter: const SizedBox.shrink(),
-                              //     border: phoneError?errorBorder:border,
-                              //     enabledBorder: phoneError?errorBorder:border,
-                              //     focusedBorder: phoneError?errorBorder:border,
-                              //     disabledBorder: phoneError?errorBorder:border,
-                              //     errorBorder: errorBorder,
-                              //     focusedErrorBorder: phoneError?errorBorder:border,
-                              //     fillColor: AppColors.lightGrey,
-                              //     filled: true,
-                              //     errorStyle: const TextStyle(height: 0),
-                              //     errorText: null,
-                              //   ),
-                              //   onChanged: (number) {
-                              //     phone = number.completeNumber;
-                              //     withoutCCPhone = number.number;
-                              //     print("phone: $phone");
-                              //     print("withoutCCPhone: $withoutCCPhone");
-                              //     try{
-                              //       if(number.isValidNumber()){
-                              //         phoneError = false;
-                              //       }else{
-                              //         phoneError = true;
-                              //       }
-                              //     }catch(e){
-                              //       phoneError = true;
-                              //     }
-                              //     setState(() {
-                              //
-                              //     });
-                              //   },
-                              //   validator: (number) {
-                              //     if (number != null) {
-                              //       try {
-                              //         if (!number.isValidNumber()) {
-                              //           return "";
-                              //         }
-                              //       } catch (e) {}
-                              //     }
-                              //     return null;
-                              //   },
-                              // ),
-                              // phoneError&&withoutCCPhone.isEmpty?Padding(
-                              //   padding: const EdgeInsets.only(left: 12),
-                              //   child: errorMsg("Please enter Phone Number"),
-                              // ) :const SizedBox.shrink(),
+                              subHeadingText("Phone Number",
+                                  fontWeight: FontWeight.w500,
+                                  color: phoneError?Colors.red:Colors.grey),
+                              verticalSpace(10),
+                              IntlPhoneField(
+                                key: key1,
+                                inputFormatters: <TextInputFormatter>[
+                                  FilteringTextInputFormatter.digitsOnly
+                                ],
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  counter: const SizedBox.shrink(),
+                                  border: phoneError?errorBorder:border,
+                                  enabledBorder: phoneError?errorBorder:border,
+                                  focusedBorder: phoneError?errorBorder:border,
+                                  disabledBorder: phoneError?errorBorder:border,
+                                  errorBorder: errorBorder,
+                                  focusedErrorBorder: phoneError?errorBorder:border,
+                                  fillColor: AppColors.lightGrey,
+                                  filled: true,
+                                  errorStyle: const TextStyle(height: 0),
+                                  errorText: null,
+                                ),
+                                onChanged: (number) {
+                                  phone = number.completeNumber;
+                                  withoutCCPhone = number.number;
+                                  print("phone: $phone");
+                                  print("withoutCCPhone: $withoutCCPhone");
+                                  try{
+                                    if(number.isValidNumber()){
+                                      phoneError = false;
+                                    }else{
+                                      phoneError = true;
+                                    }
+                                  }catch(e){
+                                    phoneError = true;
+                                  }
+                                  setState(() {
+
+                                  });
+                                },
+                                validator: (number) {
+                                  if (number != null) {
+                                    try {
+                                      if (!number.isValidNumber()) {
+                                        return "";
+                                      }
+                                    } catch (e) {}
+                                  }
+                                  return null;
+                                },
+                              ),
+                              phoneError&&withoutCCPhone.isEmpty?Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: errorMsg("Please enter Phone Number"),
+                              ) :const SizedBox.shrink(),
                               // verticalSpace(15),
                               // subHeadingText("Date of Birth",
                               //     fontWeight: FontWeight.w500,
@@ -218,31 +221,37 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
                               //   validators: Validators.email,
                               //   textEditingController: emailController,
                               // ),
-                              // verticalSpace(25),
-                              ///
-                              CustomTextField(
-                                hintText: "Password",
-                                textInputType: TextInputType.visiblePassword,
-                                validators: Validators.passwordForSignup,
-                                textEditingController: passwordController,
-                                onChange: (c){setState(() {});},
-                              ),
-                              CustomTextField(
-                                hintText: "Confirm Password",
-                                textInputType: TextInputType.visiblePassword,
-                                validators: Validators.confirmPassword,
-                                textEditingController: confirmPasswordController,
-                                passwordForConfirmPassword:
-                                passwordController.text,
-                              ),
-                              verticalSpace(30),
+                              verticalSpace(25),
+                              // CustomTextField(
+                              //   hintText: "Password",
+                              //   textInputType: TextInputType.visiblePassword,
+                              //   validators: Validators.passwordForSignup,
+                              //   textEditingController: passwordController,
+                              //   onChange: (c){setState(() {});},
+                              // ),
+                              // CustomTextField(
+                              //   hintText: "Confirm Password",
+                              //   textInputType: TextInputType.visiblePassword,
+                              //   validators: Validators.confirmPassword,
+                              //   textEditingController: confirmPasswordController,
+                              //   passwordForConfirmPassword:
+                              //   passwordController.text,
+                              // ),
+                              // verticalSpace(30),
                               CustomButton(
-                                  text: "Finish",
+                                  text: "Next",
                                   margin: EdgeInsets.zero,
                                   onTap: () {
-                                    if (key.currentState!.validate()){
-                                      controller.passwordGlob = passwordController.text.trim();
-                                      controller.signup();
+                                    if(withoutCCPhone.isEmpty){
+                                      phoneError = true;
+                                    }
+                                    setState(() {
+
+                                    });
+                                    if (key.currentState!.validate() && (key1.currentState?.validate()??true) && !phoneError) {                                      // controller.fullNameGlob = nameController.text.trim();
+                                      controller.phoneGlob = phone;
+                                      Get.toNamed(EnterDobSignUp.screenName);
+                                      // Get.toNamed(EnterPasswordSignUp.screenName);
                                     }
                                   }),
                               verticalSpace(25),
@@ -252,8 +261,9 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
                               //     subHeadingText("Already have an account?"),
                               //     customGestureDetecter(
                               //         onTap: () {
-                              //           Get.toNamed(Login.screenName,
-                              //               arguments: {"fromEnterPasswordSignUp": true});
+                              //           Get.toNamed(Login.screenName, arguments: {
+                              //             "fromEnterFullNameSignUp": true
+                              //           });
                               //         },
                               //         child: subHeadingText(" Login here",
                               //             fontWeight: FontWeight.bold,
@@ -275,8 +285,6 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
   }
 
   Widget errorMsg(String s) {
-    return regularText(s, color: AppColors.red,fontSize: 11);
+    return regularText(s, color: AppColors.red, fontSize: 11);
   }
-
-
 }

@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "329274177682",
+    "project_id": "moolah-system",
+    "storage_bucket": "moolah-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329274177682:android:5ac461b354f7cb154f8e4b",
+        "android_client_info": {
+          "package_name": "com.moolahmobile.moolahmobileguardian"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPgtKNzMGy_ynzSy-Q4CwmfrdeyxumqrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329274177682:android:de04d2caf12815754f8e4b",
+        "android_client_info": {
+          "package_name": "com.moolahmobile.moolahmobilehomescreen"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPgtKNzMGy_ynzSy-Q4CwmfrdeyxumqrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329274177682:android:491111bafb74bed94f8e4b",
+        "android_client_info": {
+          "package_name": "com.moolahmobile.moolahmobilesystem"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPgtKNzMGy_ynzSy-Q4CwmfrdeyxumqrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:329274177682:android:67870001f4598ea04f8e4b",
+        "android_client_info": {
+          "package_name": "com.moolahmobile.moolahmobilewallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPgtKNzMGy_ynzSy-Q4CwmfrdeyxumqrQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "329274177682-qoqp5g9k45f4fvtf9hdebr1bcr16sdsp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

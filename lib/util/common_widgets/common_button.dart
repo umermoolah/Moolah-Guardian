@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:moolah/controllers/authController.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
@@ -85,6 +87,6 @@ Widget googleButton(){
       textColor: AppColors.black,
       text: "Sign in with Google",
       onTap: () {
-        // Get.toNamed(Login.screenName);
+        Get.find<AuthController>().googleSignIn();
       });
 }
