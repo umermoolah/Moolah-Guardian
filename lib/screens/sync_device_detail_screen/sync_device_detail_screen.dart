@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:ironsource_mediation/ironsource_mediation.dart';
 import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/blacklist/blacklist_screen.dart';
 import 'package:moolah/screens/chat/chat_list_screen.dart';
+import 'package:moolah/screens/sync_device_detail_screen/screens/live_location.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_appbar.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
@@ -62,7 +64,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               verticalSpace(40),
               commonAppBar(
                   heading:
-                  "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
+                      "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(10.0).copyWith(bottom: 0),
@@ -82,7 +84,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                               children: [
                                 tabBar(),
                                 if (tabController?.index == 0)
-                                // section(homeController),
+                                  // section(homeController),
                                   if (tabController?.index != 2)
                                     CustomButton(
                                       text: headingText,
@@ -92,7 +94,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                              const BlackListScreen(),
+                                                  const BlackListScreen(),
                                             ),
                                           );
                                         }
@@ -104,7 +106,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                 else if (tabController?.index == 1) //1
                                   urlSection()
                                 else if (tabController?.index == 2) //2
-                                    messagesSection(),
+                                  messagesSection(),
                                 // if(tabController?.index != 0)
                                 //   comingSoon()
                               ],
@@ -136,9 +138,9 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                   children: [
                     subHeadingText(
                         homeController
-                            .getSelectedKid(widget.kidId)
-                            .appUsage
-                            ?.deviceDailyAvgUsageChange ??
+                                .getSelectedKid(widget.kidId)
+                                .appUsage
+                                ?.deviceDailyAvgUsageChange ??
                             "",
                         color: AppColors.normalGreen),
                     verticalSpace(5)
@@ -154,43 +156,44 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
 
             ///FOR PRODUCTION
             for (int i = 0;
-            i <
-                ((homeController
-                    .getSelectedKid(widget.kidId)
-                    .deviceDetail
-                    ?.data
-                    ?.realTimeStats
-                    ?.appUsageData
-                    ?.length)
-                    ?.toInt() ??
-                    0) /*.appUsage!.listOfInstalledApps!.length*/;
-            i++)
+                i <
+                    ((homeController
+                                .getSelectedKid(widget.kidId)
+                                .deviceDetail
+                                ?.data
+                                ?.realTimeStats
+                                ?.appUsageData
+                                ?.length)
+                            ?.toInt() ??
+                        0) /*.appUsage!.listOfInstalledApps!.length*/;
+                i++)
               ((homeController
-                  .getSelectedKid(widget.kidId)
-                  .deviceDetail!
-                  .data!
-                  .realTimeStats!
-                  .appUsageData![i]
-                  .mFgUsageTime ??
-                  0) <
-                  1000)
+                              .getSelectedKid(widget.kidId)
+                              .deviceDetail!
+                              .data!
+                              .realTimeStats!
+                              .appUsageData![i]
+                              .mFgUsageTime ??
+                          0) <
+                      1000)
                   ? const SizedBox()
                   : appItem(
-                homeController
-                    .getSelectedKid(widget.kidId)
-                    .deviceDetail!
-                    .data!
-                    .realTimeStats!
-                    .appUsageData![i],
-                // totalTime: homeController
-                //         .getSelectedKid(widget.kidId)
-                //         .deviceDetail!
-                //         .data!
-                //         .realTimeStats!
-                //         .totalAppUsageData
-                //         ?.toInt() ??
-                //     0
-              ),
+                      homeController
+                          .getSelectedKid(widget.kidId)
+                          .deviceDetail!
+                          .data!
+                          .realTimeStats!
+                          .appUsageData![i],
+                      // totalTime: homeController
+                      //         .getSelectedKid(widget.kidId)
+                      //         .deviceDetail!
+                      //         .data!
+                      //         .realTimeStats!
+                      //         .totalAppUsageData
+                      //         ?.toInt() ??
+                      //     0
+                    ),
+
             ///FOR PRODUCTION
             ///FOR Staging
             // for(int i=0;i<homeController.getSelectedKid(widget.kidId).appUsage!.listOfInstalledApps!.length;i++)
@@ -339,9 +342,11 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             icon: SvgPicture.asset('assets/images/home/more.svg'),
             itemBuilder: (context) => [
               PopupMenuItem(
-                onTap: (){
+                onTap: () {
                   print("deleteApp");
-                  Get.find<HomeController>().deleteApp(kidId: widget.kidId, appId: listOfInstalledApp.appId??0);
+                  Get.find<HomeController>().deleteApp(
+                      kidId: widget.kidId,
+                      appId: listOfInstalledApp.appId ?? 0);
                 },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
@@ -433,7 +438,8 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   }
 
   Widget percentageContainer(
-      Color color, String icon, String text, String value, String t) {
+      Color color, String icon, String text, String value, String t,
+      {bool otherOne = false}) {
     return Expanded(
       child: roundedContainer(
           padding: const EdgeInsets.all(7),
@@ -445,7 +451,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                 children: [
                   roundedContainer(
                     padding:
-                    const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 5),
                     color: color,
                     child: SvgPicture.asset(
                       icon,
@@ -453,21 +459,30 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     ),
                   ),
                   horizontalSpace(3),
-                  subHeadingText(text, fontSize: 10),
+                  if (otherOne)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10.0),
+                      child: regularText(text, fontSize: 15,fontWeight: FontWeight.w600),
+                    )
+                  else
+                    subHeadingText(text, fontSize: 10),
                 ],
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  bigHeadingText(value, fontSize: 20),
-                  Column(
-                    children: [
-                      bigHeadingText(t, fontSize: 12),
-                      verticalSpace(2)
-                    ],
-                  ),
-                ],
-              )
+              if (!otherOne)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    bigHeadingText(value, fontSize: 20),
+                    Column(
+                      children: [
+                        bigHeadingText(t, fontSize: 12),
+                        verticalSpace(2)
+                      ],
+                    ),
+                  ],
+                )
+              else
+                const Icon(Icons.arrow_forward_ios, size: 15,)
             ],
           )),
     );
@@ -490,12 +505,12 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     width: 55,
                     child: ClipRRect(
                         child: ClipRRect(
-                          child: kid.kidPic == null
-                              ? ClipRRect(
+                      child: kid.kidPic == null
+                          ? ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
                               child: SvgPicture.asset(AppImages.person))
-                              : Image.network(kid.kidPic!),
-                        )),
+                          : Image.network(kid.kidPic!),
+                    )),
                   ),
                   horizontalSpace(10),
                   Column(
@@ -545,6 +560,21 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                   kid.dataUsageStatus ?? "", "GB")
             ],
           ),
+          verticalSpace(10),
+          customGestureDetecter(
+            onTap: () {
+              Get.toNamed(LiveLocation.screenName);
+            },
+            child: Row(
+              children: [
+
+                  percentageContainer(AppColors.purple, AppImages.location,
+                      "View Last Location", kid.batteryStatus ?? "", "%",
+                      otherOne: true),
+
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -553,19 +583,19 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   textForTab(String s, bool condition) {
     return condition
         ? Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: regularText(s,
-          color: AppColors.white,
-          fontWeight: FontWeight.w500,
-          fontSize: 10),
-    )
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: regularText(s,
+                color: AppColors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 10),
+          )
         : Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: regularText(s,
-          color: AppColors.normalGreen,
-          fontWeight: FontWeight.w500,
-          fontSize: 10),
-    );
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: regularText(s,
+                color: AppColors.normalGreen,
+                fontWeight: FontWeight.w500,
+                fontSize: 10),
+          );
   }
 
   Widget tabBar() {
@@ -576,7 +606,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
       color: AppColors.veryVeryLightGreen,
       child: TabBar(
           overlayColor:
-          MaterialStateColor.resolveWith((states) => AppColors.lightGreen),
+              MaterialStateColor.resolveWith((states) => AppColors.lightGreen),
           indicator: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               color: AppColors.normalGreen),
@@ -618,7 +648,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           roundedContainer(
               borderRadius: 30,
               color:
-              switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
+                  switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
               height: size * 0.65,
               width: size * 1.2),
           Stack(
@@ -653,10 +683,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             type: MaterialType.transparency,
             child: Center(
               child: roundedContainer(
-                // height: 100,
+                  // height: 100,
                   margin: const EdgeInsets.all(30),
                   padding:
-                  const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
+                      const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
                   color: Colors.white,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -682,8 +712,8 @@ and Wallet from kid devices here.
                       customSwitch(
                           showM: false,
                           value: Get.find<HomeController>()
-                              .getSelectedKid(widget.kidId)
-                              .walletEnabled ??
+                                  .getSelectedKid(widget.kidId)
+                                  .walletEnabled ??
                               false),
                     ],
                   )),

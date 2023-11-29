@@ -48,6 +48,7 @@ dependencies:
   onesignal_flutter: ^5.0.4
   google_sign_in: ^6.1.6
   ironsource_mediation: ^1.2.0
+  google_maps_flutter: ^2.5.0
 #  flutter_ironsource_x: ^2.7.4
 
 dev_dependencies:

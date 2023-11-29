@@ -21,6 +21,7 @@ import 'package:moolah/screens/signup/screens/enter_password.dart';
 import 'package:moolah/screens/signup/screens/enter_phone_number.dart';
 import 'package:moolah/screens/signup/screens/enter_username.dart';
 import 'package:moolah/screens/signup/signup.dart';
+import 'package:moolah/screens/sync_device_detail_screen/screens/live_location.dart';
 
 import '../screens/forgot_password/forgot_password.dart';
 import '../screens/main_menu_profile/main_menu_profile.dart';
@@ -56,5 +57,6 @@ class RouteHelper {
     PasswordReset.screenName: (_) => const PasswordReset(),
     ForgotPassword.screenName: (_) => const ForgotPassword(),
     CheckYourEmail.screenName: (_) => const CheckYourEmail(),
+    LiveLocation.screenName: (_) => const LiveLocation(),
   };
 }

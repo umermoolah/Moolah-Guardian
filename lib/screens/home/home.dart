@@ -54,182 +54,160 @@ class _HomeState extends State<Home> {
         child: GetBuilder<HomeController>(
           builder: (homeController) {
             return GetBuilder<AuthController>(builder: (con) {
-      return Stack(
-        children: [
-          Column(
-                children: [
-                  verticalSpace(40),
-                  verticalSpace(height * 0.03),
-                  Expanded(
-                    child: roundedContainer(
-                        borderRadiusWhole: BorderRadius.circular(13).copyWith(
-                            bottomRight: Radius.zero, bottomLeft: Radius.zero),
-                        padding: const EdgeInsets.all(25)
-                            .copyWith(bottom: 0, left: 20, right: 20),
-                        margin: const EdgeInsets.all(10).copyWith(bottom: 0),
-                        width: width,
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 30,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    top: 2,
-                                    left: 0,
-                                    right: 0,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        subHeadingText(
-                                            "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500),
-                                        subHeadingText(Prefs.firstName.get(),
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.black)
-                                      ],
-                                    ),
-                                  ),
-                                  /// For Now
-                                  // Positioned(
-                                  //     right: 0,
-                                  //     top: 0,
-                                  //     bottom: 0,
-                                  //     child: InkWell(
-                                  //       onTap: () {
-                                  //         Navigator.push(
-                                  //           context,
-                                  //           MaterialPageRoute(
-                                  //             builder: (_) => const ChatListScreen(),
-                                  //           ),
-                                  //         );
-                                  //       },
-                                  //       child: Stack(
-                                  //         children: [
-                                  //           SvgPicture.asset(AppImages.messaging),
-                                  //           roundedContainer(
-                                  //               color: Colors.red,
-                                  //               height: 15,
-                                  //               width: 15,
-                                  //               child: Center(
-                                  //                   child: regularText("1",
-                                  //                       fontSize: 10,
-                                  //                       color: AppColors.white)))
-                                  //         ],
-                                  //       ),
-                                  //     ))
-                                  /// /// /// /// /// ///
-                                  Positioned(
-                                    top: 0,
-                                      left: 0,
-                                      child: customGestureDetecter(
-                                        onTap: (){
-                                          Get.toNamed(MainMenuProfile.screenName);
-                                        },
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
-                                          child: SvgPicture.asset(AppImages.menu),
-                                        ),
-                                      ))
-                                ],
-                              ),
-                            ),
-                            verticalSpace(30),
-                            customGestureDetecter(
-                              onTap: (){
-                                // Get.toNamed(MainMenuProfile.screenName);
-                              },
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                      borderRadius: BorderRadius.circular(1000),
-                                      child: SvgPicture.asset(AppImages.person)),
-                                  verticalSpace(15),
-                                  bigSubHeading(
-                                      "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "Your Name" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
-                                ],
-                              ),
-                            ),
-                            verticalSpace(15),
-                            CustomButton(
-                                text: "Connect a Moolah Device",
-                                notExpanded: true,
-                                icon: AppImages.scanBarcode,
-                                onTap: () {
-                                  // Get.find<AuthController>().refreshToken();
-                                  // Get.toNamed(ScanBarcode.screenName);
-                                  Get.find<AuthController>().refreshToken();
-                                  Get.toNamed(EnterEmailParentSecurityCheck.screenName);
-                                  // Get.toNamed(ParentSecurityCheck.screenName);
-                                }),
-                            verticalSpace(height * 0.07),
-                            Align(
-                                alignment: Alignment.centerLeft,
-                                child: bigSubHeading("Sync Devices (${homeController.connectedKids.length})")),
-                            Expanded(
-                              child: SingleChildScrollView(
-                                child: Column(
+      return Column(
+            children: [
+              verticalSpace(40),
+              verticalSpace(height * 0.03),
+              Expanded(
+                child: roundedContainer(
+                    borderRadiusWhole: BorderRadius.circular(13).copyWith(
+                        bottomRight: Radius.zero, bottomLeft: Radius.zero),
+                    padding: const EdgeInsets.all(25)
+                        .copyWith(bottom: 0, left: 20, right: 20),
+                    margin: const EdgeInsets.all(10).copyWith(bottom: 0),
+                    width: width,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: 2,
+                                left: 0,
+                                right: 0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    for(int i=0;i<homeController.connectedKids.length;i++)
-                                      SyncDevice(kidId: homeController.connectedKids[i].kidId!,name: homeController.connectedKids[i].name!, image: homeController.connectedKids[i].kidPic, active: homeController.connectedKids[i].lastActive!, battery: homeController.connectedKids[i].batteryStatus!, mbps: homeController.connectedKids[i].dataUsageStatus!, isIPad: homeController.connectedKids[i].deviceType!.toString().toLowerCase().contains("tab"))
-                                    // SyncDevice(
-                                    //   image: AppImages.child1,
-                                    //   name: "John Campbell",
-                                    //   battery: "56",
-                                    //   mbps: "9.2",
-                                    //   active: "32 m ago",
-                                    // ),
-                                    // SyncDevice(
-                                    //   image: AppImages.child2,
-                                    //   name: "Anna Campbell",
-                                    //   battery: "10",
-                                    //   mbps: "3.2",
-                                    //   active: "Now",
-                                    // ),
-                                    // SyncDevice(
-                                    //     image: AppImages.child3,
-                                    //     name: "Rayan Campbell",
-                                    //     battery: "100",
-                                    //     mbps: "5.2",
-                                    //     active: "14 m ago",
-                                    //     isIPad: true),
-                                    // SyncDevice(
-                                    //   image: AppImages.child4,
-                                    //   name: "Milli Campbell",
-                                    //   battery: "90",
-                                    //   mbps: "1.0",
-                                    //   active: "2 m ago",
-                                    // ),
+                                    subHeadingText(
+                                        "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                    subHeadingText(Prefs.firstName.get(),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.black)
                                   ],
                                 ),
                               ),
-                            )
-                          ],
-                        )),
-                  ),
-                ],
-          ),
-          // Align(
-          //   alignment: Alignment.bottomCenter,
-          //   child: IronSourceBannerAd(
-          //     keepAlive: true,
-          //     listener: BannerAdListener(),
-          //     size: BannerSize.BANNER,
-          //     // size: BannerSize.LARGE,
-          //     // size: BannerSize.LEADERBOARD,
-          //     // size: BannerSize.RECTANGLE,
-          //     // size: BannerSize.SMART,
-          //     /* size: BannerSize(
-          //                 type: BannerSizeType.BANNER,
-          //                 width: 400,
-          //                 height: 50,
-          //               ), */
-          //     // backgroundColor: Colors.amber,
-          //   ),
-          // )
-        ],
+                              /// For Now
+                              // Positioned(
+                              //     right: 0,
+                              //     top: 0,
+                              //     bottom: 0,
+                              //     child: InkWell(
+                              //       onTap: () {
+                              //         Navigator.push(
+                              //           context,
+                              //           MaterialPageRoute(
+                              //             builder: (_) => const ChatListScreen(),
+                              //           ),
+                              //         );
+                              //       },
+                              //       child: Stack(
+                              //         children: [
+                              //           SvgPicture.asset(AppImages.messaging),
+                              //           roundedContainer(
+                              //               color: Colors.red,
+                              //               height: 15,
+                              //               width: 15,
+                              //               child: Center(
+                              //                   child: regularText("1",
+                              //                       fontSize: 10,
+                              //                       color: AppColors.white)))
+                              //         ],
+                              //       ),
+                              //     ))
+                              /// /// /// /// /// ///
+                              Positioned(
+                                top: 0,
+                                  left: 0,
+                                  child: customGestureDetecter(
+                                    onTap: (){
+                                      Get.toNamed(MainMenuProfile.screenName);
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),
+                                      child: SvgPicture.asset(AppImages.menu),
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        ),
+                        verticalSpace(30),
+                        customGestureDetecter(
+                          onTap: (){
+                            // Get.toNamed(MainMenuProfile.screenName);
+                          },
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                  borderRadius: BorderRadius.circular(1000),
+                                  child: SvgPicture.asset(AppImages.person)),
+                              verticalSpace(15),
+                              bigSubHeading(
+                                  "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "Your Name" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
+                            ],
+                          ),
+                        ),
+                        verticalSpace(15),
+                        CustomButton(
+                            text: "Connect a Moolah Device",
+                            notExpanded: true,
+                            icon: AppImages.scanBarcode,
+                            onTap: () {
+                              // Get.find<AuthController>().refreshToken();
+                              // Get.toNamed(ScanBarcode.screenName);
+                              Get.find<AuthController>().refreshToken();
+                              Get.toNamed(EnterEmailParentSecurityCheck.screenName);
+                              // Get.toNamed(ParentSecurityCheck.screenName);
+                            }),
+                        verticalSpace(height * 0.07),
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: bigSubHeading("Sync Devices (${homeController.connectedKids.length})")),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                for(int i=0;i<homeController.connectedKids.length;i++)
+                                  SyncDevice(kidId: homeController.connectedKids[i].kidId!,name: homeController.connectedKids[i].name!, image: homeController.connectedKids[i].kidPic, active: homeController.connectedKids[i].lastActive!, battery: homeController.connectedKids[i].batteryStatus!, mbps: homeController.connectedKids[i].dataUsageStatus!, isIPad: homeController.connectedKids[i].deviceType!.toString().toLowerCase().contains("tab"))
+                                // SyncDevice(
+                                //   image: AppImages.child1,
+                                //   name: "John Campbell",
+                                //   battery: "56",
+                                //   mbps: "9.2",
+                                //   active: "32 m ago",
+                                // ),
+                                // SyncDevice(
+                                //   image: AppImages.child2,
+                                //   name: "Anna Campbell",
+                                //   battery: "10",
+                                //   mbps: "3.2",
+                                //   active: "Now",
+                                // ),
+                                // SyncDevice(
+                                //     image: AppImages.child3,
+                                //     name: "Rayan Campbell",
+                                //     battery: "100",
+                                //     mbps: "5.2",
+                                //     active: "14 m ago",
+                                //     isIPad: true),
+                                // SyncDevice(
+                                //   image: AppImages.child4,
+                                //   name: "Milli Campbell",
+                                //   battery: "90",
+                                //   mbps: "1.0",
+                                //   active: "2 m ago",
+                                // ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    )),
+              ),
+            ],
       );
     });
           }

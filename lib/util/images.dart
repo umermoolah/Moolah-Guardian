@@ -39,6 +39,7 @@ class AppImages {
   static String tiktok = "$pathToHomeImages/tiktok.svg";
   static String twitter = "$pathToHomeImages/twitter.svg";
   static String information = "$pathToHomeImages/information.svg";
+  static String location = "$pathToHomeImages/location.svg";
 
   ///HOME ICONS (PNG)
   static String child1 = "$pathToHomeImages/child1.png";
