@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/chat/messaging_screen.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
@@ -6,25 +8,45 @@ import 'package:moolah/util/common_widgets/common_appbar.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/images.dart';
 
+import '../../helper/models/thread_model.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
 
 class ChatListScreen extends StatelessWidget {
-  const ChatListScreen({Key? key}) : super(key: key);
+
+  ChatListScreen({required this.kidId});
+
+  String kidId;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildMessageItem(context, AppImages.child1,
-            'John Campbell', "Mom i need 5 more mins", "9:56am"),
-        const Divider(),
-        _buildMessageItem(
-            context,
-            AppImages.child2,
-            "Anna Campbell",
-            "Mom can i use my device",
-            "Yesterday")
-      ],
+    return GetBuilder<HomeController>(
+      builder: (homeController) {
+        List<ThreadModel> threads = homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].threads;
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              for(int i =0;i<threads.length;i++)
+              Column(
+                children: [
+                  _buildMessageItem(context, AppImages.child1,
+                      threads[i].lastMessage?.messageData?.senderNumber??threads[i].lastMessage?.messageData?.senderNumber??"", threads[i].lastMessage?.messageData?.message??"", getSortedTime(threads[i].lastMessage?.messageData?.messageTimeStamp)??""),
+                  const Divider(),
+                ],
+              ),
+              verticalSpace(25)
+              // _buildMessageItem(context, AppImages.child1,
+              //     'John Campbell', "Mom i need 5 more mins", "9:56am"),
+              // const Divider(),
+              // _buildMessageItem(
+              //     context,
+              //     AppImages.child2,
+              //     "Anna Campbell",
+              //     "Mom can i use my device",
+              //     "Yesterday")
+            ],
+          ),
+        );
+      }
     );
     // return CommonGradientBackground(
     //   child: Padding(
@@ -83,9 +105,9 @@ class ChatListScreen extends StatelessWidget {
       },
       leading: Image.asset(imageRes),
       title: regularText(name, fontSize: 14, color: AppColors.black),
-      subtitle: boldText(message, fontSize: 14, color: AppColors.black),
+      subtitle: boldText(message, fontSize: 14, color: AppColors.black, maxLines: 1, textOverflow: TextOverflow.ellipsis),
       trailing: SizedBox(
-        width: 65,
+        width: 68,
         child: Align(
           alignment: Alignment.topCenter,
           child:

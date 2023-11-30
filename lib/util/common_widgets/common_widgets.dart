@@ -99,6 +99,20 @@ Widget iconText(String icon, String s, {bool isItalic = false}) {
   );
 }
 
-String getSortedDate(DateTime? dateOfBirth) {
-  return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}-${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}-${dateOfBirth!.year}";
+String getSortedDate(DateTime? dateOfBirth, {String sign = "-"}) {
+  return "${dateOfBirth!.day < 10 ? ("0${dateOfBirth!.day}") : dateOfBirth!.day}$sign${dateOfBirth!.month < 10 ? ("0${dateOfBirth!.month}") : dateOfBirth!.month}$sign${dateOfBirth!.year}";
+}
+
+String? getSortedTime(DateTime? messageTimeStamp) {
+  if(messageTimeStamp!=null){
+    DateTime messageTimeStampTemp = messageTimeStamp;
+    Duration difference = DateTime.now().difference(messageTimeStampTemp);
+    String finalDate = "";
+    if(difference.inDays == 0){
+      return "${messageTimeStampTemp.hour}:${messageTimeStampTemp.minute}"; 
+    }else {
+      return getSortedDate(messageTimeStampTemp, sign: "/");
+    }
+  }
+  return "";
 }

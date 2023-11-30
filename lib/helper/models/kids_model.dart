@@ -4,7 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:moolah/helper/models/thread_model.dart';
+
 import 'app_usage_model.dart';
+import 'blocked_url_model.dart';
 import 'device_detail_model.dart';
 
 Kid kidFromJson(String str) => Kid.fromJson(json.decode(str));
@@ -23,6 +26,8 @@ class Kid {
   bool? walletEnabled;
   AppUsage? appUsage;
   DeviceDetail? deviceDetail;
+  List<ThreadModel> threads;
+  BlockedUrlModel? blockedUrls;
 
   Kid({
     this.kidId,
@@ -35,7 +40,9 @@ class Kid {
     this.kidPic,
     this.walletEnabled,
     this.appUsage,
-    this.deviceDetail
+    this.deviceDetail,
+    this.threads = const [],
+    this.blockedUrls
   });
 
   Kid copyWith({
@@ -49,7 +56,9 @@ class Kid {
     String? kidPic,
     bool? walletEnabled,
     AppUsage? appUsage,
-    DeviceDetail? deviceDetail
+    DeviceDetail? deviceDetail,
+    List<ThreadModel>? threads,
+    BlockedUrlModel? blockedUrls
   }) =>
       Kid(
         kidId: kidId ?? this.kidId,
@@ -62,7 +71,9 @@ class Kid {
         kidPic: kidPic ?? this.kidPic,
         walletEnabled: walletEnabled ?? this.walletEnabled,
         appUsage: appUsage ?? this.appUsage,
-        deviceDetail: deviceDetail ?? this.deviceDetail
+        deviceDetail: deviceDetail ?? this.deviceDetail,
+        threads: threads ?? this.threads,
+        blockedUrls: blockedUrls ?? this.blockedUrls
       );
 
   factory Kid.fromJson(Map<String, dynamic> json) => Kid(

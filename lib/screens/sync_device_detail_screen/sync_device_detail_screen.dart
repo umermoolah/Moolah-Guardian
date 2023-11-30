@@ -16,6 +16,7 @@ import 'package:moolah/util/images.dart';
 
 import '../../controllers/authController.dart';
 import '../../helper/models/app_usage_model.dart';
+import '../../helper/models/blocked_url_model.dart';
 import '../../helper/models/device_detail_model.dart';
 import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
@@ -104,7 +105,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                 if (tabController?.index == 0)
                                   appSection(homeController)
                                 else if (tabController?.index == 1) //1
-                                  urlSection()
+                                  urlSection(homeController)
                                 else if (tabController?.index == 2) //2
                                   messagesSection(),
                                 // if(tabController?.index != 0)
@@ -150,7 +151,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             ),
             regularText("Daily Average", fontSize: 12, color: AppColors.grey),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.symmetric(vertical: 16).copyWith(bottom: 25),
               child: boldText('All Apps', fontSize: 18),
             ),
 
@@ -383,16 +384,18 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
         ],
       ),
     );
+
   }
 
-  Widget urlSection() {
+  Widget urlSection(HomeController homeController ) {
+    BlockedUrlModel? list = homeController.connectedKids[homeController.getSelectedKidIndex(widget.kidId)].blockedUrls;
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 25),
         child: ListView.builder(
-          itemCount: 15,
+          itemCount: list?.blockedUrlsData?.blockedUrls?.length ?? 0,
           itemBuilder: (context, index) =>
-              urlItem('https://www.fiverr.com/cp/product-release-2023'),
+              urlItem(list?.blockedUrlsData?.blockedUrls?[index]??""),
         ),
       ),
     );
@@ -403,7 +406,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10)
             .copyWith(top: 20),
-        child: ChatListScreen(),
+        child: ChatListScreen(kidId: widget.kidId),
         // child: ListView.builder(
         //   itemCount: 15,
         //   itemBuilder: (context, index) =>
@@ -727,6 +730,11 @@ and Wallet from kid devices here.
     await Get.find<AuthController>().refreshToken();
     Get.find<HomeController>()
         .getDeviceDetail(kidId: /*"97eb1071c123c76b"*/ widget.kidId);
+    Get.find<HomeController>()
+        .getMessageThreads(kidId: widget.kidId);
+    Get.find<HomeController>()
+        .getBlacklistUrls(kidId: widget.kidId);
+
   }
 
   // Widget section(homeController) {

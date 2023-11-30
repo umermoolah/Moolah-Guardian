@@ -7,12 +7,12 @@ String fontFamilyPraise = "praise";
 
 var textStyle = TextStyle(fontFamily:fontFamily);
 
-Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily}){
-  return Text(text, style: textStyle.copyWith(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign, );
+Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily, int? maxLines, TextOverflow? textOverflow}){
+  return Text(text, style: textStyle.copyWith(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign, maxLines: maxLines,overflow: textOverflow,);
 }
 
-Widget boldText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, String? customFontFamily}){
-  return regularText(text,fontSize: fontSize, fontWeight: fontWeight??FontWeight.bold, color: color,customFontFamily: customFontFamily);
+Widget boldText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, String? customFontFamily, int? maxLines, TextOverflow? textOverflow}){
+  return regularText(text,fontSize: fontSize, fontWeight: fontWeight??FontWeight.bold, color: color,customFontFamily: customFontFamily, maxLines: maxLines, textOverflow: textOverflow);
 }
 
 Widget bigHeadingText(String text, {Color? color, double? fontSize, String? customFontFamily}){

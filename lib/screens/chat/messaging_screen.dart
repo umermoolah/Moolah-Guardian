@@ -1,12 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/images.dart';
 
-class MessagingScreen extends StatelessWidget {
+import '../../helper/models/message_model.dart';
+
+class MessagingScreen extends StatefulWidget {
   const MessagingScreen({Key? key}) : super(key: key);
+
+  @override
+  State<MessagingScreen> createState() => _MessagingScreenState();
+}
+
+class _MessagingScreenState extends State<MessagingScreen> {
+
+  List<MessageModel> messages = [];
+
+  @override
+  void initState() {
+    getMessages();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +34,31 @@ class MessagingScreen extends StatelessWidget {
       appBar: _buildAppBar(),
       body: SizedBox(
         width: double.infinity,
-        child: ListView(
-          reverse: true,
-          children: [
-            verticalSpace(20),
-            // _buildChildMessageTyping(),
-            _buildMyMessage("Ok fine just 5 min"),
-            _buildChildMessage('Mom i need 5 more minutes'),
-            _buildMyMessage("Turn off your device"),
-            _buildMyMessage("John"),
-
-          ],
-        ),
+        child: ListView.builder(
+          itemCount: messages.length + 1,
+            reverse: true,
+            itemBuilder: (context, index){
+            if(index == 0){
+              return verticalSpace(60);
+            }
+            if(index%2 == 0) {
+                return _buildChildMessage(messages[index-1].messageData?.message??"");
+              }else{
+              return _buildMyMessage(messages[index-1].messageData?.message??"");
+            }
+            }),
+        // child: ListView(
+        //   reverse: true,
+        //   children: [
+        //     verticalSpace(60),
+        //     // _buildChildMessageTyping(),
+        //     _buildMyMessage("Ok fine just 5 min"),
+        //     _buildChildMessage('Mom i need 5 more minutes'),
+        //     _buildMyMessage("Turn off your device"),
+        //     _buildMyMessage("John"),
+        //
+        //   ],
+        // ),
       ),
     );
   }
@@ -53,7 +84,7 @@ class MessagingScreen extends StatelessWidget {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(50),
                           borderSide:
-                              const BorderSide(width: 0, color: Colors.transparent),
+                          const BorderSide(width: 0, color: Colors.transparent),
                         ),
                       ),
                     ),
@@ -69,10 +100,12 @@ class MessagingScreen extends StatelessWidget {
   }
 
   Widget _buildChildMessage(String message) {
+    var width = MediaQuery.of(context).size.width;
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
             AppImages.child1,
@@ -81,6 +114,7 @@ class MessagingScreen extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Container(
+            width: width * 0.7,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
@@ -115,12 +149,16 @@ class MessagingScreen extends StatelessWidget {
   }
 
   Widget _buildMyMessage(String message) {
+    var width = MediaQuery.of(context).size.width;
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            width: width * 0.7,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -148,7 +186,7 @@ class MessagingScreen extends StatelessWidget {
             width: 40,
           ),
           title:
-              regularText('John Campbell', color: Colors.black, fontSize: 14),
+          regularText('John Campbell', color: Colors.black, fontSize: 14),
           subtitle: Row(
             children: [
               regularText('Online',
@@ -168,4 +206,13 @@ class MessagingScreen extends StatelessWidget {
       ),
     );
   }
+
+  void getMessages() async {
+    messages = (await Get.find<HomeController>().getMessages()).reversed.toList();
+    setState(() {
+
+    });
+  }
 }
+
+
