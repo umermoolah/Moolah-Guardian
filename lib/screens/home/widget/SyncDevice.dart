@@ -56,9 +56,10 @@ class _SyncDeviceState extends State<SyncDevice> {
               height: 55,
               width: 55,
               child: ClipRRect(
+                borderRadius: BorderRadius.circular(1000),
                 child: widget.image == null ? ClipRRect(
                     borderRadius: BorderRadius.circular(1000),
-                    child: SvgPicture.asset(AppImages.person)) : Image.network(widget.image!),
+                    child: SvgPicture.asset(AppImages.person)) : Image.network(widget.image!,  errorBuilder: (c, e, v) => SvgPicture.asset(AppImages.person)),
               ),
             ),
             horizontalSpace(10),

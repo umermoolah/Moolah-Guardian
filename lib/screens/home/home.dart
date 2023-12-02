@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:ironsource_mediation/ironsource_mediation.dart';
+import 'package:moolah/controllers/advertisementController.dart';
 import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/chat/chat_list_screen.dart';
 import 'package:moolah/screens/home/widget/SyncDevice.dart';
@@ -35,8 +36,9 @@ class _HomeState extends State<Home> {
   void initState() {
 
 
+    // print("")
     setController();
-    IronSource.loadBanner(size: IronSourceBannerSize.BANNER, position: IronSourceBannerPosition.Bottom);
+
     super.initState();
   }
 
@@ -137,6 +139,7 @@ class _HomeState extends State<Home> {
                         verticalSpace(30),
                         customGestureDetecter(
                           onTap: (){
+                            // Get.find<AdvertisementController>().loadBanner();
                             // Get.toNamed(MainMenuProfile.screenName);
                           },
                           child: Column(
@@ -215,6 +218,7 @@ class _HomeState extends State<Home> {
   }
 
   void setController() async {
+    Get.find<AdvertisementController>().loadBanner();
     await Get.find<AuthController>().refreshToken();
     await Get.find<HomeController>().getSyncedKidDevices();
   }

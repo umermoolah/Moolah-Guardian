@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/chat/messaging_screen.dart';
@@ -103,7 +104,9 @@ class ChatListScreen extends StatelessWidget {
           ),
         );
       },
-      leading: Image.asset(imageRes),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(100),
+          child: SvgPicture.asset(AppImages.person)),//Image.asset(imageRes),
       title: regularText(name, fontSize: 14, color: AppColors.black),
       subtitle: boldText(message, fontSize: 14, color: AppColors.black, maxLines: 1, textOverflow: TextOverflow.ellipsis),
       trailing: SizedBox(

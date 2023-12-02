@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ironsource_mediation/ironsource_mediation.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
+import 'package:moolah/controllers/advertisementController.dart';
 import 'package:moolah/helper/route_helper.dart';
 import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/main_menu_profile/main_menu_profile.dart';
@@ -34,10 +35,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: RouteHelper.routes,
-      initialRoute: Splash.screenName,
+    return GetBuilder<AdvertisementController>(
+      builder: (adController) {
+        return Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            GetMaterialApp(
+              debugShowCheckedModeBanner: false,
+              routes: RouteHelper.routes,
+              initialRoute: Splash.screenName,
+            ),
+            adController.optionalAdWidget()
+          ],
+        );
+      }
     );
   }
 }
@@ -58,7 +69,7 @@ void initSDKS() async {
   initOneSignal();
 
   /// IronSource SDK
-  await IronSource.init(appKey: "9459d105");
+  Get.find<AdvertisementController>().init();
 }
 
 

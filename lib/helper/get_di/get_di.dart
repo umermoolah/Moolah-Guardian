@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:moolah/controllers/advertisementController.dart';
 import 'package:moolah/controllers/authController.dart';
 import 'package:moolah/controllers/baseController.dart';
 import 'package:moolah/controllers/connectDeviceController.dart';
@@ -9,4 +10,5 @@ init(){
   Get.lazyPut(() => AuthController());
   Get.lazyPut(() => HomeController());
   Get.lazyPut(() => ConnectDeviceController());
+  Get.lazyPut(() => AdvertisementController());
 }

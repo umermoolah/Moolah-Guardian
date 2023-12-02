@@ -508,11 +508,12 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     width: 55,
                     child: ClipRRect(
                         child: ClipRRect(
-                      child: kid.kidPic == null
+                          borderRadius: BorderRadius.circular(1000),
+                          child: kid.kidPic == null
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(1000),
                               child: SvgPicture.asset(AppImages.person))
-                          : Image.network(kid.kidPic!),
+                          : Image.network(kid.kidPic!, errorBuilder: (c, e, v) => SvgPicture.asset(AppImages.person)),
                     )),
                   ),
                   horizontalSpace(10),
@@ -619,7 +620,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           controller: tabController,
           tabs: [
             textForTab("Screen Time", tabController!.index == 0),
-            textForTab("Web History", tabController!.index == 1),
+            textForTab("Blocked Sites", tabController!.index == 1),
             textForTab("Messages", tabController!.index == 2),
 
             /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
