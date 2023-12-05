@@ -19,4 +19,5 @@ class EndPoints {
   static String getDeviceDetails = "$baseUrl/getDeviceDetails";
   static String parentAppSecurityCheck = "$baseUrl/parentAppSecurityCheck";
   static String parentKidDeviceConnect = "$baseUrl/parentKidDeviceConnect";
+  static String getBannerAds = "$baseUrl/getBannerAds";
 }
