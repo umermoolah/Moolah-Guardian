@@ -11,7 +11,7 @@ class AdvertisementController extends BaseController with LevelPlayBannerListene
   bool showLocalAd = false;
 
   List<AdModel> localAds = [];
-  AdModel currentAd;
+  late AdModel currentAd;
   int currentAdIndex = 0;
 
   init() async {
@@ -56,7 +56,7 @@ class AdvertisementController extends BaseController with LevelPlayBannerListene
       // height: 10,
       // width: 10,
       color: Colors.black,
-      child: currentAd.bannerImg == null ? const SizedBox() : Image.network(currentAd.bannerImg??""),
+      child: currentAd?.bannerImg == null ? const SizedBox() : Image.network(currentAd.bannerImg??""),
     ) : const SizedBox();
   }
 
