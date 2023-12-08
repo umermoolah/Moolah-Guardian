@@ -69,7 +69,7 @@ class _MainMenuProfileState extends State<MainMenuProfile> {
                           Get.find<AuthController>().logout();
                           Get.offAllNamed(OnBoard.screenName);
                         },text: "Logout", color: AppColors.lightRed.withOpacity(0.2), textColor: AppColors.red,icon: AppImages.logout,notExpanded: true,margin: EdgeInsets.zero),
-                        verticalSpace(10),
+                        verticalSpace(50),
                       ],
                     ),
                   ),

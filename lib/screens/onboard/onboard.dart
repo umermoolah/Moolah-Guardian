@@ -12,6 +12,7 @@ import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/images.dart';
 
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../../util/mixpanel_events.dart';
 import '../signup/screens/enter_email.dart';
 
 class OnBoard extends StatefulWidget {
@@ -23,6 +24,13 @@ class OnBoard extends StatefulWidget {
 }
 
 class _OnBoardState extends State<OnBoard> {
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;

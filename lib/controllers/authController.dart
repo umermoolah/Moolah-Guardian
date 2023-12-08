@@ -8,6 +8,7 @@ import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/util/customtoast.dart';
 
 import '../helper/models/user_model.dart';
+import '../util/mixpanel_events.dart';
 import 'homeController.dart';
 
 class AuthController extends BaseController {
@@ -124,6 +125,7 @@ class AuthController extends BaseController {
         Get.offAllNamed(Home.screenName);
         print("Login Successful: \n\n${r.data}");
       } else {
+        Get.find<MixPanelEventsController>().track(MixEvents.errorLogin);
         errorToastShow(r.data);
       }
     } catch (e) {}
@@ -153,9 +155,11 @@ class AuthController extends BaseController {
         Get.offAllNamed(Home.screenName);
         print("SignUp Successful: \n\n${r.data}");
       } else {
+        Get.find<MixPanelEventsController>().track(MixEvents.errorSignUp);
         errorToastShow(r.data);
       }
     } catch (e) {
+      Get.find<MixPanelEventsController>().track(MixEvents.errorSignUp);
       print("object$e");
     }
 
@@ -164,6 +168,8 @@ class AuthController extends BaseController {
   }
 
   Future<void> googleSignIn() async {
+    Get.find<MixPanelEventsController>().track(MixEvents.startGoogleSignin);
+
     GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: [
         'email',
@@ -171,6 +177,7 @@ class AuthController extends BaseController {
     );
     try {
       await _googleSignIn.signIn().then((value) => print(value));
+      // Get.find<MixPanelEventsController>().track(MixEvents.completeGoogleSignin);
     } catch (error) {
       print(error);
     }

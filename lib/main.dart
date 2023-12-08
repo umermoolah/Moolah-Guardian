@@ -10,6 +10,7 @@ import 'package:moolah/helper/route_helper.dart';
 import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/main_menu_profile/main_menu_profile.dart';
 import 'package:moolah/screens/splash/splash.dart';
+import 'package:moolah/util/mixpanel_events.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import './helper/get_di/get_di.dart' as get_di;
 
@@ -70,6 +71,9 @@ void initSDKS() async {
 
   /// IronSource SDK
   Get.find<AdvertisementController>().init();
+
+  ///Mixpanel
+  await Get.find<MixPanelEventsController>().init();
 }
 
 

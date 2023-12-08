@@ -15,6 +15,7 @@ import '../../../util/common_widgets/CommonGradientBackground.dart';
 import '../../../util/common_widgets/common_appbar.dart';
 import '../../../util/common_widgets/common_text_field.dart';
 import '../../../util/common_widgets/common_widgets.dart';
+import '../../../util/mixpanel_events.dart';
 import '../../home/home.dart';
 
 class EnterFullNameSignUp extends StatefulWidget {
@@ -39,6 +40,12 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
   // bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
   // GlobalKey<FormState> key1 = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    Get.find<MixPanelEventsController>().track(MixEvents.viewSignUp2);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -243,6 +250,7 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
                               margin: EdgeInsets.zero,
                               onTap: () {
                                 if (key.currentState!.validate()) {
+                                  Get.find<MixPanelEventsController>().track(MixEvents.enterFullName);
                                   controller.fullNameGlob = nameController.text.trim();
                                   Get.toNamed(EnterPhoneNumberSignUp.screenName);
                                   // Get.toNamed(EnterPasswordSignUp.screenName);

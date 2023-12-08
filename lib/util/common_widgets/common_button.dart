@@ -7,6 +7,7 @@ import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 
 import '../images.dart';
+import '../mixpanel_events.dart';
 
 class CustomButton extends StatefulWidget {
   CustomButton(
@@ -87,6 +88,8 @@ Widget googleButton(){
       textColor: AppColors.black,
       text: "Sign in with Google",
       onTap: () {
+
+
         Get.find<AuthController>().googleSignIn();
       });
 }

@@ -15,6 +15,7 @@ import '../../../util/common_widgets/common_appbar.dart';
 import '../../../util/common_widgets/common_button.dart';
 import '../../../util/common_widgets/common_text_field.dart';
 import '../../../util/common_widgets/common_widgets.dart';
+import '../../../util/mixpanel_events.dart';
 import '../../home/home.dart';
 
 class EnterEmailLogin extends StatefulWidget {
@@ -32,6 +33,12 @@ class _EnterEmailLoginState extends State<EnterEmailLogin> {
   TextEditingController emailController = TextEditingController();
   // TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    Get.find<MixPanelEventsController>().track(MixEvents.viewLogin1);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +98,7 @@ class _EnterEmailLoginState extends State<EnterEmailLogin> {
                                 text: "Login",
                                 margin: EdgeInsets.zero,
                                 onTap: () {
+                                  Get.find<MixPanelEventsController>().track(MixEvents.startLoginEmail);
                                   if(key.currentState!.validate()){
                                     authController.emailGlob = emailController.text.trim();
                                     // authController.login(emailController.text, passwordController.text);

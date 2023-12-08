@@ -6,6 +6,7 @@ import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../../util/mixpanel_events.dart';
 import '../home/home.dart';
 
 class Splash extends StatefulWidget {
@@ -33,6 +34,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
   }
 
   void setController() async {
+
+    Get.find<MixPanelEventsController>().track(MixEvents.viewLanding);
+
     /// To Animate the logo on the Splash
     animationController =
         AnimationController(vsync: this, duration: const Duration(seconds: 3));

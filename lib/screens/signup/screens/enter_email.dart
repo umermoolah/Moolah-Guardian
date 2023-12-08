@@ -14,6 +14,7 @@ import '../../../util/common_widgets/CommonGradientBackground.dart';
 import '../../../util/common_widgets/common_appbar.dart';
 import '../../../util/common_widgets/common_text_field.dart';
 import '../../../util/common_widgets/common_widgets.dart';
+import '../../../util/mixpanel_events.dart';
 import '../../home/home.dart';
 import '../../login/screens/enter_email_login.dart';
 
@@ -39,6 +40,12 @@ class _EnterEmailSignUpState extends State<EnterEmailSignUp> {
   // bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
   // GlobalKey<FormState> key1 = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    Get.find<MixPanelEventsController>().track(MixEvents.viewSignUp1);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -242,6 +249,7 @@ class _EnterEmailSignUpState extends State<EnterEmailSignUp> {
                                   margin: EdgeInsets.zero,
                                   onTap: () {
                                     if (key.currentState!.validate()){
+                                      Get.find<MixPanelEventsController>().track(MixEvents.startSignupEmail);
                                       controller.emailGlob = emailController.text.trim();
                                       Get.toNamed(EnterFullNameSignUp.screenName);
                                     }
