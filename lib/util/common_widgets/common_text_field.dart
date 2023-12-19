@@ -15,7 +15,8 @@ class CustomTextField extends StatefulWidget {
         this.passwordForConfirmPassword,
         this.onChange,
         this.otherOne = false,
-        this.prefixIcon
+        this.prefixIcon,
+        this.maxLines = 1
       });
   String hintText;
   String? prefixIcon;
@@ -25,6 +26,7 @@ class CustomTextField extends StatefulWidget {
   TextEditingController? textEditingController;
   Validators? validators;
   String? passwordForConfirmPassword;
+  int maxLines;
   Function(String)? onChange;
 
   @override
@@ -55,6 +57,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpace(10),
+        if(widget.hintText.isNotEmpty)
         Row(
           children: [
             subHeadingText(widget.hintText, fontWeight: FontWeight.w500, color: error ? Colors.red : Colors.grey),
@@ -86,6 +89,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               });
             }
           },
+          maxLines: widget.maxLines,
           decoration: InputDecoration(
               errorText: null,
               errorStyle: const TextStyle(height: 0),

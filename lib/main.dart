@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 // import 'package:flutter_ironsource_x/ironsource.dart';
@@ -60,6 +61,7 @@ void initSDKS() async {
   /// Firebase
   print("Initializing Firebase");
   await Firebase.initializeApp();
+  initCrashlytics();
 
   /// Mixpanel SDK
   print("Initializing Mixpanel");
@@ -74,6 +76,13 @@ void initSDKS() async {
 
   ///Mixpanel
   await Get.find<MixPanelEventsController>().init();
+}
+
+void initCrashlytics() {
+
+  FlutterError.onError = (errorDetails) {
+      FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+  };
 }
 
 

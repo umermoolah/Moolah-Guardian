@@ -20,4 +20,6 @@ class EndPoints {
   static String parentAppSecurityCheck = "$baseUrl/parentAppSecurityCheck";
   static String parentKidDeviceConnect = "$baseUrl/parentKidDeviceConnect";
   static String getBannerAds = "$baseUrl/getBannerAds";
+  static String submitReview = "$baseUrl/submitReview";
+  static String feedback = "$baseUrl/feedback";
 }

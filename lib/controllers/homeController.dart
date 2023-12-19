@@ -1,5 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
+// import 'package:encrypt/encrypt.dart';
+import 'package:basic_utils/basic_utils.dart';
+import 'package:encrypt/encrypt.dart';
 import 'package:moolah/controllers/baseController.dart';
 import 'package:moolah/helper/endpoints.dart';
 import 'package:moolah/helper/models/blocked_url_model.dart';
@@ -12,9 +17,22 @@ import 'package:moolah/helper/network.dart';
 import 'package:moolah/helper/repo/homeRepo.dart';
 import 'package:moolah/util/customtoast.dart';
 import 'package:moolah/util/images.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/asymmetric/api.dart';
+import 'package:pointycastle/asymmetric/oaep.dart';
+import 'package:pointycastle/asymmetric/pkcs1.dart';
+import 'package:pointycastle/asymmetric/rsa.dart';
+import 'package:pointycastle/block/aes_fast.dart';
+import 'package:pointycastle/block/modes/ecb.dart';
+import 'package:pointycastle/padded_block_cipher/padded_block_cipher_impl.dart';
+import 'package:pointycastle/paddings/pkcs7.dart';
+import 'package:rsa_pkcs/rsa_pkcs.dart' as rsa;
+import 'package:fast_rsa/fast_rsa.dart' as rsa1;
+
 
 import '../helper/models/app_usage_model.dart';
 import '../helper/repo/singleKidRepo.dart';
+import 'package:rsa_encrypt/rsa_encrypt.dart';
 
 class HomeController extends BaseController {
   List<Kid> connectedKids = [];
@@ -554,4 +572,109 @@ class HomeController extends BaseController {
     connectedKids.clear();
     appUsageOfSelectedKid = null;
   }
+
+  void getData(){
+    const workingPrivateKey = "-----BEGIN PRIVATE KEY-----\nMIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMAk/+AhZdqsmLf9CK38vabe27IF9ciP3jk4sySWXSmAMVTmkfj9JJhfSdG6aP47SAD2QobffK37g927asWtNZ8TFczuYNf4vO/GLGlan23mjEMrAOflH6nHgpgMkeSRAAAreadpMS4UKEhUsmD1muiCCMY0yJ8ZaYRj3hNZLI2zAgMBAAECgYEAk+HmLZKG2e7M+458B6zmKnCLllCQAnT4DAJfnmE8ApzvWvC6mG/8oml0Xz6hYEov+M2QFk4bn6xcqWN9ofbVtOuBD7YZ1yQQVTmTarGrlgbfaM9v4YBy2VskKVDLrOqA4zi5wgeyGri98+cIWbwSaTwC+L4Oj9qUAcT7o6SYh4ECQQDhoBMIWiUyloipoQbaMlTYKzL+Jeo61ZBRj9rofCClz06w6dKuoq/Xe97BeZATkmhbeciqZRdE/Qf/BfKxAfErAkEA2gMMPrw01cjjYvylBg7xFzP0h9eygge0c5CziJeLCyfaerLwNZo3C8jPizOdariwedA2/PkfHBFkWiNm25bBmQJAJyIjivRPtVmEtJ84WAoYyzGa85fR64h1MqBX4LD+3KN7S5YSs7WF+EME3Nvf0HU5YnxaAKvuAEo+4829TVQ/5wJAP247ldU0mi8E2bwgV47pXpLjRtLfQS30ttsXIVrWPbyuuJxvf2kLMwaOPDYcSvzJe+e02A2zm3sD86XxO1q1oQJAT1K9t9oxOYST32ap5VxSlW020LtJt+1RYcfVA6WQPs4V9bkIXIqoWBLdt53i675plz1NS3OeczYdlWOLelwcYQ==\n-----END PRIVATE KEY-----\n";
+    const workingEncryptedData = "V/4+YtR7ETgWeefcRgcFUF4J6mebnNDi4ooqvGIQaYXV3Mb6LUvn0MOzghpc2kwGtkl4dqtbyEg/a8tOjAvfxf/pmroxtpQPBkzsXXqN+2r181GyuMHfa4f1cY/1v425JT0dsE3g1LEe5nyzHNQlODF+zjuCjSnm2eYwvMNCkyg=";
+    const privateKey = """-----BEGIN PRIVATE KEY-----\n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\nXePq5IrmXuPu3CzEkem+8f3hAbZgzw0=\n-----END PRIVATE KEY-----\n""";//.replaceAll("\n", "").replaceAll("-----END PRIVATE KEY-----", "").replaceAll("-----BEGIN PRIVATE KEY-----", "");
+    const encryptedData = "QKnv4kEgiNmYTKaMeMFMEqxemU02jY0M4K24wptWI8LvutwNjdCJoPMeZRiTkqj7XrhwI6nkl7mTyYJxvWcULAbZBYIiMdLNIy3DoYUer5fw/wKIaaQegpG1GXQLWtpW4ZTMf+GNbOdSmDZe/Kfl07LgfeAuG+V/W2LILCbpTw70hDKwIGIKbfm3ph7lb/l7iBbvuMai8+++ajIZ0CHUKPbCFaDzIISKZHGgv1Sa0ca+uff2TC8wHxWBhPD8gnjK+7ZjeTlE8PkEndtwBlyR7ux8UNS6jMgUe7sN9P0tS2SZpZG2Oz6bnR/6AAfF1rkBKNIW+T8fipDqRLOA6J6cATOZ1/VvoqzOqcfeh8vInAJFYSi4laMaLYdd/90XR4DhoUq6akWQe2yMUjYaOQwbMG9gWbtaXzl6pJn9YTVmmW5vif8TeXgk7l1bbHPrpr72phBwV3q07WbVjgg5+lKUYNwNObqwUYy/QQl1A5jgJx+6fpVXkeUgOOav7aS3zOoE/eM2XhdNGhbnqasNgFbYOVFDAINmIm0SbiQ2S4zCDPLXeIhOZmAb4O0JJTUuJ1n8ja7O0LYFUYy96s+79EcbC+AHSqbnXn9HSX2E60tIUAqSid8SCcINFR2BiZNxbqhEPtb8wbYve3DSR83KadHamtlpumy1ok9Q64OOELJpFQk=";
+    // print(decryptData(privateKey, base64.decode(encryptedData)));
+    print(decryptByPrivateKey(privateKey, encryptedData));
+
+  }
+  String decryptByPrivateKey(String private, String content) {
+    RSAKeyParser parser = RSAKeyParser();
+    RSAPrivateKey privateKey = parser.parse(private) as RSAPrivateKey;
+    AsymmetricBlockCipher cipher = PKCS1Encoding(RSAEngine());
+    cipher
+      ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+    return utf8.decode(cipher.process(base64.decode(content)/*Encrypted.fromBase64(content).bytes*/));
+  }
+  // String decrypt(String keyString, Encrypted encryptedData) {
+  //   print("Step 1");
+  //   final key = Key.fromUtf8(keyString);
+  //   print("Step 2");
+  //   final encrypter = Encrypter(AES(key, mode: AESMode.cbc));
+  //   print("Step 3");
+  //   final initVector = IV.fromUtf8(keyString.substring(0, 16)/*"2gtCJbNlyuzUzLyRKIL4Xg=="*/);//keyString.substring(0, 16)
+  //   print("Step 4");
+  //   return encrypter.decrypt(encryptedData, iv: initVector);
+  // }
+
+  decryptData(String privateKeyString, Uint8List encryptedData) async {
+
+
+    final rsa.RSAPKCSParser parser = rsa.RSAPKCSParser();
+    final rsa.RSAKeyPair pair = parser.parsePEM(privateKeyString);
+    final rsa.RSAPrivateKey privateKey = pair.private!;
+    // var result = await rsa1.RSA(privateKeyString);
+    String prv = await rsa1.RSA.convertPrivateKeyToPKCS8(privateKeyString);
+    CryptoUtils.rsaPublicKeyFromPem(prv);
+
+
+    PaddedBlockCipher cipher = PaddedBlockCipherImpl(
+      Padding("RSA/ECB/PKCS8Padding"), // Java defaults to PKCS5 which is equivalent
+      ECBBlockCipher(AESFastEngine()), // Very weak mode - don't use this in the real world
+    );
+
+    cipher.init(
+      false,
+
+      PaddedBlockCipherParameters<CipherParameters, CipherParameters>(
+        KeyParameter(Uint8List.fromList(utf8.encode(prv))),
+        null,
+      ),
+    );
+    return cipher.process(encryptedData);
+    /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+    // final rsaPrivateKey = parsePrivateKeyFromPem(prv);
+    // final service = Encrypter(RSA(privateKey: rsaPrivateKey));
+    //
+    // print(service.decrypt(Encrypted(encryptedData)));
+    //
+    // final cipher = PKCS1Encoding(RSAEngine())
+    //   ..init(false, PrivateKeyParameter<RSAPrivateKey>(rsaPrivateKey));
+    //
+    //
+    // try {
+    //   return cipher.process(encryptedData);
+    // } catch (e) {
+    //   print('Decryption error: $e');
+    //   return Uint8List(0);
+    // }
+  }
+  RSAPrivateKey parsePrivateKeyFromPem(String pemString) {
+    final keyParser = RSAKeyParser();
+    final keyPair = keyParser.parse(pemString);
+
+    if (keyPair is RSAPrivateKey) {
+      return keyPair;
+    } else {
+      throw ArgumentError('Provided key is not an RSA private key.');
+    }
+  }
+  // RSAPrivateKey parsePrivateKeyFromPem(String pemString) {
+  //   final lines = pemString.split('\n');
+  //   // final keyBytes = lines.sublist(1, lines.length - 1).join();
+  //   // final decodeKey = base64.decode(keyBytes);
+  //   final keyInfo = RSAKeyParser().parse(pemString);
+  //   return RSAPrivateKey(
+  //     keyInfo.modulus!,
+  //     keyInfo.exponent!,
+  //     keyInfo.n,
+  //     keyInfo.n
+  //   );
+  // }
+  // Uint8List decryptData(String privateKeyString, Uint8List encryptedData) {
+  //   final privateKey = RSAPrivateKey.fromString(privateKeyString);
+  //   final cipher = PKCS1Encoding(RSAEngine())
+  //     ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+  //
+  //   try {
+  //     return cipher.process(encryptedData);
+  //   } catch (e) {
+  //     print('Decryption error: $e');
+  //     return Uint8List(0);
+  //   }
+  // }
 }

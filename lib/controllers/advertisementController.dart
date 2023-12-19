@@ -97,8 +97,8 @@ class AdvertisementController extends BaseController with LevelPlayBannerListene
   }
 
   void showLocal() async {
-    print("currentAdIndex");
-    print(currentAdIndex);
+    // print("currentAdIndex");
+    // print(currentAdIndex);
     if(localAds.isNotEmpty) {
       currentAd = localAds[currentAdIndex];
       showLocalAd = true;

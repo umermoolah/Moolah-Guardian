@@ -6,6 +6,7 @@ import 'package:moolah/screens/login/login.dart';
 import 'package:moolah/screens/login/screens/enter_email_login.dart';
 import 'package:moolah/screens/login/screens/enter_password_login.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/widget/password_reset.dart';
+import 'package:moolah/screens/main_menu_profile/screens/contact_us/contact_us.dart';
 import 'package:moolah/screens/main_menu_profile/screens/edit_profile/edit_profile.dart';
 import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
@@ -26,6 +27,9 @@ import 'package:moolah/screens/sync_device_detail_screen/screens/live_location.d
 import '../screens/forgot_password/forgot_password.dart';
 import '../screens/main_menu_profile/main_menu_profile.dart';
 import '../screens/main_menu_profile/screens/change_password/change_password.dart';
+import '../screens/main_menu_profile/screens/feedback/feedback.dart';
+import '../screens/main_menu_profile/screens/privacy_policy/privacy_policy.dart';
+import '../screens/main_menu_profile/screens/tutorial_screen/tutorial_screen.dart';
 import '../screens/splash/splash.dart';
 import '../screens/sync_device_detail_screen/sync_device_detail_screen.dart';
 
@@ -58,5 +62,9 @@ class RouteHelper {
     ForgotPassword.screenName: (_) => const ForgotPassword(),
     CheckYourEmail.screenName: (_) => const CheckYourEmail(),
     LiveLocation.screenName: (_) => const LiveLocation(),
+    FeedbackScreen.screenName: (_) => const FeedbackScreen(),
+    ContactUsScreen.screenName: (_) => const ContactUsScreen(),
+    PrivacyScreen.screenName: (_) => const PrivacyScreen(),
+    TutorialScreen.screenName: (_) => const TutorialScreen(),
   };
 }

@@ -49,6 +49,16 @@ dependencies:
   google_sign_in: ^6.1.6
   ironsource_mediation: ^1.2.0
   google_maps_flutter: ^2.5.0
+  flutter_rating_bar: ^4.0.1
+  video_player: ^2.7.1
+  webview_flutter: ^4.4.2
+  firebase_crashlytics: ^3.4.8
+  pointycastle: ^3.7.3
+  encrypt: ^5.0.3
+  rsa_encrypt: ^2.0.0
+  rsa_pkcs: ^2.1.0
+  fast_rsa: ^3.6.1
+  basic_utils: ^5.7.0
 #  flutter_ironsource_x: ^2.7.4
 
 dev_dependencies:
@@ -79,6 +89,7 @@ flutter:
     - assets/images/common/
     - assets/images/home/
     - assets/images/profile/
+    - assets/tutorial_video/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

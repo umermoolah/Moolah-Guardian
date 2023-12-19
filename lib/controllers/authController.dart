@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ironsource_mediation/ironsource_mediation.dart';
 import 'package:moolah/controllers/baseController.dart';
 import 'package:moolah/helper/models/user_model1.dart';
 import 'package:moolah/helper/repo/authRepo.dart';
@@ -200,5 +201,6 @@ class AuthController extends BaseController {
     Prefs.firstName.clear();
     Prefs.lastName.clear();
     Get.find<HomeController>().logout();
+    IronSource.hideBanner();
   }
 }

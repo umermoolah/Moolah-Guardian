@@ -19,4 +19,10 @@ class AppColors {
   static Color lightRed = const Color(0xFFEA4335);
   static Color buttonBorderGrey = const Color(0xFFE8E8E8);
   static Color purple = const Color(0xFF8017E8);
+
+  /// OnBoard Screen Gradient
+  static Color onBoard1 = const Color(0xFF68A63E);
+  static Color onBoard2 = const Color(0xFF5EA03E);
+  static Color onBoard3 = const Color(0xFFAED456);
+  static Color onBoard4 = const Color(0xFF9FCC3A);
 }

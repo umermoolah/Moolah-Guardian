@@ -20,6 +20,9 @@ class AppImages {
   static String comingSoon = "$pathToCommonImages/comming_soon.svg";
   static String google = "$pathToCommonImages/google.svg";
   static String googlePng = "$pathToCommonImages/google.png";
+  static String videoThumbnail = "$pathToCommonImages/video_thumbnail.png";
+  static String playButton = "$pathToCommonImages/play_button.svg";
+
 
   ///HOME ICONS (SVG)
   static String messaging = "$pathToHomeImages/messaging.svg";
@@ -62,6 +65,7 @@ class AppImages {
   static String privacyPolicy = "$pathToProfileImages/privacy_policy.svg";
   static String profile = "$pathToProfileImages/profile.svg";
   static String tutorial = "$pathToProfileImages/tutorial.svg";
-
+  static String rating = "$pathToProfileImages/rating_icon.svg";
+  static String ratingFilled = "$pathToProfileImages/rating_filled_icon.svg";
   static String profileImage = "$pathToProfileImages/profile_image.png";
 }

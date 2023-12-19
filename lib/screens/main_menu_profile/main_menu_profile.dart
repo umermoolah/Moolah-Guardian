@@ -6,7 +6,11 @@ import 'package:moolah/controllers/homeController.dart';
 import 'package:moolah/screens/login/login.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/change_password.dart';
 import 'package:moolah/screens/main_menu_profile/screens/change_password/widget/password_reset.dart';
+import 'package:moolah/screens/main_menu_profile/screens/contact_us/contact_us.dart';
+import 'package:moolah/screens/main_menu_profile/screens/feedback/feedback.dart';
+import 'package:moolah/screens/main_menu_profile/screens/privacy_policy/privacy_policy.dart';
 import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
+import 'package:moolah/screens/main_menu_profile/screens/tutorial_screen/tutorial_screen.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/CommonGradientBackground.dart';
@@ -60,10 +64,10 @@ class _MainMenuProfileState extends State<MainMenuProfile> {
                         verticalSpace(10),
                         option(icon: AppImages.profile, text: "Edit Profile", onTap: () => Get.toNamed(Profile.screenName)),
                         option(icon: AppImages.password, text: "Password", onTap: () => Get.toNamed(ChangePassword.screenName)),
-                        option(icon: AppImages.tutorial, text: "Tutorials"),
-                        option(icon: AppImages.feedback, text: "Feedback"),
-                        option(icon: AppImages.contactUs, text: "Contact us"),
-                        option(icon: AppImages.privacyPolicy, text: "Privacy Policy"),
+                        option(icon: AppImages.tutorial, text: "Tutorials", onTap: () => Get.toNamed(TutorialScreen.screenName)),
+                        option(icon: AppImages.feedback, text: "Feedback", onTap: () => Get.toNamed(FeedbackScreen.screenName)),
+                        option(icon: AppImages.contactUs, text: "Contact us", onTap: () => Get.toNamed(ContactUsScreen.screenName)),
+                        option(icon: AppImages.privacyPolicy, text: "Privacy Policy", onTap: () => Get.toNamed(PrivacyScreen.screenName)),
                         verticalSpace(20),
                         CustomButton(onTap: (){
                           Get.find<AuthController>().logout();

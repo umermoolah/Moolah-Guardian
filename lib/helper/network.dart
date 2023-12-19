@@ -46,8 +46,8 @@ class Network {
 
   static Future<ResponseModel> responseHandler(
       {http.Response? res, bool empty = false}) async {
-    print("responceHandler: ${res!.body}");
-    print("responceHandler:Status Code: ${res!.statusCode}");
+    print("responceHandler: ${res?.body}");
+    print("responceHandler:Status Code: ${res?.statusCode}");
     if (((res?.statusCode ?? 0) == 200 || (res?.statusCode ?? 0) == 201) && !empty) {
       if (jsonDecode(res!.body)["status"] ?? true) {
         return ResponseModel(
@@ -61,7 +61,7 @@ class Network {
             message: jsonDecode(res!.body)["message"]);
       }
     }
-    print("HELLO ${res.statusCode}");
-    return ResponseModel(isSuccessful: false, message: jsonDecode(res.body)["message"], data: jsonDecode(res.body));
+    print("HELLO ${res?.statusCode}");
+    return ResponseModel(isSuccessful: false, message: res?.body !=null?jsonDecode(res!.body)["message"]:"", data: res?.body != null ? jsonDecode(res!.body) : null);
   }
 }
