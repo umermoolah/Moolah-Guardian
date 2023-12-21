@@ -59,6 +59,8 @@ dependencies:
   rsa_pkcs: ^2.1.0
   fast_rsa: ^3.6.1
   basic_utils: ^5.7.0
+  image_size_getter: ^2.1.2
+  chewie: ^1.7.4
 #  flutter_ironsource_x: ^2.7.4
 
 dev_dependencies:
