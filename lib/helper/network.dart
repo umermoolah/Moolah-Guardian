@@ -8,6 +8,7 @@ class Network {
   static Future<ResponseModel> get(String url) async {
     // print("REQ BODY: $body");
     try {
+      print("URL:::$url");
       print("HEADERS: ${getHeaders()}");
       var res = await http.get(Uri.parse(url), headers: getHeaders());
       print("RES STATUS: ${res.statusCode}");

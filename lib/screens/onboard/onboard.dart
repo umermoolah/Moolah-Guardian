@@ -92,15 +92,18 @@ class _OnBoardState extends State<OnBoard> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  if(initialized)
+                                  if(initialized && !initialPlay)
                                   roundedContainer(
+                                    color: Colors.transparent,
                                     borderRadius: 20,
-                                    // height: (context.height / controller.value.aspectRatio),
+                                    height: controller.value.size.height *
+                                        ((((height / width) * 175.47234042553191) /
+                                            controller.value.size.height)),
                                     margin: const EdgeInsets.symmetric(
                                         vertical: 20),
-                                    width: controller.value.size.width * ((((height/width) * 96.47234042553191) / controller.value.size.width)),
+                                    width: controller.value.size.width * ((((height/width) * 110.47234042553191) / controller.value.size.width)),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(20),
                                       child: Chewie(controller: cController,),
                                       // child: VideoPlayer(controller),
                                     ),
@@ -115,7 +118,7 @@ class _OnBoardState extends State<OnBoard> {
                                       width: controller.value.size.width * ((((height/width) * 96.47234042553191) / controller.value.size.width)),
                                       child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(10),
+                                              BorderRadius.circular(20),
                                           child: Image.asset(
                                             AppImages.videoThumbnail,
                                             fit: BoxFit.fill,
@@ -143,9 +146,9 @@ class _OnBoardState extends State<OnBoard> {
                                       child: roundedContainer(
                                         color: Colors.transparent,
                                         padding: const EdgeInsets.all(160.0),
-                                        child: SvgPicture.asset(
-                                            AppImages.playButton,
-                                            width: 50),
+                                        // child: SvgPicture.asset(
+                                        //     AppImages.playButton,
+                                        //     width: 50),
                                       ),
                                     )),
                               if (!videoCompleted && !initialPlay && !stopped)
@@ -161,7 +164,7 @@ class _OnBoardState extends State<OnBoard> {
                                       child: roundedContainer(
                                         color: Colors.transparent,
                                         padding: const EdgeInsets.all(130.0),
-                                        child: SvgPicture.asset(AppImages.playButton, width: 50),
+                                        // child: SvgPicture.asset(AppImages.playButton, width: 50),
                                       ),
                                     )),
                             ],
@@ -234,10 +237,10 @@ class _OnBoardState extends State<OnBoard> {
   }
 
   void getSize() async {
-    ByteData data = await rootBundle.load(AppImages.videoThumbnail);
-    // List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-
-    size = ImageSizeGetter.getSize(MemoryInput(
-        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes)));
+    // ByteData data = await rootBundle.load(AppImages.videoThumbnail);
+    // // List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    //
+    // size = ImageSizeGetter.getSize(MemoryInput(
+    //     data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes)));
   }
 }

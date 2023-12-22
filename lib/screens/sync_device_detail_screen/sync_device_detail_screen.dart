@@ -62,7 +62,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           c: homeController,
           child: Column(
             children: [
-              verticalSpace(40),
+              verticalSpace(20),
               commonAppBar(
                   heading:
                       "${homeController.getSelectedKid(widget.kidId).name?.split(" ")[0]}'s Summary"),
