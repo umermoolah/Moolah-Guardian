@@ -95,7 +95,7 @@ class _OnBoardState extends State<OnBoard> {
                                   if(initialized && !initialPlay)
                                   roundedContainer(
                                     color: Colors.transparent,
-                                    borderRadius: 20,
+                                    borderRadius: 0,
                                     height: controller.value.size.height *
                                         ((((height / width) * 175.47234042553191) /
                                             controller.value.size.height)),
@@ -103,7 +103,7 @@ class _OnBoardState extends State<OnBoard> {
                                         vertical: 20),
                                     width: controller.value.size.width * ((((height/width) * 110.47234042553191) / controller.value.size.width)),
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
+                                      borderRadius: BorderRadius.circular(0),
                                       child: Chewie(controller: cController,),
                                       // child: VideoPlayer(controller),
                                     ),
@@ -113,12 +113,13 @@ class _OnBoardState extends State<OnBoard> {
                               if (initialPlay)
                                 Center(
                                   child: roundedContainer(
-                                      borderRadius: 20,
+                                    color: Colors.transparent,
+                                      borderRadius: 0,
                                       // margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 65),
                                       width: controller.value.size.width * ((((height/width) * 96.47234042553191) / controller.value.size.width)),
                                       child: ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(20),
+                                              BorderRadius.circular(0),
                                           child: Image.asset(
                                             AppImages.videoThumbnail,
                                             fit: BoxFit.fill,
