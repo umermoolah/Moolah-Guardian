@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
+  crypton:
+    dependency: "direct main"
+    description:
+      name: crypton
+      sha256: "17b6631fbf89e389d421b46629132287ed37d601b2ad1357445826ab85022271"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
   csslib:
     dependency: transitive
     description:

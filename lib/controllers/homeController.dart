@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:get/get.dart';
 import 'package:pointycastle/asymmetric/pkcs1.dart';
 
 // import 'package:encrypt/encrypt.dart';
@@ -33,6 +34,8 @@ import 'package:pointycastle/paddings/pkcs7.dart';
 import 'package:rsa_pkcs/rsa_pkcs.dart' as rsa;
 import 'package:fast_rsa/fast_rsa.dart' as rsa1;
 import 'package:crypto/crypto.dart' as crypto;
+
+import 'package:crypton/crypton.dart' as c;
 
 import 'dart:convert';
 import 'dart:typed_data';
@@ -588,9 +591,10 @@ class HomeController extends BaseController {
         "PJQfNjS2gwuoqQ1k1j4givlFHebpQkSf7KqnWhQyrtToLwO1p7MP+koTPkCacINsXUjrfh1wDc2NV/5kSjnhkcK+ifhoEo/KeZCIhw/gxbazRMKctkk6wt1aUo3Uu2jrdbo6h9GHpRWwsq7nsDk3nNOkCVA4gHOzgSKSayWamwQ=";
     // var privateKey =
     //     """-----BEGIN PRIVATE KEY-----\n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\nXePq5IrmXuPu3CzEkem+8f3hAbZgzw0=\n-----END PRIVATE KEY-----\n"""; //.replaceAll("\n", "").replaceAll("-----END PRIVATE KEY-----", "").replaceAll("-----BEGIN PRIVATE KEY-----", "");
-    var privateKey = """-----BEGIN PRIVATE KEY-----\n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\nqDruLXnagSllm18cWO2wRAyQApLRlHqe\n-----END PRIVATE KEY-----\n""";
+    var privateKey =
+        """-----BEGIN PRIVATE KEY-----\n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\nqDruLXnagSllm18cWO2wRAyQApLRlHqe\n-----END PRIVATE KEY-----\n""";
     const encryptedData =
-        "kI0/eOX0dTBy7fgxivdKsKpTu3oAhIJGehz3bDWk874r7i2nEXyOAMXq4Y5BjCyVKwrNYYNrtEbF3Jtyep+JRarLP8vHGWUu/q+sQLYWceqjvU9cGUUZPDMuG/kN9N+t2vQ+vgKKGB0+FgQvpSJ4ypqjRcv96gEZB0Is6JidrHoLxE3JpBF+f3MMIR+UQm5UP72ndYNaWkdbDGM7egtaBXl8RdIebJBxxBJYCBGSjtJWpAzurJtvjzEW1fr2AiICkP/uFHSWALIAIg2HSCRxcvI5ABqmcyNZIJlDcnVskrp65VMB7iGzp5edPPYi1quKqUHErvgpuL6KzlAs4dwp0vqy/pixa/kp7hSRiVnRfHOinDfGTc3VX3mzE9Eknp05DoVuvYSSnl+cnM4l67RW5X7vDPNfVchQk3RLgukSmZSuq3R17KKrDvmQZI0QXgC+c7Jn+nyNgelAdKzMxMpBFpOXUuY0Iu4/JSNuJ0xUASsek5VwE6VG5wZxeIB/hoxx8MD5jALkOO2Gu0yfKvopLx/KZ8wmEmZ6qErlke92uTNn0dFwYc76+huyKAVsEV7CXKnnVe0wF8SEm8uEAjeBu4x9RPrLBOqhcI9UZWbHeUd8TMXq60Uk7cVFo5NftpFVAeJLu7BTyaL2jHLC/uHm9ZeK++628br9KhXrOgkSmEY=";
+        "K3Bs1netHm+MXg/TTVlaU19KM82Dk9Y40pEcAXnmxfficR7kOlWjuJOyT3yC8LYENEZtqG2JUi+AIRCA3ckyIjrzhdszUh2Jq+TdFWRgixoCWrfzeLQtwcVq1Ps9N3a+whbB2/HtXBw+mjdQ+atPm7jdBeF82MWckeQ8a/rh4ZsblCdNtAwfFtzutVjrNzwPmi0TqRNtzC1JsDHKU7r6mG3f7r4opWyOLhQ3Jebw9FSzy7VJE/GRQJSmMKJyGR8P9XkhPd3xmwDjiBwJoF1nyO4QVgEhX4cYGfWwvtPuchw+YK7i+cIevPBYCICexF4DJpo7S0VzxyOGnzdttmXLETrCf3basbqgzpbmwfHP9ExXpM5Fd7WQe4oZiWeRnPOqj5rG0VZBKkrh5Q7/Dtyxv35ULxQ46yMxQBKin7TEDt8oqrFftBNG3WNPGokSL7/xQf1rOHUh3KClW1XLybB8v4BCwUvTw+4D66o/nN7ptZnFvVD/3aknp6vGrcnxZyKh1ckl2rPPTn65FjrWZw4kH2z1f8Xd5SSJ+NpKFaDjlvKVLlhyaNMzJwuVU2igyDsgOzLKLLtCBOemqggxwzA+TMWMjZ4u0ykV9kY/XxW5rKY/iSUURr2FO8za5ZvSWlS/qTffqA4oTMg5FG7VTpSAujsQ2/ELgIJbMLenHcuEy8g=";
 
     /// /// /// /// /// /// /// /// /// /// ///
     var privateKey1 =
@@ -602,6 +606,8 @@ class HomeController extends BaseController {
         "IFitT0dS9HQT5JtqREoKFO4x05m/QSLC5Ch4F5UmVWiZG7tfidaeSia/lKl0kt6flS6DqZYf3+zoTUREH0b23SR3uBOC8M/zko7H9D5ou2Jmw2SdCqiFyq3YPh6o/Se6FVFrrmLGHbbqHY6Td3NdL1r3ot4oxNRUcH+4Qmis1EHuqAhY8EMLVUCq1Td26r4/jacwE6KHZyOAxnpx1UI0hiQXox2ShboFlimuOb1KMlZJBBI4I7HhSEsdtayKrH/UKxGwZJEi+wF+PEJupK+u/00Ew3XE6ZX9DUv2iENL9FDpo20i7qkLfEfzt2n/JZ95GPNn9HVkBAeJUYEOir67Q2+FxW/i5ZGfr9nWljcdKQxsXGMrdT81EKZVXDEq2GNuPUIwctTx8ZrDUZXNcAvilzEqppNl3p/9uzgGi/a1KsGQQqE/aCCBKxSeB925N39tVP2EHchPO+6d7qJiUf8ogAhr8IlPMxmVnv/fmyjdhmrTX/EdpgpyWHgSZZG1iJaMayxspGhXceOhV6sv6N0t+l8T6y4L0ElUnYtp6GsxpYyewt/e7ImOpc1F+Aar3osiSr1wgqhFBYWV7QPxmb8lV8h0RJshrUHHo1803i86CSmFaAHOHJpc3ij8+ymSd7OsLUkrIQCzxTTBFkwp4Bydlu0Nw0m+TZK6iKtIBgTfqeQ=";
     // print("privateKEY::$privateKey");
     print(decryptByPrivateKey1(privateKey,encryptedData));
+    // cryptonDec(privateKey, encryptedData);
+    // decrypt9Feb(privateKey, encryptedData);
     // print("jsDecrypt::${jsDecrypt()}");
     // print(decryptByPrivateKey1(privateKey,encryptedData));
     // print(await decryptData(privateKey, base64.decode(encryptedData)));
@@ -613,10 +619,10 @@ class HomeController extends BaseController {
     encrypt.RSAKeyParser parser = encrypt.RSAKeyParser();
     RSAPrivateKey privateKey = parser.parse(private) as RSAPrivateKey;
     AsymmetricBlockCipher cipher = PKCS1Encoding(RSAEngine());
-    cipher..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+    cipher.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
 
-    print("privateKey.privateExponent");
-    print(privateKey.privateExponent);
+    // print("privateKey.privateExponent");
+    // print(privateKey.privateExponent);
     return utf8.decode(cipher.process(
         base64.decode(content) /*Encrypted.fromBase64(content).bytes*/));
     // Working here
@@ -636,8 +642,9 @@ class HomeController extends BaseController {
     final rsa.RSAPKCSParser parser = rsa.RSAPKCSParser();
     final rsa.RSAKeyPair pair = parser.parsePEM(privateKeyString);
     final rsa.RSAPrivateKey privateKey = pair.private!;
-    // var result = await rsa1.RSA(privateKeyString);
+    // var result = await rsa1.RSA();
     String prv = await rsa1.RSA.convertPrivateKeyToPKCS8(privateKeyString);
+
     // CryptoUtils.rsaPublicKeyFromPem(prv);
     print("prv::");
     print("$prv");
@@ -719,17 +726,20 @@ class HomeController extends BaseController {
     // final e = encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.cbc));
     // final decryptedData = e.decrypt(encrypt.Encrypted.fromBase64(encrypted), iv: iv);
     // return decryptedData;
-    final String privateKey = pkey; // Replace with your actual private key
+    print(pkey.toString().codeUnits);
+    // final String privateKey = pkey; // Replace with your actual private key
     const String ivKey =
-        'AI7FWy+NbsCd07CdODabZQ=='; // Replace with your actual IV key
-
-    final key = encrypt.Key.fromBase64(privateKey); //32 chars
-    final iv = encrypt.IV.fromUtf8(ivKey);
+        '7PrYfqIrncey9ATaQQdWDQ=='; // Replace with your actual IV key
+    // print("Private Key::$privateKey");
+    // print("buffer:::${Uint32List.fromList([149, 50, 126, 191, 21, 20, 44, 71, 240, 174, 181, 74, 63, 57, 205, 252, 196, 237, 171, 7, 79, 4, 192, 3, 33, 99, 35, 85, 165, 140, 134, 172]).length}");
+    final key = encrypt.Key.fromBase64(base64Encode(pkey)); //32 chars
+    final iv = encrypt.IV.fromBase64(ivKey);
 
     final e = encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.cbc));
     final decryptedData =
         e.decrypt(encrypt.Encrypted.fromBase64(encrypted), iv: iv);
 
+    print("Data:::");
     print(decryptedData);
   }
 
@@ -748,8 +758,10 @@ class HomeController extends BaseController {
     );
 
     print("Herllo Derypt");
-    print(encr.decrypt(encrypt.Encrypted.fromBase64(content)));
+    var newKey = encr.decryptBytes(encrypt.Encrypted.fromBase64(content));
+    print("newkey:::$newKey");
 
+    newDecrypt("UPF+VyA/MSlV9VJX28EHSA==", newKey);
     return "";
     // cipher
     //   ..init(false, PrivateKeyParameter<RSAPrivateKey>(publicKey));
@@ -791,7 +803,7 @@ class HomeController extends BaseController {
   jsDecrypt() async {
     print("JS Decrypt: 1");
     final JavascriptRuntime javascriptRuntime =
-    getJavascriptRuntime(forceJavascriptCoreOnAndroid: false);
+        getJavascriptRuntime(forceJavascriptCoreOnAndroid: false);
     print("JS Decrypt: 2");
     JsEvalResult jsResult = await javascriptRuntime.evaluateAsync("""
 const crypto = global.crypto;
@@ -871,40 +883,42 @@ const encryptedSymmetricKey =
     JsEvalResult asyncResult = await javascriptRuntime.handlePromise(jsResult);
 
     print("asyncResult.stringResult:::${asyncResult.stringResult}");
+  }
 
-
-        }
-
-
-        decrypt9Feb(key, data){
+  decrypt9Feb(key, data) {
 // Example data and RSA private key
-          String encryptedBase64 = "$data"; // Your encrypted data in base64 format
-          String privateKeyPEM = "$key"; // Your RSA private key in PEM format
+    String encryptedBase64 = "$data"; // Your encrypted data in base64 format
+    String privateKeyPEM = "$key"; // Your RSA private key in PEM format
 
-          // // Decode the base64 encrypted data
-          // Uint8List encryptedBytes = base64.decode(encryptedBase64);
-          //
-          // // Decode the RSA private key from PEM format
-          // Uint8List privateKeyData = utf8.encode(privateKeyPEM);
-          // final parser = encrypt.RSAKeyParser();
-          // final RSAPrivateKey privateKey = parser.parse(privateKeyPEM) as RSAPrivateKey;
-          //
-          // // Initialize RSA decryption with the private key
-          // final decryptor = OAEPEncoding(RSAEngine())
-          //   ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
-          //
-          // // Perform decryption
-          // Uint8List decryptedBytes = decryptor.process(encryptedBytes);
-          //
-          // // Convert decrypted bytes to a string
-          // String decryptedString = utf8.decode(decryptedBytes);
-          //
-          // // Output the decrypted string
-          // print("Decrypted data: $decryptedString");
+    // Decode the base64 encrypted data
+    Uint8List encryptedBytes = base64.decode(encryptedBase64);
 
-        }
+    // Decode the RSA private key from PEM format
+    Uint8List privateKeyData = utf8.encode(privateKeyPEM);
+    final parser = encrypt.RSAKeyParser();
+    final RSAPrivateKey privateKey =
+        parser.parse(privateKeyPEM) as RSAPrivateKey;
 
+    // Initialize RSA decryption with the private key
+    final decryptor = OAEPEncoding(RSAEngine())
+      ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
 
+    // Perform decryption
+    Uint8List decryptedBytes = decryptor.process(encryptedBytes);
+
+    // Convert decrypted bytes to a string
+    String decryptedString = utf8.decode(decryptedBytes);
+
+    // Output the decrypted string
+    print("Decrypted data: $decryptedString");
+  }
+
+  cryptonDec(String key, String data) {
+    var private = c.RSAPrivateKey.fromPEM(key);
+
+    print("new decrypt");
+    print(private.decryptData(private.createSHA256Signature(base64Decode(data))));
+  }
 }
 
 class Payload {
