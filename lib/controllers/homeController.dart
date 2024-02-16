@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:moolah/helper/decrypter.dart';
 import 'package:pointycastle/asymmetric/pkcs1.dart';
 
 // import 'package:encrypt/encrypt.dart';
@@ -152,6 +154,7 @@ class HomeController extends BaseController {
             name: tem["kidFullName"],
             batteryStatus: "0",
             connectId: tem["kidDeviceAccountConnectID"],
+            privateKey: tem["privateKey"],
             dataUsageStatus: "0",
             deviceType: tem["kidDeviceType"],
             kidPic: null,
@@ -246,40 +249,50 @@ class HomeController extends BaseController {
     ResponseModel responseModel =
         await SingleKidRepo.getDeviceDetails(kidId: kidId);
     print("responseModel::: ${responseModel.data}");
+    // print();
+    String resp = Decrypter.decryptCode(getSelectedKid(kidId).privateKey!, responseModel.data["encryptedSymmetricKey"], responseModel.data["iv"], responseModel.data["encryptedData"]);
     print("DateTime.now()::${DateTime.now()}");
-    if (responseModel.data["code"] == 200) {
+    DeviceDetail detail = DeviceDetail.fromJson(jsonDecode(resp)["data"]);
+    connectedKids[getSelectedKidIndex(kidId)].deviceDetail = detail;
       Duration time = (DateTime.now().difference(
           DateTime.fromMillisecondsSinceEpoch(
-              responseModel.data["data"]["lastReportedTime"])));
+              detail.lastReportedTime??0)));
       String timee =
           "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
       connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
-      print(
-          'responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
-      connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel
-              .data["data"]["networkInfo"]["sim1"]["mDataRoaming"]
-              ?.toString() ??
-          "0";
-      connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel
-              .data["data"]["realTimeStats"]["batteryLevel"]
-              ?.toString() ??
-          "0";
-
-      /// ONLY FOR PRODUCTION
-      DeviceDetail d = DeviceDetail.fromJson(responseModel.data);
-      double totalTime = 0;
-      for (int i = 0;
-          i < (d.data?.realTimeStats?.appUsageData?.length ?? 0);
-          i++) {
-        totalTime += d.data!.realTimeStats!.appUsageData![i].mFgUsageTime ?? 0;
-      }
-      d.data?.realTimeStats?.totalAppUsageData = totalTime;
-      connectedKids[getSelectedKidIndex(kidId)].deviceDetail = d;
-
-      /// ONLY FOR PRODUCTION
-    } else {
-      // errorToast("Something went wrong!");
-    }
+    // if (responseModel.data["code"] == 200) {
+    //   Duration time = (DateTime.now().difference(
+    //       DateTime.fromMillisecondsSinceEpoch(
+    //           responseModel.data["data"]["lastReportedTime"])));
+    //   String timee =
+    //       "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
+    //   connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
+    //   print(
+    //       'responseModel.data["data"]["realtimeStats"]["batteryLevel"]:::${responseModel.data["data"]["realTimeStats"]["batteryLevel"]}');
+    //   connectedKids[getSelectedKidIndex(kidId)].dataUsageStatus = responseModel
+    //           .data["data"]["networkInfo"]["sim1"]["mDataRoaming"]
+    //           ?.toString() ??
+    //       "0";
+    //   connectedKids[getSelectedKidIndex(kidId)].batteryStatus = responseModel
+    //           .data["data"]["realTimeStats"]["batteryLevel"]
+    //           ?.toString() ??
+    //       "0";
+    //
+    //   /// ONLY FOR PRODUCTION
+    //   DeviceDetail d = DeviceDetail.fromJson(responseModel.data);
+    //   double totalTime = 0;
+    //   for (int i = 0;
+    //       i < (d.data?.realTimeStats?.appUsageData?.length ?? 0);
+    //       i++) {
+    //     totalTime += d.data!.realTimeStats!.appUsageData![i].mFgUsageTime ?? 0;
+    //   }
+    //   d.data?.realTimeStats?.totalAppUsageData = totalTime;
+    //   connectedKids[getSelectedKidIndex(kidId)].deviceDetail = d;
+    //
+    //   /// ONLY FOR PRODUCTION
+    // } else {
+    //   // errorToast("Something went wrong!");
+    // }
     update();
     isLoading = false;
   }
@@ -592,9 +605,9 @@ class HomeController extends BaseController {
     // var privateKey =
     //     """-----BEGIN PRIVATE KEY-----\n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\nXePq5IrmXuPu3CzEkem+8f3hAbZgzw0=\n-----END PRIVATE KEY-----\n"""; //.replaceAll("\n", "").replaceAll("-----END PRIVATE KEY-----", "").replaceAll("-----BEGIN PRIVATE KEY-----", "");
     var privateKey =
-        """-----BEGIN PRIVATE KEY-----\nMIIJRAIBADANBgkqhkiG9w0BAQEFAASCCS4wggkqAgEAAoICAQDQWKBKAZy5vsAj\num0YQzbufWoeUlD9yfhVWRwIcpH/3Dkh8nlu8+dRAnSzAbjvoNTquT6MSNl1CjbG\nWN5rM9ESb750c9uPHVqx3vvRHyNtoxKV/Aoma8oFyzH1PrTcAoBUrGhXKnWmlVAY\n98NklBC353MRG4l8uAuBx6Rnn8/NGsP6578338x/jzdtaXU0//K6Hh3tg/A96kjP\narQnR3FUxGO9iUKTDjWw47cZ4NISlgIaF9evmFShwpAN8YaTmXzDuUz+2GXmnfSd\n3Y9X7SukXMsXBanfLUkABPiprPsLynJNr83Byi3zv9vvP8N9zzIWoqrMYj/gClpV\nTvdgVHMTYDkQ+ZAN5uSL8lkbTRJfYod/ioRR66ioYe/uVz4q+w+yqvh1wDLM7ViK\n4rwj98P1X1XKI9sE9u30B3aJrW9IHqcGNPXZes7iaySNmhRPsvVGvspJ5UZXjBGQ\nHUUgay8A8MiKDTOrNimnMm9bSsAk/mmLH0cwBL07IBTX0NUapxOoR0AHKGtqkH8J\ni0jVuyAiIEipVey1bponGG98Ws18uPxS9jfJJeX4plrZPOSWKIF/rnx/csmTd06u\nz8p4E9u770wl0wsTAYiyvwRg98k8EDzQM0/qBSKv9ZhlspHYfoGHggCskC00YRGq\nZO089IgX8D3/8QIUhEEGsnFjKxkNUwIDAQABAoICABPvLuL11YeGIz8n4rFMGRDn\nigQ9rwchUHPmE0MRpzt6WDMRzqGZj5vWJtFLzGSNGGIe+EeW3suOfyAqN5m9OvdP\nHsNopGzEi71yDtj66DpgvHICS/xSGuHEB9MlvUtBqAKx/ke8xcX7Ck9hQV45toHK\nEN3lqxl2SI+RyP6rMUg4E+FJVCfl71yTGOQMj4zTImfBYu6rTYy3AmFqHbOWZ9cK\n9VoYrHiChwuWNhoxQxhJJwlVF6ty4UIa6gqTfeNYb7IQZDgL/2/51AJYxRLOG/td\nb4cT4SV74TyxvRMK/Hgr1hTtybuNeykTxdjV2oAKl4nH5Zypl9/5TZxU8mFSozHe\ntLeMTL0OXf+lPEC9ze1LgFwTHJlynf9YJj+RZyfPnPy7aiYKJWJrCUqHYpFm5tV3\nGdd3Z/g0HiyyQAPCxAcf550tQc6vncrUghZ4YjSnAvIfYhFR3UDEDt3zn+EENLXb\nWLSbQdS0f6aOJKFuA9ynrlPDTa90T9U1VgmvhloosWSfx/GM0ElCRzr9r35DR906\nLPcyXWI1DoP8GEghx9bfe+No7eFkhIGgCxeWjwcz2gqQ9aaeb1ri/IXGdIc5HQtv\nu15FGgXZCHpkQ9wX/syRChI3S3g8yd0cdOkMMunLZlqfoVtKEE1tv4w0HpC3j7tg\n//wZWhPDxyXIVLt2rQNBAoIBAQDn7rOE3k6W51+lmDkEANsTPn5Zu3g5OK0tzbYA\n3n3v3wNXQBgtAL8yAHDOs0pwMSvY7c6tt/f1BEqvINKKp0g/erwFs76zKlnKcqQn\nqm+IINkYjxbBZl/yy0yOK47G3V0aG3fmilVOjC1GMfc+7WCg8JNulj6XkXwUlmfm\n9NCicEc3awgompdxmX8ZPaol+nEJ3KW18kgp4ZqTkj/nfrGgrxHy2UUbve2VkTlp\nnd/aYcWntqbRtAE2uSVYLwlU9B253cpEaqN76ufLWJWT5FuXp/xHAq+Bdt7tSa0G\n+LFPv5LgHPc0h6ckz49UmTMMyGO0xP9hKRgaSATEBDSsk7JBAoIBAQDl91rxwNvd\nsa9iAfD1xr1jM7XzAfF4KRFi+lL4Ygj+VpPqk9P6oatnyPaC9IGxiHF3P0ah8ig2\n6PRi8OUYN0aGKZJPJOAdqgbpNJjbfiTzTWP7BO8BEVITuhZNuUuUsZQotqq9dIdP\nr84S5P/VJTAftBDK/Dx8PpD3O+46GQzhE5jdLzqInDehw95jKcWBlhsm8tj39IZG\n4CYFRZQPh62gLkVzQvxg9PGMGAu+L07gjqJTrinziJsoqes/Id2aamw57g/DxTOb\nfGEzzHDSzXCs5PWCC1BDnGNr9o6n4nobqlY1FrlSRfpm+9NYjx7ntcklbqDaD+7i\n0k1MFLhJOTKTAoIBAQCTfjRBodIemyMzPru7dQPcmBhn3hVVZlqTT0eYA+XYvlz0\nhnkZXWk5VhhnCpOjB1IYERsnVF/mPAV2m4voyvriC544jhcO/za8zOzhoLxuuFz3\nBj/1W7JWx7x2iPKyOqHzcVZtkLkxS2mbQzk1lmWl03gekoNZhhZ/TSrkL/nh4z8W\n2gUFNVJr1q6CEbn7jumF2QC01U/Y+nR/tjjXcbVqNwtWAZ+2RbEqNYFqThDGYvj8\nb+ZkY3GGKHW8P6VSli+1PHtdyOcQbdFceogc1dL9fcGsMuQDk+GuyvSzA0JXMcAo\nr6Lxj/bWLPy8UvSpA2KM2d6CHk0KoZQOR5Jr0T1BAoIBAQCUjvvISx9+EwhKlxhz\nncTA7invZ2T3jAg4WZ/551MKAyIhGwiI06HoNPHS3WNfLdanA1B80/PYrRsbQ6Wr\nxCGiD/79c8P4RdubEahhuxbhujAJfEFt/iN4rPE1mqtRznn45zBbnYjAGMFWgWsn\n5ZM2F9v1VYc5eC2sGaInFAG28TMCSD1W/RwPO3pRsy1tLmwx+BXj8KpB5RGKvE0O\nz0aBwQKKmE5z0CiuqOYFIYiiFmKVDmD5e1lIpqRbL2R6GZ/6uGikvqM9IdelX7/O\n3nqYpnxXWzmpw8CSgT/dAriBYMO6HgjwNlax6qK4hhSf+VaNAO+Wj05yZwsaSBRY\n8UNTAoIBAQDRQQtLCXgTuLTZDQQvQcJMyWs0FBcRzMfTyaxBlPQaZk61I9yLd7sX\ngKhus3Y+LW/5EDW1SQiK+30Ihe2pAnm53dztxlEvuImGo8XAlxQaAZuqhRC6bNqb\nlkcRYPKisnIKvuxs9OXNzQa1+kl6fqGsdyQ84m9xY+xJiD9EKIXmRozyihtfK4Rr\nbTNlr0QyeyC9X3D3MeyO3aUJlB44Oi8rihWiHYZr4NVu9wOjIx4QQTVIMS0JNeRA\n2rQjDkx8Wp0r7lfBbyHpw0kv9NjO5mkS1LQ8piVaw+ltQoXPObjnk/TQXBZ/gs6C\nqDruLXnagSllm18cWO2wRAyQApLRlHqe\n-----END PRIVATE KEY-----\n""";
+        """-----BEGIN PRIVATE KEY-----\n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\nptUcmX46+7DXCjjtIwd9WH7DRAZjqtI=\n-----END PRIVATE KEY-----\n""";
     const encryptedData =
-        "K3Bs1netHm+MXg/TTVlaU19KM82Dk9Y40pEcAXnmxfficR7kOlWjuJOyT3yC8LYENEZtqG2JUi+AIRCA3ckyIjrzhdszUh2Jq+TdFWRgixoCWrfzeLQtwcVq1Ps9N3a+whbB2/HtXBw+mjdQ+atPm7jdBeF82MWckeQ8a/rh4ZsblCdNtAwfFtzutVjrNzwPmi0TqRNtzC1JsDHKU7r6mG3f7r4opWyOLhQ3Jebw9FSzy7VJE/GRQJSmMKJyGR8P9XkhPd3xmwDjiBwJoF1nyO4QVgEhX4cYGfWwvtPuchw+YK7i+cIevPBYCICexF4DJpo7S0VzxyOGnzdttmXLETrCf3basbqgzpbmwfHP9ExXpM5Fd7WQe4oZiWeRnPOqj5rG0VZBKkrh5Q7/Dtyxv35ULxQ46yMxQBKin7TEDt8oqrFftBNG3WNPGokSL7/xQf1rOHUh3KClW1XLybB8v4BCwUvTw+4D66o/nN7ptZnFvVD/3aknp6vGrcnxZyKh1ckl2rPPTn65FjrWZw4kH2z1f8Xd5SSJ+NpKFaDjlvKVLlhyaNMzJwuVU2igyDsgOzLKLLtCBOemqggxwzA+TMWMjZ4u0ykV9kY/XxW5rKY/iSUURr2FO8za5ZvSWlS/qTffqA4oTMg5FG7VTpSAujsQ2/ELgIJbMLenHcuEy8g=";
+        "hs6YPRluzcEWmT7y6Rfz0EmyEuDM7DGVk6ktcG9Mnl6r8pY73XqEiNBFfOFd5jVW+Y1VU+wOrmfVI/mWGbinbdzD4qpFEAftLm2OfE2peBdvDiW8lVcXhtW20UENlTlD8KTJqsAD6F5lFYx5zp0ovxCX4L+euKOVpuKTeB1pqH9v9uMRjfRc17cEQL3F9+U45hztybWKBLZd8Hip0BjuXBsQXjS9ZKvV8umWcWOzIRvd3NGvqvMniXUyELjKWE77m5fuanat5EaNeuZ+YSqivowrBDoFQC/3Om+6qAL45g8KEkn4SMEW40Ume73NZUL0bzh1ZSyF4FNyd434oSoq2cG3jXW9RsZ/akoGdAK6aQX4mPkSecxRYBj4ajulFDk89Mml7SV3UQ7Z4aGx5+hsO+H0cX5c5D/X8cPsb3ZW+jk6iNUqPdX07LKyK3IiRa4UdZ5eCOXoT4rIJWoR6dtG3OE5Im26kUj3dUSehRx14PMIaWASH0XmL78Xd8E0RBex36GVxkrh88RzkifMxwVTPTugfHRU7f9s4X6fOYTnS26ClCjzMjBgCqRsteyrEMCixJiBwOy1LofSnv62NTr7Ywx+bUsghzR2cXsXCVEEIexhy3nJtlJzyYVP2jsq7nREJZPQaOMciKeXptCt4NFY6MNslXbqavc+XhW+DEOZqBM=";
 
     /// /// /// /// /// /// /// /// /// /// ///
     var privateKey1 =
@@ -761,7 +774,7 @@ class HomeController extends BaseController {
     var newKey = encr.decryptBytes(encrypt.Encrypted.fromBase64(content));
     print("newkey:::$newKey");
 
-    newDecrypt("UPF+VyA/MSlV9VJX28EHSA==", newKey);
+    // newDecrypt("UPF+VyA/MSlV9VJX28EHSA==", newKey);
     return "";
     // cipher
     //   ..init(false, PrivateKeyParameter<RSAPrivateKey>(publicKey));

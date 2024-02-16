@@ -9,41 +9,6 @@ DeviceDetail deviceDetailFromJson(String str) => DeviceDetail.fromJson(json.deco
 String deviceDetailToJson(DeviceDetail data) => json.encode(data.toJson());
 
 class DeviceDetail {
-  int? code;
-  String? message;
-  Data? data;
-
-  DeviceDetail({
-    this.code,
-    this.message,
-    this.data,
-  });
-
-  DeviceDetail copyWith({
-    int? code,
-    String? message,
-    Data? data,
-  }) =>
-      DeviceDetail(
-        code: code ?? this.code,
-        message: message ?? this.message,
-        data: data ?? this.data,
-      );
-
-  factory DeviceDetail.fromJson(Map<String, dynamic> json) => DeviceDetail(
-    code: json["code"],
-    message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "code": code,
-    "message": message,
-    "data": data?.toJson(),
-  };
-}
-
-class Data {
   String? id;
   String? deviceStatus;
   String? state;
@@ -54,7 +19,6 @@ class Data {
   int? hasMultiUser;
   String? imeiNumber;
   String? deviceId;
-  String? previousDeviceId;
   int? lastReportedTime;
   int? createdTime;
   NetworkInfo? networkInfo;
@@ -68,7 +32,7 @@ class Data {
   int? deviceLastSuspendTime;
   bool? oemLocked;
 
-  Data({
+  DeviceDetail({
     this.id,
     this.deviceStatus,
     this.state,
@@ -79,7 +43,6 @@ class Data {
     this.hasMultiUser,
     this.imeiNumber,
     this.deviceId,
-    this.previousDeviceId,
     this.lastReportedTime,
     this.createdTime,
     this.networkInfo,
@@ -94,7 +57,7 @@ class Data {
     this.oemLocked,
   });
 
-  Data copyWith({
+  DeviceDetail copyWith({
     String? id,
     String? deviceStatus,
     String? state,
@@ -105,7 +68,6 @@ class Data {
     int? hasMultiUser,
     String? imeiNumber,
     String? deviceId,
-    String? previousDeviceId,
     int? lastReportedTime,
     int? createdTime,
     NetworkInfo? networkInfo,
@@ -119,7 +81,7 @@ class Data {
     int? deviceLastSuspendTime,
     bool? oemLocked,
   }) =>
-      Data(
+      DeviceDetail(
         id: id ?? this.id,
         deviceStatus: deviceStatus ?? this.deviceStatus,
         state: state ?? this.state,
@@ -130,7 +92,6 @@ class Data {
         hasMultiUser: hasMultiUser ?? this.hasMultiUser,
         imeiNumber: imeiNumber ?? this.imeiNumber,
         deviceId: deviceId ?? this.deviceId,
-        previousDeviceId: previousDeviceId ?? this.previousDeviceId,
         lastReportedTime: lastReportedTime ?? this.lastReportedTime,
         createdTime: createdTime ?? this.createdTime,
         networkInfo: networkInfo ?? this.networkInfo,
@@ -145,7 +106,7 @@ class Data {
         oemLocked: oemLocked ?? this.oemLocked,
       );
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory DeviceDetail.fromJson(Map<String, dynamic> json) => DeviceDetail(
     id: json["id"],
     deviceStatus: json["deviceStatus"],
     state: json["state"],
@@ -156,7 +117,6 @@ class Data {
     hasMultiUser: json["hasMultiUser"],
     imeiNumber: json["imeiNumber"],
     deviceId: json["deviceId"],
-    previousDeviceId: json["previousDeviceId"],
     lastReportedTime: json["lastReportedTime"],
     createdTime: json["createdTime"],
     networkInfo: json["networkInfo"] == null ? null : NetworkInfo.fromJson(json["networkInfo"]),
@@ -182,7 +142,6 @@ class Data {
     "hasMultiUser": hasMultiUser,
     "imeiNumber": imeiNumber,
     "deviceId": deviceId,
-    "previousDeviceId": previousDeviceId,
     "lastReportedTime": lastReportedTime,
     "createdTime": createdTime,
     "networkInfo": networkInfo?.toJson(),
@@ -416,7 +375,7 @@ class Sim {
   bool? mIsEmbedded;
   String? mCardId;
   dynamic imsi;
-  dynamic imei;
+  String? imei;
 
   Sim({
     this.mId,
@@ -453,7 +412,7 @@ class Sim {
     bool? mIsEmbedded,
     String? mCardId,
     dynamic imsi,
-    dynamic imei,
+    String? imei,
   }) =>
       Sim(
         mId: mId ?? this.mId,
@@ -514,7 +473,6 @@ class Sim {
 }
 
 class RealTimeStats {
-  double? totalAppUsageData;
   int? rtLastUpdatedTime;
   int? isOnline;
   int? lastUpdatedTime;
@@ -560,7 +518,6 @@ class RealTimeStats {
   int? screenOrientationMode;
   String? currentLocale;
   int? deviceId;
-  int? lastLocationUpdateTimeIso;
   int? pedometer;
   int? sleepTime;
   String? ipAddress;
@@ -584,7 +541,6 @@ class RealTimeStats {
   bool? runningOnEmulator;
 
   RealTimeStats({
-    this.totalAppUsageData,
     this.rtLastUpdatedTime,
     this.isOnline,
     this.lastUpdatedTime,
@@ -630,7 +586,6 @@ class RealTimeStats {
     this.screenOrientationMode,
     this.currentLocale,
     this.deviceId,
-    this.lastLocationUpdateTimeIso,
     this.pedometer,
     this.sleepTime,
     this.ipAddress,
@@ -655,7 +610,6 @@ class RealTimeStats {
   });
 
   RealTimeStats copyWith({
-    double? totalAppUsageData,
     int? rtLastUpdatedTime,
     int? isOnline,
     int? lastUpdatedTime,
@@ -701,7 +655,6 @@ class RealTimeStats {
     int? screenOrientationMode,
     String? currentLocale,
     int? deviceId,
-    int? lastLocationUpdateTimeIso,
     int? pedometer,
     int? sleepTime,
     String? ipAddress,
@@ -725,7 +678,6 @@ class RealTimeStats {
     bool? runningOnEmulator,
   }) =>
       RealTimeStats(
-        totalAppUsageData: totalAppUsageData ?? this.totalAppUsageData,
         rtLastUpdatedTime: rtLastUpdatedTime ?? this.rtLastUpdatedTime,
         isOnline: isOnline ?? this.isOnline,
         lastUpdatedTime: lastUpdatedTime ?? this.lastUpdatedTime,
@@ -771,7 +723,6 @@ class RealTimeStats {
         screenOrientationMode: screenOrientationMode ?? this.screenOrientationMode,
         currentLocale: currentLocale ?? this.currentLocale,
         deviceId: deviceId ?? this.deviceId,
-        lastLocationUpdateTimeIso: lastLocationUpdateTimeIso ?? this.lastLocationUpdateTimeIso,
         pedometer: pedometer ?? this.pedometer,
         sleepTime: sleepTime ?? this.sleepTime,
         ipAddress: ipAddress ?? this.ipAddress,
@@ -813,9 +764,9 @@ class RealTimeStats {
     numCameras: json["numCameras"],
     cameraActive: json["cameraActive"],
     activeCameraId: json["activeCameraId"],
-    deviceTemperature: json["deviceTemperature"],
+    deviceTemperature: json["deviceTemperature"]?.toDouble(),
     batteryTemperature: json["batteryTemperature"]?.toDouble(),
-    batteryVoltage: json["batteryVoltage"],
+    batteryVoltage: json["batteryVoltage"]?.toDouble(),
     batteryHealth: json["batteryHealth"],
     batteryLevel: json["batteryLevel"],
     batteryStatus: json["batteryStatus"],
@@ -841,7 +792,6 @@ class RealTimeStats {
     screenOrientationMode: json["screenOrientationMode"],
     currentLocale: json["currentLocale"],
     deviceId: json["deviceId"],
-    lastLocationUpdateTimeIso: json["lastLocationUpdateTimeISO"],
     pedometer: json["pedometer"],
     sleepTime: json["sleepTime"],
     ipAddress: json["ipAddress"],
@@ -911,7 +861,6 @@ class RealTimeStats {
     "screenOrientationMode": screenOrientationMode,
     "currentLocale": currentLocale,
     "deviceId": deviceId,
-    "lastLocationUpdateTimeISO": lastLocationUpdateTimeIso,
     "pedometer": pedometer,
     "sleepTime": sleepTime,
     "ipAddress": ipAddress,

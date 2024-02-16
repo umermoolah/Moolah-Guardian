@@ -17,7 +17,7 @@ import 'package:moolah/util/images.dart';
 import '../../controllers/authController.dart';
 import '../../helper/models/app_usage_model.dart';
 import '../../helper/models/blocked_url_model.dart';
-import '../../helper/models/device_detail_model.dart';
+import '../../helper/models/device_detail_model.dart' ;
 import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
@@ -105,7 +105,8 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                 if (tabController?.index == 0)
                                   appSection(homeController)
                                 else if (tabController?.index == 1) //1
-                                  urlSection(homeController)
+                                  comingSoon()
+                                  // urlSection(homeController)
                                 else if (tabController?.index == 2) //2
                                   messagesSection(),
                                 // if(tabController?.index != 0)
@@ -130,28 +131,30 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
         padding: const EdgeInsets.symmetric(horizontal: 8),
         child: ListView(
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                bigHeadingText(
-                    "${homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsage ?? ""} "),
-                Column(
-                  children: [
-                    subHeadingText(
-                        homeController
-                                .getSelectedKid(widget.kidId)
-                                .appUsage
-                                ?.deviceDailyAvgUsageChange ??
-                            "",
-                        color: AppColors.normalGreen),
-                    verticalSpace(5)
-                  ],
-                )
-              ],
-            ),
-            regularText("Daily Average", fontSize: 12, color: AppColors.grey),
+            /// Commented for now
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: [
+            //     bigHeadingText(
+            //         "${homeController.getSelectedKid(widget.kidId).appUsage?.deviceDailyAvgUsage ?? ""} "),
+            //     Column(
+            //       children: [
+            //         subHeadingText(
+            //             homeController
+            //                     .getSelectedKid(widget.kidId)
+            //                     .appUsage
+            //                     ?.deviceDailyAvgUsageChange ??
+            //                 "",
+            //             color: AppColors.normalGreen),
+            //         verticalSpace(5)
+            //       ],
+            //     )
+            //   ],
+            // ),
+            // regularText("Daily Average", fontSize: 12, color: AppColors.grey),
+            /// Commented for now
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16).copyWith(bottom: 25),
+              padding: const EdgeInsets.symmetric(vertical: 16).copyWith(bottom: 25,top: 0),
               child: boldText('All Apps', fontSize: 18),
             ),
 
@@ -161,7 +164,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     ((homeController
                                 .getSelectedKid(widget.kidId)
                                 .deviceDetail
-                                ?.data
+                                // ?.data
                                 ?.realTimeStats
                                 ?.appUsageData
                                 ?.length)
@@ -171,18 +174,18 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               ((homeController
                               .getSelectedKid(widget.kidId)
                               .deviceDetail!
-                              .data!
+                              // .data!
                               .realTimeStats!
                               .appUsageData![i]
-                              .mFgUsageTime ??
-                          0) <
-                      1000)
+                              .lastUsedTime ??
+                              // .mFgUsageTime ??
+                          0) == 0)
                   ? const SizedBox()
                   : appItem(
                       homeController
                           .getSelectedKid(widget.kidId)
                           .deviceDetail!
-                          .data!
+                          // .!
                           .realTimeStats!
                           .appUsageData![i],
                       // totalTime: homeController
@@ -558,10 +561,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           Row(
             children: [
               percentageContainer(AppColors.yellow, AppImages.emptyBattery,
-                  "Battery %", kid.batteryStatus ?? "", "%"),
+                  "Battery %", kid.deviceDetail?.realTimeStats?.batteryLevel?.toString() ?? "", "%"),
               horizontalSpace(10),
               percentageContainer(AppColors.blue, AppImages.global, "Data Used",
-                  kid.dataUsageStatus ?? "", "GB")
+                  kid.deviceDetail?.realTimeStats?.deviceDataUsage?.toString() ?? "", "GB")
             ],
           ),
           verticalSpace(10),
@@ -585,21 +588,26 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
   }
 
   textForTab(String s, bool condition) {
-    return condition
-        ? Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: regularText(s,
-                color: AppColors.white,
-                fontWeight: FontWeight.w500,
-                fontSize: 10),
-          )
-        : Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: regularText(s,
-                color: AppColors.normalGreen,
-                fontWeight: FontWeight.w500,
-                fontSize: 10),
-          );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        condition
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: regularText(s,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10),
+              )
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: regularText(s,
+                    color: AppColors.normalGreen,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 10),
+              ),
+      ],
+    );
   }
 
   Widget tabBar() {
@@ -608,24 +616,27 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
       // margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10)
       //     .copyWith(bottom: 0),
       color: AppColors.veryVeryLightGreen,
-      child: TabBar(
-          overlayColor:
-              MaterialStateColor.resolveWith((states) => AppColors.lightGreen),
-          indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              color: AppColors.normalGreen),
-          onTap: (v) {
-            setState(() {});
-          },
-          controller: tabController,
-          tabs: [
-            textForTab("Screen Time", tabController!.index == 0),
-            textForTab("Blocked Sites", tabController!.index == 1),
-            textForTab("Messages", tabController!.index == 2),
-
-            /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
-            // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
-          ]),
+      child: Theme(
+        data: Theme.of(context).copyWith(colorScheme: Theme.of(context).colorScheme.copyWith(surfaceVariant: Colors.transparent)),
+        child: TabBar(
+            overlayColor:
+                MaterialStateColor.resolveWith((states) => AppColors.lightGreen),
+            indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(6),
+                color: AppColors.normalGreen),
+            onTap: (v) {
+              setState(() {});
+            },
+            controller: tabController,
+            tabs: [
+              textForTab("Apps", tabController!.index == 0),
+              textForTab("Blocked Sites", tabController!.index == 1),
+              textForTab("Messages", tabController!.index == 2),
+        
+              /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+              // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
+            ]),
+      ),
     );
   }
 

@@ -192,7 +192,7 @@ class _HomeState extends State<Home> {
                                   i++)
                                 SyncDevice(
                                     kidId:
-                                        homeController.connectedKids[i].kidId!,
+                                        homeController.connectedKids[i].connectId!,
                                     name: homeController.connectedKids[i].name!,
                                     image:
                                         homeController.connectedKids[i].kidPic,
