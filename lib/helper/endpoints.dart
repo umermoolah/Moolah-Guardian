@@ -17,6 +17,8 @@ class EndPoints {
   static String getBlacklistUrlsUrl = "$baseUrl/getBlacklistUrls";
   static String blacklistUrl = "$baseUrl/blacklistUrl";
   static String getDeviceDetails = "$baseUrl/getDeviceDetailsEncryption";//getDeviceDetails
+  static String getDeviceThreads = "$baseUrl/getDeviceThreadsEncryption";
+  static String getThreadsMessages = "$baseUrl/getThreadMessagesEncryption";
   static String parentAppSecurityCheck = "$baseUrl/parentAppSecurityCheck";
   static String parentKidDeviceConnect = "$baseUrl/parentKidDeviceConnect";
   static String getBannerAds = "$baseUrl/getBannerAds";

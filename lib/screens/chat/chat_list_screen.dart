@@ -26,6 +26,18 @@ class ChatListScreen extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(
             children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  boldText("SMS Monitoring  Enabled"),
+                  customGestureDetecter(
+                    onTap: (){
+                      homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].msmsMonitoringStatus = false;
+                      homeController.update();
+                    },
+                      child: customSwitchSMS(value: homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].msmsMonitoringStatus ?? false, showM: false))
+                ],
+              ),
               for(int i =0;i<threads.length;i++)
               Column(
                 children: [
@@ -91,6 +103,54 @@ class ChatListScreen extends StatelessWidget {
     //     ),
     //   ),
     // );
+  }
+
+  Widget customSwitchSMS({bool showM = true, required bool value}) {
+    double size = 35;
+    bool switchButton = value;
+    return customGestureDetecter(
+      onTap: () {
+        // setState(() {
+        //   switchButton = !switchButton;
+        // });
+        // if (switchButton) {
+        //   // _showAdDialog();
+        // } else {}
+        // if (!showM) {
+        //   Get.back();
+        // }
+      },
+      child: Stack(
+        alignment: switchButton ? Alignment.centerRight : Alignment.centerLeft,
+        children: [
+          roundedContainer(
+              borderRadius: 30,
+              color:
+              switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
+              height: size * 0.65,
+              width: size * 1.2),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              roundedContainer(
+                borderRadius: 30,
+                color: Colors.white,
+                margin: EdgeInsets.all(size * 0.083), //2.5
+                height: size * 0.5,
+                width: size * 0.5,
+              ),
+              if (showM)
+                regularText("M!",
+                    customFontFamily: fontFamilyPraise,
+                    color: switchButton
+                        ? AppColors.lightGreen
+                        : AppColors.darkLightGrey,
+                    fontSize: 11)
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildMessageItem(BuildContext context, String imageRes, String name,

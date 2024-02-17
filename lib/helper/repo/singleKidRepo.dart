@@ -47,4 +47,15 @@ class SingleKidRepo {
     return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
+
+
+  static Future<ResponseModel> getDeviceThreads({String? kidId}) async {
+    return await Network.get("${EndPoints.getDeviceThreads}?kidDeviceAccountConnectID=$kidId");
+    // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
+  }
+
+  static Future<ResponseModel> getThreadsMessages({String? kidId}) async {
+    return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
+    // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
+  }
 }

@@ -108,7 +108,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                   comingSoon()
                                   // urlSection(homeController)
                                 else if (tabController?.index == 2) //2
-                                  messagesSection(),
+                                  messagesSection(homeController),
                                 // if(tabController?.index != 0)
                                 //   comingSoon()
                               ],
@@ -404,12 +404,32 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
-  messagesSection() {
+  messagesSection(HomeController homeController) {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10)
             .copyWith(top: 20),
-        child: ChatListScreen(kidId: widget.kidId),
+        child:
+        (homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus ?? false) ?
+        ChatListScreen(kidId: widget.kidId):
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                boldText("Enable SMS Monitoring"),
+
+                regularText("Monitor SMS messages sent to this device.", fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.grey8181),
+                verticalSpace(10),
+                customGestureDetecter(
+                  onTap: () {
+                    homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus = true;
+                  },
+                    child: customSwitchSMS(value: false, showM: false))
+              ],
+            )
+        ,
+
+
         // child: ListView.builder(
         //   itemCount: 15,
         //   itemBuilder: (context, index) =>
@@ -630,7 +650,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
             controller: tabController,
             tabs: [
               textForTab("Apps", tabController!.index == 0),
-              textForTab("Blocked Sites", tabController!.index == 1),
+              textForTab("Browser History", tabController!.index == 1),
               textForTab("Messages", tabController!.index == 2),
         
               /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
@@ -664,6 +684,54 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               borderRadius: 30,
               color:
                   switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
+              height: size * 0.65,
+              width: size * 1.2),
+          Stack(
+            alignment: AlignmentDirectional.center,
+            children: [
+              roundedContainer(
+                borderRadius: 30,
+                color: Colors.white,
+                margin: EdgeInsets.all(size * 0.083), //2.5
+                height: size * 0.5,
+                width: size * 0.5,
+              ),
+              if (showM)
+                regularText("M!",
+                    customFontFamily: fontFamilyPraise,
+                    color: switchButton
+                        ? AppColors.lightGreen
+                        : AppColors.darkLightGrey,
+                    fontSize: 11)
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget customSwitchSMS({bool showM = true, required bool value}) {
+    double size = 35;
+    bool switchButton = value;
+    return customGestureDetecter(
+      onTap: () {
+        setState(() {
+          switchButton = !switchButton;
+        });
+        if (switchButton) {
+          // _showAdDialog();
+        } else {}
+        if (!showM) {
+          Get.back();
+        }
+      },
+      child: Stack(
+        alignment: switchButton ? Alignment.centerRight : Alignment.centerLeft,
+        children: [
+          roundedContainer(
+              borderRadius: 30,
+              color:
+              switchButton ? AppColors.lightGreen : AppColors.darkLightGrey,
               height: size * 0.65,
               width: size * 1.2),
           Stack(

@@ -252,6 +252,7 @@ class HomeController extends BaseController {
     // print();
     String resp = Decrypter.decryptCode(getSelectedKid(kidId).privateKey!, responseModel.data["encryptedSymmetricKey"], responseModel.data["iv"], responseModel.data["encryptedData"]);
     print("DateTime.now()::${DateTime.now()}");
+    connectedKids[getSelectedKidIndex(kidId)].msmsMonitoringStatus = jsonDecode(resp)["msmsMonitoringStatus"];
     DeviceDetail detail = DeviceDetail.fromJson(jsonDecode(resp)["data"]);
     connectedKids[getSelectedKidIndex(kidId)].deviceDetail = detail;
       Duration time = (DateTime.now().difference(
@@ -377,102 +378,103 @@ class HomeController extends BaseController {
   }
 
   Future<void> getMessageThreads({String? kidId}) async {
-    var tempDataThreads = [
-      {
-        "thread_id": "thread_1",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "123456789",
-            "sender_contact": null,
-            "sender_number": "+1234567890",
-            "receiver_contact": "Parent",
-            "receiver_number": "+9876543210",
-            "message": "Thanks! You too. Catch you later!",
-            "message_time_stamp": "2023-11-10T15:55:00Z",
-            "media_attachments": null
-          }
-        }
-      },
-      {
-        "thread_id": "thread_2",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "987654321",
-            "sender_contact": "Friend",
-            "sender_number": "+1122334455",
-            "receiver_contact": null,
-            "receiver_number": "+9876543210",
-            "message": "Sure! Let's plan something fun for the weekend.",
-            "message_time_stamp": "2023-11-10T18:30:00Z",
-            "media_attachments": null
-          }
-        }
-      },
-      {
-        "thread_id": "thread_3",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "987654321",
-            "sender_contact": "Friend",
-            "sender_number": "+1122334455",
-            "receiver_contact": null,
-            "receiver_number": "+9876543210",
-            "message": "Just chilling and watching a movie. How about you?",
-            "message_time_stamp": "2023-11-10T18:30:00Z",
-            "media_attachments": null
-          }
-        }
-      },
-      {
-        "thread_id": "thread_4",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "987654321",
-            "sender_contact": "Friend",
-            "sender_number": "+1122334455",
-            "receiver_contact": null,
-            "receiver_number": "+9876543210",
-            "message":
-                "That's awesome! Anything exciting planned for the evening?",
-            "message_time_stamp": "2023-11-10T18:30:00Z",
-            "media_attachments": null
-          }
-        }
-      },
-      {
-        "thread_id": "thread_5",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "987654321",
-            "sender_contact": "Friend",
-            "sender_number": "+1122334455",
-            "receiver_contact": null,
-            "receiver_number": "+9876543210",
-            "message": "School was good! I aced my math quiz.",
-            "message_time_stamp": "2023-11-10T18:30:00Z",
-            "media_attachments": null
-          }
-        }
-      },
-      {
-        "thread_id": "thread_6",
-        "last_message": {
-          "message_data": {
-            "kidDeviceUID": "987654321",
-            "sender_contact": "Friend",
-            "sender_number": "+1122334455",
-            "receiver_contact": null,
-            "receiver_number": "+9876543210",
-            "message": "Hey kiddo! How was school today?",
-            "message_time_stamp": "2023-11-10T18:30:00Z",
-            "media_attachments": null
-          }
-        }
-      }
-    ];
+    // var tempDataThreads = [
+    //   {
+    //     "thread_id": "thread_1",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "123456789",
+    //         "sender_contact": null,
+    //         "sender_number": "+1234567890",
+    //         "receiver_contact": "Parent",
+    //         "receiver_number": "+9876543210",
+    //         "message": "Thanks! You too. Catch you later!",
+    //         "message_time_stamp": "2023-11-10T15:55:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   },
+    //   {
+    //     "thread_id": "thread_2",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "987654321",
+    //         "sender_contact": "Friend",
+    //         "sender_number": "+1122334455",
+    //         "receiver_contact": null,
+    //         "receiver_number": "+9876543210",
+    //         "message": "Sure! Let's plan something fun for the weekend.",
+    //         "message_time_stamp": "2023-11-10T18:30:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   },
+    //   {
+    //     "thread_id": "thread_3",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "987654321",
+    //         "sender_contact": "Friend",
+    //         "sender_number": "+1122334455",
+    //         "receiver_contact": null,
+    //         "receiver_number": "+9876543210",
+    //         "message": "Just chilling and watching a movie. How about you?",
+    //         "message_time_stamp": "2023-11-10T18:30:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   },
+    //   {
+    //     "thread_id": "thread_4",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "987654321",
+    //         "sender_contact": "Friend",
+    //         "sender_number": "+1122334455",
+    //         "receiver_contact": null,
+    //         "receiver_number": "+9876543210",
+    //         "message":
+    //             "That's awesome! Anything exciting planned for the evening?",
+    //         "message_time_stamp": "2023-11-10T18:30:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   },
+    //   {
+    //     "thread_id": "thread_5",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "987654321",
+    //         "sender_contact": "Friend",
+    //         "sender_number": "+1122334455",
+    //         "receiver_contact": null,
+    //         "receiver_number": "+9876543210",
+    //         "message": "School was good! I aced my math quiz.",
+    //         "message_time_stamp": "2023-11-10T18:30:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   },
+    //   {
+    //     "thread_id": "thread_6",
+    //     "last_message": {
+    //       "message_data": {
+    //         "kidDeviceUID": "987654321",
+    //         "sender_contact": "Friend",
+    //         "sender_number": "+1122334455",
+    //         "receiver_contact": null,
+    //         "receiver_number": "+9876543210",
+    //         "message": "Hey kiddo! How was school today?",
+    //         "message_time_stamp": "2023-11-10T18:30:00Z",
+    //         "media_attachments": null
+    //       }
+    //     }
+    //   }
+    // ];
+
     List<ThreadModel> tempDataThreadsFinal = [];
-    for (int i = 0; i < tempDataThreads.length; i++) {
-      tempDataThreadsFinal.add(ThreadModel.fromJson(tempDataThreads[i]));
+    for (int i = 0; i < [].length; i++) {
+      // tempDataThreadsFinal.add(ThreadModel.fromJson(tempDataThreads[i]));
     }
     print("tempDataThreadsFinal.length");
     print(tempDataThreadsFinal.length);

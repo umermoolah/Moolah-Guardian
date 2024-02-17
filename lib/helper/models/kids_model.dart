@@ -27,88 +27,91 @@ class Kid {
   bool? walletEnabled;
   AppUsage? appUsage;
   DeviceDetail? deviceDetail;
+  bool? msmsMonitoringStatus;
   List<ThreadModel> threads;
   BlockedUrlModel? blockedUrls;
   DeviceDetail? deviceData;
 
-  Kid({
-    this.kidId,
-    this.name,
-    this.deviceType,
-    this.batteryStatus,
-    this.privateKey,
-    this.connectId,
-    this.dataUsageStatus,
-    this.lastActive,
-    this.kidPic,
-    this.walletEnabled,
-    this.appUsage,
-    this.deviceDetail,
-    this.threads = const [],
-    this.blockedUrls,
-    this.deviceData
-  });
+  Kid(
+      {this.kidId,
+      this.name,
+      this.deviceType,
+      this.batteryStatus,
+      this.privateKey,
+      this.connectId,
+      this.dataUsageStatus,
+      this.lastActive,
+      this.kidPic,
+      this.walletEnabled,
+      this.appUsage,
+      this.deviceDetail,
+      this.threads = const [],
+      this.blockedUrls,
+      this.deviceData,
+      this.msmsMonitoringStatus});
 
-  Kid copyWith({
-    String? kidId,
-    String? name,
-    String? deviceType,
-    String? batteryStatus,
-    String? privateKey,
-    String? connectId,
-    String? dataUsageStatus,
-    String? lastActive,
-    String? kidPic,
-    bool? walletEnabled,
-    AppUsage? appUsage,
-    DeviceDetail? deviceDetail,
-    List<ThreadModel>? threads,
-    BlockedUrlModel? blockedUrls,
-    DeviceDetail? deviceData
-  }) =>
+  Kid copyWith(
+          {String? kidId,
+          String? name,
+          String? deviceType,
+          String? batteryStatus,
+          String? privateKey,
+          String? connectId,
+          String? dataUsageStatus,
+          String? lastActive,
+          String? kidPic,
+          bool? walletEnabled,
+          AppUsage? appUsage,
+          DeviceDetail? deviceDetail,
+          List<ThreadModel>? threads,
+          BlockedUrlModel? blockedUrls,
+          DeviceDetail? deviceData,
+          bool? msmsMonitoringStatus}) =>
       Kid(
-        kidId: kidId ?? this.kidId,
-        name: name ?? this.name,
-        deviceType: deviceType ?? this.deviceType,
-        batteryStatus: batteryStatus ?? this.batteryStatus,
-        privateKey: privateKey ?? this.privateKey,
-        connectId: connectId ?? this.connectId,
-        dataUsageStatus: dataUsageStatus ?? this.dataUsageStatus,
-        lastActive: lastActive ?? this.lastActive,
-        kidPic: kidPic ?? this.kidPic,
-        walletEnabled: walletEnabled ?? this.walletEnabled,
-        appUsage: appUsage ?? this.appUsage,
-        deviceDetail: deviceDetail ?? this.deviceDetail,
-        threads: threads ?? this.threads,
-        blockedUrls: blockedUrls ?? this.blockedUrls,
-        deviceData: deviceData ?? this.deviceData
-      );
+          kidId: kidId ?? this.kidId,
+          name: name ?? this.name,
+          deviceType: deviceType ?? this.deviceType,
+          batteryStatus: batteryStatus ?? this.batteryStatus,
+          privateKey: privateKey ?? this.privateKey,
+          connectId: connectId ?? this.connectId,
+          dataUsageStatus: dataUsageStatus ?? this.dataUsageStatus,
+          lastActive: lastActive ?? this.lastActive,
+          kidPic: kidPic ?? this.kidPic,
+          walletEnabled: walletEnabled ?? this.walletEnabled,
+          appUsage: appUsage ?? this.appUsage,
+          deviceDetail: deviceDetail ?? this.deviceDetail,
+          threads: threads ?? this.threads,
+          blockedUrls: blockedUrls ?? this.blockedUrls,
+          deviceData: deviceData ?? this.deviceData,
+          msmsMonitoringStatus:
+              msmsMonitoringStatus ?? this.msmsMonitoringStatus);
 
   factory Kid.fromJson(Map<String, dynamic> json) => Kid(
-    kidId: json["kidID"],
-    name: json["name"],
-    deviceType: json["deviceType"],
-    batteryStatus: json["batteryStatus"],
-    connectId: json["connectID"],
-    dataUsageStatus: json["dataUsageStatus"],
-    lastActive: json["lastActive"],
-    kidPic: json["kidPic"],
-    walletEnabled: json["walletEnabled"],
-  );
+        kidId: json["kidID"],
+        name: json["name"],
+        deviceType: json["deviceType"],
+        batteryStatus: json["batteryStatus"],
+        connectId: json["connectID"],
+        dataUsageStatus: json["dataUsageStatus"],
+        lastActive: json["lastActive"],
+        kidPic: json["kidPic"],
+        walletEnabled: json["walletEnabled"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "kidID": kidId,
-    "name": name,
-    "deviceType": deviceType,
-    "batteryStatus": batteryStatus,
-    "connectID": connectId,
-    "dataUsageStatus": dataUsageStatus,
-    "lastActive": lastActive,
-    "kidPic": kidPic,
-    "walletEnabled": walletEnabled,
-    "deviceDetail": deviceDetail?.toJson(),
-    "deviceData": deviceData?.toJson()
-  };
+        "kidID": kidId,
+        "name": name,
+        "deviceType": deviceType,
+        "batteryStatus": batteryStatus,
+        "connectID": connectId,
+        "dataUsageStatus": dataUsageStatus,
+        "lastActive": lastActive,
+        "kidPic": kidPic,
+        "walletEnabled": walletEnabled,
+        "deviceDetail": deviceDetail?.toJson(),
+        "deviceData": deviceData?.toJson(),
+        "msmsMonitoringStatus": msmsMonitoringStatus
+      };
 }
 
 // // To parse this JSON data, do
@@ -1048,4 +1051,3 @@ class Kid {
 //     "dataUsageBytes": dataUsageBytes,
 //   };
 // }
-
