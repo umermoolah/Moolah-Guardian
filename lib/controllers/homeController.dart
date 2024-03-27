@@ -174,14 +174,49 @@ class HomeController extends BaseController {
     //{"kidID": "String", "name": "String", "deviceType": "String", "batteryStatus": "String", "connectID": "String", "dataUsageStatus": "String", "lastActive": "String", "kidPic": "String", "walletEnabled": false}
   }
 
+  getWalletStatus({required String kidId}) async {
+    // if (isLoading) return;
+    // isLoading = true;
+    int index = getSelectedKidIndex(kidId);
+    ResponseModel responseModel = await SingleKidRepo.getWalletStatus(kidId: kidId);
+    print("getWalletStatus:::${responseModel.data}");
+    connectedKids[index] = connectedKids[index].copyWith(walletEnabled: responseModel.data["walletEnabled"]);
+    // isLoading = false;
+  }
+
+  getMSMSMonitoringStatus({required String kidId}) async {
+    // if (isLoading) return;
+    // isLoading = true;
+    int index = getSelectedKidIndex(kidId);
+    ResponseModel responseModel = await SingleKidRepo.getMSMSMonitoringStatus(kidId: kidId);
+    print("getMSMSMonitoringStatus:::${responseModel.data}");
+    connectedKids[index] = connectedKids[index].copyWith(msmsMonitoringStatus: responseModel.data["msmsMonitoringStatus"]);
+    update();
+    // isLoading = false;
+  }
+
+  Future<void> enableMSMSMonitoring(
+      {required String kidId, required bool value}) async {
+    if (isLoading) return;
+    isLoading = true;
+    int index = getSelectedKidIndex(kidId);
+    connectedKids[index] = connectedKids[index].copyWith(msmsMonitoringStatus: value);
+    print("Value::$value");
+    ResponseModel responseModel =
+        await SingleKidRepo.enableMSMSMonitoring(kidId: kidId, enable: value);
+    print("enableMSMSMonitoring:::${responseModel.data}");
+    isLoading = false;
+  }
   Future<void> enableWallet(
       {required String kidId, required bool value}) async {
     if (isLoading) return;
     isLoading = true;
     int index = getSelectedKidIndex(kidId);
     connectedKids[index] = connectedKids[index].copyWith(walletEnabled: value);
+    print("Value::$value");
     ResponseModel responseModel =
-        await SingleKidRepo.enableWallet(kidId: kidId);
+        await SingleKidRepo.enableWallet(kidId: kidId, enable: value);
+    print("enableWallet:::${responseModel.data}");
     isLoading = false;
   }
 
@@ -350,30 +385,40 @@ class HomeController extends BaseController {
   Future<void> getBlacklistUrls({String? kidId}) async {
     // if (isLoading) return;
     // isLoading = true;
-    // ResponseModel responseModel = await SingleKidRepo.getBlacklistUrls(kidId: kidId);
+    print("getBlacklistUrls");
+    ResponseModel responseModel = await SingleKidRepo.getBlacklistUrls(kidId: getSelectedKid(kidId??"").kidId??"");
+    print("getBlacklistUrls:::${responseModel.data}");
     print("getBlacklistUrls");
     connectedKids[getSelectedKidIndex(kidId!)].blockedUrls =
-        BlockedUrlModel.fromJson({
-      "blocked_urls_data": {
-        "kid_device_uid": "123456789",
-        "parent_device_uid": "987654321",
-        "blocked_urls": [
-          "https://example.com/inappropriate-site1",
-          "https://example.com/inappropriate-site2",
-          "https://example.com/inappropriate-site3"
-        ]
-      }
-    });
+        BlockedUrlModel.fromJson(responseModel.data
+    //         {
+    //   "blocked_urls_data": {
+    //     "kid_device_uid": "123456789",
+    //     "parent_device_uid": "987654321",
+    //     "blocked_urls": [
+    //       "https://example.com/inappropriate-site1",
+    //       "https://example.com/inappropriate-site2",
+    //       "https://example.com/inappropriate-site3"
+    //     ]
+    //   }
+    // }
+    );
     print(
         "connectedKids[getSelectedKidIndex(kidId!)].blockedUrls:::${connectedKids[getSelectedKidIndex(kidId!)].blockedUrls}");
     update();
     // isLoading = false;
   }
 
-  Future<void> blacklistUrl({int? kidId}) async {
+  Future<void> addBlacklistUrl({String? kidId, String? url}) async {
+    if((url??"").isEmpty) return;
     if (isLoading) return;
     isLoading = true;
-    // ResponseModel responseModel = await SingleKidRepo.blacklistUrl(kidId: kidId);
+    ResponseModel responseModel = await SingleKidRepo.addBlacklistUrl(kidId: connectedKids[getSelectedKidIndex(kidId!)].kidId, url: url);
+    print("addBlacklistUrl::responseModel:::${responseModel.data}");
+    if(responseModel.isSuccessful){
+      connectedKids[getSelectedKidIndex(kidId!)].blockedUrls?.blockedUrlsData?.blockedUrls?.add(url??"");
+      successToast(responseModel.data["message"]);
+    }
     isLoading = false;
   }
 

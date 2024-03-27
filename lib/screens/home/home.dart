@@ -14,6 +14,7 @@ import 'package:moolah/screens/chat/chat_list_screen.dart';
 import 'package:moolah/screens/home/widget/SyncDevice.dart';
 import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
 import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
+import 'package:moolah/screens/subscription_screen/subscription_screen.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_button.dart';
@@ -84,18 +85,23 @@ class _HomeState extends State<Home> {
                               top: 2,
                               left: 0,
                               right: 0,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  subHeadingText(
-                                      "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500),
-                                  subHeadingText(Prefs.firstName.get(),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: AppColors.black)
-                                ],
+                              child: customGestureDetecter(
+                                onTap: (){
+                                  // Get.toNamed(SubscriptionScreen.screenName);
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    subHeadingText(
+                                        "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500),
+                                    subHeadingText(Prefs.firstName.get(),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColors.black)
+                                  ],
+                                ),
                               ),
                             ),
 

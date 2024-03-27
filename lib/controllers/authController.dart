@@ -9,6 +9,7 @@ import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/util/customtoast.dart';
 
 import '../helper/models/user_model.dart';
+import '../screens/subscription_screen/subscription_screen.dart';
 import '../util/mixpanel_events.dart';
 import 'homeController.dart';
 
@@ -123,7 +124,8 @@ class AuthController extends BaseController {
         Prefs.firstName.set(user1?.firstName??"");
         Prefs.lastName.set(user1?.lastName??"");
         Prefs.phone.set(user1?.phone??"");
-        Get.offAllNamed(Home.screenName);
+        Get.offAllNamed(SubscriptionScreen.screenName);
+        // Get.offAllNamed(Home.screenName);
         print("Login Successful: \n\n${r.data}");
       } else {
         Get.find<MixPanelEventsController>().track(MixEvents.errorLogin);
@@ -153,7 +155,8 @@ class AuthController extends BaseController {
         user = UserModel.fromJson(r.data["data"][0]);
         Prefs.firstName.set(user?.firstName??"");
         Prefs.lastName.set(user?.lastName??"");
-        Get.offAllNamed(Home.screenName);
+        Get.offAllNamed(SubscriptionScreen.screenName);
+        // Get.offAllNamed(Home.screenName);
         print("SignUp Successful: \n\n${r.data}");
       } else {
         Get.find<MixPanelEventsController>().track(MixEvents.errorSignUp);

@@ -116,3 +116,26 @@ String? getSortedTime(DateTime? messageTimeStamp) {
   }
   return "";
 }
+
+textForTab(String s, bool condition, {Color? unselectedTextColor}) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      condition
+          ? Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: regularText(s,
+            color: AppColors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 10),
+      )
+          : Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0),
+        child: regularText(s,
+            color: unselectedTextColor ?? AppColors.normalGreen,
+            fontWeight: FontWeight.w500,
+            fontSize: 10),
+      ),
+    ],
+  );
+}

@@ -31,7 +31,7 @@ class _BlackListScreenState extends State<BlackListScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                 text: 'Add URL',
-                onTap: _showDialog,
+                onTap: _showAddBlackListDialog,
               ),
             )
         ],
@@ -39,7 +39,7 @@ class _BlackListScreenState extends State<BlackListScreen> {
     );
   }
 
-  void _showDialog() {
+  void _showAddBlackListDialog() {
     showDialog(
       context: context,
       builder: (context) {

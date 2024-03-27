@@ -3,8 +3,28 @@ import '../models/response_model.dart';
 import '../network.dart';
 
 class SingleKidRepo {
+
+
+
+  static Future<ResponseModel> getMSMSMonitoringStatus({String? kidId}) async {
+    return await Network.get(EndPoints.getMSMSMonitoringStatus);
+  }
+  static Future<ResponseModel> getWalletStatus({String? kidId}) async {
+    return await Network.get(EndPoints.getWalletStatus);
+  }
+
+  static Future<ResponseModel> enableMSMSMonitoring({bool enable = false, String? kidId}) async {
+    return await Network.post(EndPoints.enableMSMSMonitoring,body: {
+      "msmsMonitoringStatus": enable.toString(),
+      "kidDeviceAccountUserID": kidId
+    });
+  }
+
   static Future<ResponseModel> enableWallet({bool enable = false, String? kidId}) async {
-    return await Network.post("${EndPoints.enableWalletUrl}?kidID=$kidId&enabled=$enable");
+    return await Network.post(EndPoints.enableWalletUrl,body: {
+      "walletEnabled": enable.toString(),
+      "kidDeviceAccountUserID": kidId
+    });
   }
 
   static Future<ResponseModel> getAppUsage({int? kidId}) async {
@@ -32,13 +52,18 @@ class SingleKidRepo {
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
 
-  static Future<ResponseModel> getBlacklistUrls({int? kidId}) async {
-    return await Network.post("${EndPoints.getBlacklistUrlsUrl}?kidID=$kidId");
+  static Future<ResponseModel> getBlacklistUrls({String? kidId}) async {
+    return await Network.post(EndPoints.getBlacklistUrlsUrl, body: {
+      "kidDeviceAccountUserID": kidId
+    });
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
 
-  static Future<ResponseModel> blacklistUrl({int? kidId}) async {
-    return await Network.post("${EndPoints.blacklistUrl}?kidID=$kidId");
+  static Future<ResponseModel> addBlacklistUrl({String? kidId, String? url}) async {
+    return await Network.post(EndPoints.addBlacklistUrl, body: {
+      "urls": ["$url"],
+      "kidDeviceAccountUserID": kidId
+    }, encode: true);
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
 

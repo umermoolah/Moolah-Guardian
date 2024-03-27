@@ -22,6 +22,7 @@ import 'package:moolah/screens/signup/screens/enter_password.dart';
 import 'package:moolah/screens/signup/screens/enter_phone_number.dart';
 import 'package:moolah/screens/signup/screens/enter_username.dart';
 import 'package:moolah/screens/signup/signup.dart';
+import 'package:moolah/screens/subscription_screen/subscription_screen.dart';
 import 'package:moolah/screens/sync_device_detail_screen/screens/live_location.dart';
 
 import '../screens/forgot_password/forgot_password.dart';
@@ -44,12 +45,13 @@ class RouteHelper {
     EnterPhoneNumberSignUp.screenName: (_) => const EnterPhoneNumberSignUp(),
     EnterDobSignUp.screenName: (_) => const EnterDobSignUp(),
     EnterUsernameSignUp.screenName: (_) => const EnterUsernameSignUp(),
+    SubscriptionScreen.screenName: (_) => const SubscriptionScreen(),
     Home.screenName: (_) => const Home(),
     Login.screenName: (_) => Login(fromSignup: Get.arguments?["fromSignup"] ?? false),
     EnterEmailLogin.screenName: (_) => EnterEmailLogin(fromSignup: Get.arguments?["fromEnterEmailSignUp"] ?? false),
     EnterPasswordLogin.screenName: (_) => EnterPasswordLogin(fromSignup: Get.arguments?["fromSignup"] ?? false),
     ScanBarcode.screenName: (_) => const ScanBarcode(),
-    SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments["kidId"]),
+    SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments?["kidId"]??""),
     ParentSecurityCheck.screenName: (_) => const ParentSecurityCheck(),
     EnterEmailParentSecurityCheck.screenName: (_) => const EnterEmailParentSecurityCheck(),
     EnterPasswordParentSecurityCheck.screenName: (_) => const EnterPasswordParentSecurityCheck(),

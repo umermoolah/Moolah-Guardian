@@ -22,6 +22,7 @@ class AppImages {
   static String googlePng = "$pathToCommonImages/google.png";
   static String videoThumbnail = "$pathToCommonImages/video_thumbnail.png";
   static String playButton = "$pathToCommonImages/play_button.svg";
+  static String crown = "$pathToCommonImages/crown.svg";
 
 
   ///HOME ICONS (SVG)

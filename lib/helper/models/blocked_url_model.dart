@@ -56,7 +56,7 @@ class BlockedUrlsData {
   factory BlockedUrlsData.fromJson(Map<String, dynamic> json) => BlockedUrlsData(
     kidDeviceUid: json["kid_device_uid"],
     parentDeviceUid: json["parent_device_uid"],
-    blockedUrls: json["blocked_urls"] == null ? [] : List<String>.from(json["blocked_urls"]!.map((x) => x)),
+    blockedUrls: json["blockedUrls"] == null ? [] : List<String>.from(json["blockedUrls"]!.map((x) => x)),
   );
 
   Map<String, dynamic> toJson() => {

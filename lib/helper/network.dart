@@ -21,12 +21,14 @@ class Network {
   }
 
   static Future<ResponseModel> post(String url,
-      {Map<String, dynamic> body = const {}}) async {
+      {Map<String, dynamic> body = const {}, bool encode = false}) async {
     try {
       print("REQ BODY: $body");
       print("HEADERS: ${getHeaders()}");
+      print("URL: ${url}");
       var res =
-      await http.post(Uri.parse(url), body: body, headers: getHeaders());
+      await http.post(Uri.parse(url), body: jsonEncode(body), headers: getHeaders());
+      print("Res:::${res.body}");
       return responseHandler(res: res);
     } catch (e) {
       print("e:::$e");
@@ -36,7 +38,8 @@ class Network {
 
   static Map<String, String>? getHeaders() {
     Map<String, String> header = {
-      "X-API-VERSION":"0.0.0.1"
+      "X-API-VERSION":"0.0.0.1",
+      "Content-type": "application/json; charset=utf-8"
     };
     if (Prefs.accessToken.get().isNotEmpty) {
       header.addAll({"Authorization": "Bearer ${Prefs.accessToken.get()}"});

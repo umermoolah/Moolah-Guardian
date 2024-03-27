@@ -7,8 +7,8 @@ String fontFamilyPraise = "praise";
 
 var textStyle = TextStyle(fontFamily:fontFamily);
 
-Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily, int? maxLines, TextOverflow? textOverflow}){
-  return Text(text, style: textStyle.copyWith(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null),textAlign: textAlign, maxLines: maxLines,overflow: textOverflow,);
+Widget regularText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, TextAlign? textAlign, bool underline = false, bool italic = false, String? customFontFamily, int? maxLines, TextOverflow? textOverflow, Color? decorationColor}){
+  return Text(text, style: textStyle.copyWith(fontFamily: customFontFamily ?? fontFamily, fontSize: fontSize, fontWeight: fontWeight, color: color, decoration: underline ? TextDecoration.underline : null,fontStyle: italic ? FontStyle.italic : null, decorationColor: decorationColor),textAlign: textAlign, maxLines: maxLines,overflow: textOverflow,);
 }
 
 Widget boldText(String text, {double? fontSize, FontWeight? fontWeight, Color? color, String? customFontFamily, int? maxLines, TextOverflow? textOverflow}){

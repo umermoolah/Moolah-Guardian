@@ -32,7 +32,8 @@ class ChatListScreen extends StatelessWidget {
                   boldText("SMS Monitoring  Enabled"),
                   customGestureDetecter(
                     onTap: (){
-                      homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].msmsMonitoringStatus = false;
+                      homeController.enableMSMSMonitoring(kidId: kidId, value: !(homeController.getSelectedKid(kidId).msmsMonitoringStatus??false));
+                      // homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].msmsMonitoringStatus = false;
                       homeController.update();
                     },
                       child: customSwitchSMS(value: homeController.connectedKids[homeController.getSelectedKidIndex(kidId)].msmsMonitoringStatus ?? false, showM: false))

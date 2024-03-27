@@ -21,6 +21,7 @@ import '../../helper/models/device_detail_model.dart' ;
 import '../../helper/models/kids_model.dart';
 import '../../util/apptext.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
+import '../../util/common_widgets/common_text_field.dart';
 
 class SyncDeviceDetailScreen extends StatefulWidget {
   static const screenName = "syncDeviceDetailScreen";
@@ -47,7 +48,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
       final currentIndex = tabController?.index;
       if (currentIndex != prevIndex) {
         setState(() {
-          headingText = currentIndex == 0 ? "Black List App" : "Black List URL";
+          headingText = currentIndex == 0 ? "Black List App" : "Add Black List URL";
         });
         prevIndex = currentIndex ?? 0;
       }
@@ -84,13 +85,13 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                               // mainAxisAlignment: tabController?.index == 0 ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
                               children: [
                                 tabBar(),
-                                if (tabController?.index == 0)
+                                // if (tabController?.index == 0)
                                   // section(homeController),
                                   if (tabController?.index != 2)
                                     CustomButton(
                                       text: headingText,
                                       onTap: () {
-                                        if (tabController?.index != 2) {
+                                        if (tabController?.index != 1) {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -98,15 +99,18 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                                                   const BlackListScreen(),
                                             ),
                                           );
+                                        }else{
+                                          _showAddBlackListDialog();
                                         }
+
                                       },
                                     ),
                                 verticalSpace(0),
                                 if (tabController?.index == 0)
                                   appSection(homeController)
                                 else if (tabController?.index == 1) //1
-                                  comingSoon()
-                                  // urlSection(homeController)
+                                  // comingSoon()
+                                  urlSection(homeController)
                                 else if (tabController?.index == 2) //2
                                   messagesSection(homeController),
                                 // if(tabController?.index != 0)
@@ -124,6 +128,64 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
       );
     });
   }
+
+  void _showAddBlackListDialog() async {
+    String url = "";
+    TextEditingController urlController = TextEditingController();
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            insetPadding: const EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            content: Builder(builder: (context) {
+              var width = MediaQuery.of(context).size.width;
+              return SizedBox(
+                width: width - 40,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const SizedBox(
+                          width: 26,
+                        ),
+                        boldText('Black List URL', fontSize: 18),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.close),
+                        )
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextField(hintText: "Enter URL", textEditingController: urlController,),
+                    ),
+                    CustomButton(
+                      text: 'Black List',
+                      onTap: () {
+                        if(urlController.text.trim().isNotEmpty){
+                          url = urlController.text.trim();
+                        }
+                        Navigator.pop(context);
+                      },
+                    ),
+                    const SizedBox(height: 10,)
+                  ],
+                ),
+              );
+            }),
+          );
+        },
+      );
+      if(url.isNotEmpty){
+        Get.find<HomeController>().addBlacklistUrl(kidId: widget.kidId??"", url: url);
+      }
+    }
 
   Widget appSection(HomeController homeController) {
     return Expanded(
@@ -422,9 +484,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                 verticalSpace(10),
                 customGestureDetecter(
                   onTap: () {
-                    homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus = true;
+                    homeController.enableMSMSMonitoring(kidId: widget.kidId, value: !(homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus??false));
+                    // homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus = true;
                   },
-                    child: customSwitchSMS(value: false, showM: false))
+                    child: customSwitchSMS(value: homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus??false, showM: false))
               ],
             )
         ,
@@ -607,28 +670,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
-  textForTab(String s, bool condition) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        condition
-            ? Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: regularText(s,
-                    color: AppColors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 10),
-              )
-            : Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: regularText(s,
-                    color: AppColors.normalGreen,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 10),
-              ),
-      ],
-    );
-  }
+
 
   Widget tabBar() {
     return roundedContainer(
@@ -814,6 +856,10 @@ and Wallet from kid devices here.
         .getMessageThreads(kidId: widget.kidId);
     Get.find<HomeController>()
         .getBlacklistUrls(kidId: widget.kidId);
+    Get.find<HomeController>()
+        .getWalletStatus(kidId: widget.kidId);
+    Get.find<HomeController>()
+        .getMSMSMonitoringStatus(kidId: widget.kidId);
 
   }
 
