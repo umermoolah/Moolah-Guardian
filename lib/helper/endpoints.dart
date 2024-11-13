@@ -7,7 +7,7 @@ class EndPoints {
   static String signUp = "$baseUrl/register";
   static String refreshToken = "$baseUrl/refreshTokens";
 
-  static String getSyncedKidDevicesUrl = "$baseUrl/getConnectedKidDevicesEncryption";//getConnectedKidDevices, getSyncedKidDevices";
+  static String getSyncedKidDevicesUrl = "$baseUrl/getConnectedKidDevices";//getConnectedKidDevicesEncryption,getConnectedKidDevices, getSyncedKidDevices";
   static String getMSMSMonitoringStatus = "$baseUrl/getMSMSMonitoringStatus";
   static String enableMSMSMonitoring = "$baseUrl/enableMSMSMonitoring";
   static String getWalletStatus = "$baseUrl/getWalletEnabled";
@@ -20,7 +20,7 @@ class EndPoints {
   static String getBlacklistUrlsUrl = "$baseUrl/getBlockedUrlsEncryption";
   static String blacklistUrl = "$baseUrl/blacklistUrl";
   static String addBlacklistUrl = "$baseUrl/addBlockedUrl";
-  static String getDeviceDetails = "$baseUrl/getDeviceDetailsEncryption";//getDeviceDetails
+  static String getDeviceDetails = "$baseUrl/getSingleDeviceDetail";//getDeviceDetailsEncryption, getDeviceDetails
   static String getDeviceThreads = "$baseUrl/getDeviceThreadsEncryption";
   static String getThreadsMessages = "$baseUrl/getThreadMessagesEncryption";
   static String parentAppSecurityCheck = "$baseUrl/parentAppSecurityCheck";
@@ -28,4 +28,5 @@ class EndPoints {
   static String getBannerAds = "$baseUrl/getBannerAds";
   static String submitReview = "$baseUrl/submitReview";
   static String feedback = "$baseUrl/feedback";
+  static String sendActionToDevice = "$baseUrl/sendActionToDevice";
 }

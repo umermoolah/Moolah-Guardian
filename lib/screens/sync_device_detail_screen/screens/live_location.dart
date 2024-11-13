@@ -11,7 +11,12 @@ import '../../../util/common_widgets/common_widgets.dart';
 class LiveLocation extends StatefulWidget {
   static const screenName = "LiveLocation";
 
-  const LiveLocation({Key? key}) : super(key: key);
+  const LiveLocation({Key? key, required this.lat, required this.long}) : super(key: key);
+
+  final double lat;
+  final double long;
+
+
 
   @override
   State<LiveLocation> createState() => _LiveLocationState();
@@ -24,6 +29,7 @@ class _LiveLocationState extends State<LiveLocation> {
 
   @override
   void initState() {
+    print("LiveLocation::::${widget.lat}::::${widget.long}");
     IronSource.hideBanner();
     super.initState();
   }
@@ -54,10 +60,16 @@ class _LiveLocationState extends State<LiveLocation> {
               myLocationButtonEnabled: false,
               myLocationEnabled: false,
               // mapType: MapType.hybrid,
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(37.42796133580664, -122.085749655962),
+              initialCameraPosition: CameraPosition(
+                target: LatLng(widget.lat, widget.long),
                 zoom: 14.4746,
               ),
+              markers: {
+                Marker(
+                  markerId: MarkerId("1"),
+                  position: LatLng(widget.lat, widget.long)
+                ),
+              },
               onMapCreated: (GoogleMapController controller) {
                 print("Hello Map");
                 _controller.complete(controller);

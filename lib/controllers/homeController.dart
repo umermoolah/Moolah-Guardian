@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
+import 'dart:developer';
+// import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -98,6 +99,7 @@ class HomeController extends BaseController {
 
     ResponseModel responseModel = await HomeRepo.getSyncedKidDevices();
 
+    log("getConnectedKidDevices:::${responseModel.data}");
     List<Kid> temp = [];
     //   Kid(
     //       kidId: 1,
@@ -157,6 +159,7 @@ class HomeController extends BaseController {
             privateKey: tem["privateKey"],
             dataUsageStatus: "0",
             deviceType: tem["kidDeviceType"],
+            deviceData: DeviceDetail(deviceId: tem["device_id"]),
             kidPic: null,
             lastActive: "0m",
             walletEnabled: false));
@@ -283,16 +286,18 @@ class HomeController extends BaseController {
     isLoading = true;
     ResponseModel responseModel =
         await SingleKidRepo.getDeviceDetails(kidId: kidId);
-    print("responseModel::: ${responseModel.data}");
+    // log("responseModel::: ${responseModel.data}");
     // print();
-    String resp = Decrypter.decryptCode(getSelectedKid(kidId).privateKey!, responseModel.data["encryptedSymmetricKey"], responseModel.data["iv"], responseModel.data["encryptedData"]);
+    String resp = jsonEncode(responseModel.data);//Decrypter.decryptCode(getSelectedKid(kidId).privateKey!, responseModel.data["encryptedSymmetricKey"], responseModel.data["iv"], responseModel.data["encryptedData"]);
+    log("responseModel::: ${resp}");
     print("DateTime.now()::${DateTime.now()}");
     connectedKids[getSelectedKidIndex(kidId)].msmsMonitoringStatus = jsonDecode(resp)["msmsMonitoringStatus"];
-    DeviceDetail detail = DeviceDetail.fromJson(jsonDecode(resp)["data"]);
+    DeviceDetail detail = DeviceDetail.fromJson(jsonDecode(resp));
     connectedKids[getSelectedKidIndex(kidId)].deviceDetail = detail;
+    print("connectedKids[getSelectedKidIndex(kidId)].deviceDetail:::${connectedKids[getSelectedKidIndex(kidId)].deviceDetail?.data?.realTimeStats?.appUsageData?.length}");
       Duration time = (DateTime.now().difference(
           DateTime.fromMillisecondsSinceEpoch(
-              detail.lastReportedTime??0)));
+              detail.data?.lastReportedTime??0)));
       String timee =
           "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
       connectedKids[getSelectedKidIndex(kidId)].lastActive = timee;
@@ -333,37 +338,45 @@ class HomeController extends BaseController {
     isLoading = false;
   }
 
-  Future<void> blacklistApp({int? kidId}) async {
+  Future<void> blacklistApp({required String kidId, required String deviceId, required String appPackage}) async {
     if (isLoading) return;
     isLoading = true;
-    // ResponseModel responseModel = await SingleKidRepo.blacklistApp(kidId: kidId);
+    ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "27", message: appPackage);
+    print("responseModel:::${responseModel.data}");
+    if(responseModel.isSuccessful){
+      await getDeviceDetail(kidId: kidId);
+    }
     isLoading = false;
   }
 
-  Future<void> deleteApp({required String kidId, required int appId}) async {
+  Future<void> deleteApp({required String kidId, required String deviceId, required String appPackage}) async {
     if (isLoading) return;
     isLoading = true;
-    List<ListOfInstalledApp> apps = connectedKids[getSelectedKidIndex(kidId)]
-            .appUsage!
-            .listOfInstalledApps ??
-        [];
-    int index = -1;
-    for (int i = 0; i < apps.length; i++) {
-      print("appId: ${appId}");
-      print("apps[i].appId: ${apps[i].appName}");
-      print("apps[i].appId: ${apps[i].appId}");
-      if (apps[i].appId == appId) {
-        index = i;
-        break;
-      }
+    ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "20", message: appPackage);
+    if(responseModel.isSuccessful){
+      await getDeviceDetail(kidId: kidId);
     }
-    print("index: $index");
-    if (index != -1) {
-      connectedKids[getSelectedKidIndex(kidId)]
-          .appUsage!
-          .listOfInstalledApps
-          ?.removeAt(index);
-    }
+    // List<ListOfInstalledApp> apps = connectedKids[getSelectedKidIndex(kidId)]
+    //         .appUsage!
+    //         .listOfInstalledApps ??
+    //     [];
+    // int index = -1;
+    // for (int i = 0; i < apps.length; i++) {
+    //   print("appId: ${appId}");
+    //   print("apps[i].appId: ${apps[i].appName}");
+    //   print("apps[i].appId: ${apps[i].appId}");
+    //   if (apps[i].appId == appId) {
+    //     index = i;
+    //     break;
+    //   }
+    // }
+    // print("index: $index");
+    // if (index != -1) {
+    //   connectedKids[getSelectedKidIndex(kidId)]
+    //       .appUsage!
+    //       .listOfInstalledApps
+    //       ?.removeAt(index);
+    // }
     // ResponseModel responseModel = await SingleKidRepo.deleteApp(kidId: kidId);
     isLoading = false;
   }
@@ -533,11 +546,12 @@ class HomeController extends BaseController {
   int getSelectedKidIndex(String kidId) {
     int index = 0;
     for (int i = 0; i < connectedKids.length; i++) {
-      if (kidId == connectedKids[i].kidId) {
+      if (kidId == connectedKids[i].deviceData?.deviceId) {
         index = i;
         break;
       }
     }
+    // print("Index::::$index");
     return index;
   }
 

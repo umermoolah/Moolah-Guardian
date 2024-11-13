@@ -51,7 +51,9 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                commonBackButton(),
+                commonBackButton(onTap: () {
+                  Get.offAllNamed(Home.screenName);
+                }),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(

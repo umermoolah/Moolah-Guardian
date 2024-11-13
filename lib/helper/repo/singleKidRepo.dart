@@ -69,7 +69,14 @@ class SingleKidRepo {
 
 
   static Future<ResponseModel> getDeviceDetails({String? kidId}) async {
-    return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
+    return await Network.get("${EndPoints.getDeviceDetails}?deviceId=$kidId");
+    // return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
+    // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
+  }
+
+  static Future<ResponseModel> getDeviceDetailsNew({String? kidId}) async {
+    return await Network.get("${EndPoints.getDeviceDetails}?deviceId=$kidId");
+    // return await Network.get("${EndPoints.getDeviceDetails}?kidDeviceAccountConnectID=$kidId");
     // { "installedAppsCount": 0, "deviceDailyAvgUsage": "", "deviceDailyAvgUsageChange": "", "listOfInstalledApps": [], "msg": "String", "success": false}
   }
 

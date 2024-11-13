@@ -226,30 +226,38 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                     ((homeController
                                 .getSelectedKid(widget.kidId)
                                 .deviceDetail
-                                // ?.data
-                                ?.realTimeStats
-                                ?.appUsageData
+                                ?.data?.apps
+                                // ?.realTimeStats
+                                // ?.appUsageData
                                 ?.length)
                             ?.toInt() ??
                         0) /*.appUsage!.listOfInstalledApps!.length*/;
                 i++)
-              ((homeController
-                              .getSelectedKid(widget.kidId)
-                              .deviceDetail!
-                              // .data!
-                              .realTimeStats!
-                              .appUsageData![i]
-                              .lastUsedTime ??
-                              // .mFgUsageTime ??
-                          0) == 0)
-                  ? const SizedBox()
-                  : appItem(
+              // ((homeController
+              //                 .getSelectedKid(widget.kidId)
+              //                 .deviceDetail!
+              //                 .data!
+              //                 .realTimeStats!
+              //                 .appUsageData![i]
+              //                 .lastUsedTime ??
+              //                 // .mFgUsageTime ??
+              //             0) == 0)
+              //     ? const SizedBox()
+              //     :
+if(!homeController
+    .getSelectedKid(widget.kidId)
+    .deviceDetail!.data!.apps![i].systemApp!)
+    appItem(
                       homeController
                           .getSelectedKid(widget.kidId)
-                          .deviceDetail!
+                          .deviceDetail!.data!.apps![i],
+                          deviceId: homeController
+                              .getSelectedKid(widget.kidId)
+                              .deviceDetail!.data!.deviceId.toString(),
+                          kidId: widget.kidId
                           // .!
-                          .realTimeStats!
-                          .appUsageData![i],
+                          // .realTimeStats!
+                          // .appUsageData![i],
                       // totalTime: homeController
                       //         .getSelectedKid(widget.kidId)
                       //         .deviceDetail!
@@ -278,15 +286,16 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
     );
   }
 
-  Widget appItem(AppUsageDatum listOfInstalledApp, {int totalTime = 0}) {
+  Widget appItem(App listOfInstalledApp, {int totalTime = 0, required String kidId, required String deviceId}) {
     // String iconPath = listOfInstalledApp//.appIcon!;
     var width = MediaQuery.of(context).size.width;
-    print("listOfInstalledApp.mFgUsageTime!:::${totalTime}");
-    String appName = listOfInstalledApp.mPackageName!; //.appName!;
-    double flex = ((listOfInstalledApp.mFgUsageTime) ?? 0) /
+    // print("listOfInstalledApp.mFgUsageTime!:::${totalTime}");
+    String appName = listOfInstalledApp.appName!; //.appName!;
+    double flex = ((listOfInstalledApp.lastUsedTime) ?? 0) /
         totalTime; //listOfInstalledApp.//.percentUsage! ~/ 10;
     String time =
-        "${Duration(milliseconds: listOfInstalledApp.mFgUsageTime!).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.mFgUsageTime!).inSeconds % 60} sec"; //.durationOfUsage!;
+        "${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inSeconds % 60} sec"; //.durationOfUsage!;
+    print("listOfInstalledApp.isEnabled:::${listOfInstalledApp.isEnabled}");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -298,26 +307,26 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 boldText(appName, fontSize: 14),
-                Row(
-                  children: [
-                    Flexible(
-                      flex: (7).toInt(),
-                      child: Container(
-                        height: 5,
-                        width: ((width * .5) * flex),
-                        decoration: BoxDecoration(
-                            color: const Color(0xffE8EAE3),
-                            borderRadius: BorderRadius.circular(15)),
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Flexible(
-                      flex: 3,
-                      child: regularText(time,
-                          fontSize: 12, color: AppColors.grey),
-                    )
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     Flexible(
+                //       flex: (7).toInt(),
+                //       child: Container(
+                //         height: 5,
+                //         width: ((width * .5) * flex),
+                //         decoration: BoxDecoration(
+                //             color: const Color(0xffE8EAE3),
+                //             borderRadius: BorderRadius.circular(15)),
+                //       ),
+                //     ),
+                //     const SizedBox(width: 10),
+                //     Flexible(
+                //       flex: 3,
+                //       child: regularText(time,
+                //           fontSize: 12, color: AppColors.grey),
+                //     )
+                //   ],
+                // )
               ],
             ),
           ),
@@ -327,7 +336,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               PopupMenuItem(
                 onTap: () {
                   print("deleteApp");
-                  // Get.find<HomeController>().deleteApp(kidId: widget.kidId, appId: listOfInstalledApp.mPackageName);
+                  Get.find<HomeController>().deleteApp(kidId: kidId, deviceId: deviceId, appPackage: listOfInstalledApp.packageName??"");
                 },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
@@ -339,12 +348,15 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                       // sized box with width 10
                       width: 10,
                     ),
-                    regularText("Remove App",
+                    regularText("Uninstall App",
                         color: AppColors.red, fontSize: 13)
                   ],
                 ),
               ),
               PopupMenuItem(
+                onTap: () {
+                  Get.find<HomeController>().blacklistApp(kidId: kidId, deviceId: deviceId, appPackage: listOfInstalledApp.packageName??"");
+                },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
                 value: 2,
@@ -355,7 +367,7 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                       // sized box with width 10
                       width: 10,
                     ),
-                    regularText("Blacklist App", fontSize: 13)
+                    regularText("Disable App", fontSize: 13, color: (listOfInstalledApp.isEnabled??1) == 1 ? null : Colors.grey)
                   ],
                 ),
               ),
@@ -410,9 +422,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               PopupMenuItem(
                 onTap: () {
                   print("deleteApp");
-                  Get.find<HomeController>().deleteApp(
-                      kidId: widget.kidId,
-                      appId: listOfInstalledApp.appId ?? 0);
+                  // Get.find<HomeController>().deleteApp(
+                  //     kidId: widget.kidId,
+                  //     deviceId: ,
+                  //     appPackage: (listOfInstalledApp.appId ?? 0).toString());
                 },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
@@ -644,16 +657,19 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
           Row(
             children: [
               percentageContainer(AppColors.yellow, AppImages.emptyBattery,
-                  "Battery %", kid.deviceDetail?.realTimeStats?.batteryLevel?.toString() ?? "", "%"),
+                  "Battery %", kid.deviceDetail?.data?.realTimeStats?.batteryLevel?.toString() ?? "", "%"),
               horizontalSpace(10),
               percentageContainer(AppColors.blue, AppImages.global, "Data Used",
-                  kid.deviceDetail?.realTimeStats?.deviceDataUsage?.toString() ?? "", "GB")
+                  kid.deviceDetail?.data?.realTimeStats?.deviceDataUsage?.toString() ?? "", "GB")
             ],
           ),
           verticalSpace(10),
           customGestureDetecter(
             onTap: () {
-              Get.toNamed(LiveLocation.screenName);
+              Get.toNamed(LiveLocation.screenName, arguments: {
+                "lat": kid.deviceDetail?.data?.realTimeStats?.currentLatitude,
+                "long": kid.deviceDetail?.data?.realTimeStats?.currentLongitude,
+              });
             },
             child: Row(
               children: [
@@ -828,9 +844,10 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
                       ),
                       verticalSpace(20),
                       subHeadingText("""Earning M! is enabled by default
- in all Moolah M1 tablets. Parents
-can choose to disable Moolah Ads
-and Wallet from kid devices here.
+ in all Moolah M1 tablets. Use the
+ Guardian App to disable Moolah Ads and
+ Wallet from Moolah Guarded devices.
+
 
                   """),
                       verticalSpace(20),

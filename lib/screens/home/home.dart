@@ -81,29 +81,29 @@ class _HomeState extends State<Home> {
                         height: 30,
                         child: Stack(
                           children: [
-                            Positioned(
-                              top: 2,
-                              left: 0,
-                              right: 0,
-                              child: customGestureDetecter(
-                                onTap: (){
-                                  // Get.toNamed(SubscriptionScreen.screenName);
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    subHeadingText(
-                                        "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500),
-                                    subHeadingText(Prefs.firstName.get(),
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColors.black)
-                                  ],
-                                ),
-                              ),
-                            ),
+                            // Positioned(
+                            //   top: 2,
+                            //   left: 0,
+                            //   right: 0,
+                            //   child: customGestureDetecter(
+                            //     onTap: (){
+                            //       // Get.toNamed(SubscriptionScreen.screenName);
+                            //     },
+                            //     child: Row(
+                            //       mainAxisAlignment: MainAxisAlignment.center,
+                            //       children: [
+                            //         subHeadingText(
+                            //             "Good Morning${Prefs.firstName.get().isNotEmpty ? "," : ""} ",
+                            //             fontSize: 16,
+                            //             fontWeight: FontWeight.w500),
+                            //         subHeadingText(Prefs.firstName.get(),
+                            //             fontSize: 16,
+                            //             fontWeight: FontWeight.w700,
+                            //             color: AppColors.black)
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ),
 
                             /// For Now
                             // Positioned(
@@ -180,6 +180,7 @@ class _HomeState extends State<Home> {
                             // Get.find<AuthController>().refreshToken();
                             // Get.toNamed(ScanBarcode.screenName);
                             Get.find<AuthController>().refreshToken();
+                            // Get.toNamed(ScanBarcode.screenName);
                             Get.toNamed(
                                 EnterEmailParentSecurityCheck.screenName);
                             // Get.toNamed(ParentSecurityCheck.screenName);
@@ -198,7 +199,7 @@ class _HomeState extends State<Home> {
                                   i++)
                                 SyncDevice(
                                     kidId:
-                                        homeController.connectedKids[i].connectId!,
+                                        homeController.connectedKids[i].deviceData!.deviceId!,
                                     name: homeController.connectedKids[i].name!,
                                     image:
                                         homeController.connectedKids[i].kidPic,

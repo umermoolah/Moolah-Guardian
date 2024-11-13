@@ -63,7 +63,7 @@ class RouteHelper {
     PasswordReset.screenName: (_) => const PasswordReset(),
     ForgotPassword.screenName: (_) => const ForgotPassword(),
     CheckYourEmail.screenName: (_) => const CheckYourEmail(),
-    LiveLocation.screenName: (_) => const LiveLocation(),
+    LiveLocation.screenName: (_) => LiveLocation(lat: Get.arguments?["lat"]??0, long: Get.arguments?["long"]??0),
     FeedbackScreen.screenName: (_) => const FeedbackScreen(),
     ContactUsScreen.screenName: (_) => const ContactUsScreen(),
     PrivacyScreen.screenName: (_) => const PrivacyScreen(),

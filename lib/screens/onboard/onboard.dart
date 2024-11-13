@@ -79,137 +79,153 @@ class _OnBoardState extends State<OnBoard> {
               padding: const EdgeInsets.symmetric(vertical: 30.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  appLogo(size: 60),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  if(initialized && !initialPlay)
-                                  roundedContainer(
-                                    color: Colors.transparent,
-                                    borderRadius: 0,
-                                    height: controller.value.size.height *
-                                        ((((height / width) * 175.47234042553191) /
-                                            controller.value.size.height)),
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 20),
-                                    width: controller.value.size.width * ((((height/width) * 110.47234042553191) / controller.value.size.width)),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(0),
-                                      child: Chewie(controller: cController,),
-                                      // child: VideoPlayer(controller),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              if (initialPlay)
-                                Center(
-                                  child: roundedContainer(
-                                    color: Colors.transparent,
-                                      borderRadius: 0,
-                                      // margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 65),
-                                      width: controller.value.size.width * ((((height/width) * 96.47234042553191) / controller.value.size.width)),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                          child: Image.asset(
-                                            AppImages.videoThumbnail,
-                                            fit: BoxFit.fill,
-                                          ))),
-                                ),
-                              if (videoCompleted || initialPlay || stopped)
-                                Positioned(
-                                    top: 0,
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: customGestureDetecter(
-                                      onTap: () {
-                                        setState(() {
-                                          print("play");
-                                          controller.play();
-                                          if (!stopped) {
-                                            initialPlay = false;
-                                            videoCompleted = false;
-                                          } else {
-                                            stopped = false;
-                                          }
-                                        });
-                                      },
-                                      child: roundedContainer(
-                                        color: Colors.transparent,
-                                        padding: const EdgeInsets.all(160.0),
-                                        // child: SvgPicture.asset(
-                                        //     AppImages.playButton,
-                                        //     width: 50),
-                                      ),
-                                    )),
-                              if (!videoCompleted && !initialPlay && !stopped)
-                                Positioned(
-                                    top: 0,
-                                    bottom: 0,
-                                    left: 0,
-                                    right: 0,
-                                    child: customGestureDetecter(
-                                      onTap: () {
-                                        stopVideo();
-                                      },
-                                      child: roundedContainer(
-                                        color: Colors.transparent,
-                                        padding: const EdgeInsets.all(130.0),
-                                        // child: SvgPicture.asset(AppImages.playButton, width: 50),
-                                      ),
-                                    )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                  appLogo(size: 150),
+                  // Expanded(
+                  //   child: Column(
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     children: [
+                  //       Expanded(
+                  //         child: Stack(
+                  //           children: [
+                  //             Row(
+                  //               mainAxisAlignment: MainAxisAlignment.center,
+                  //               children: [
+                  //                 if(initialized && !initialPlay)
+                  //                 roundedContainer(
+                  //                   color: Colors.transparent,
+                  //                   borderRadius: 0,
+                  //                   height: controller.value.size.height *
+                  //                       ((((height / width) * 175.47234042553191) /
+                  //                           controller.value.size.height)),
+                  //                   margin: const EdgeInsets.symmetric(
+                  //                       vertical: 20),
+                  //                   width: controller.value.size.width * ((((height/width) * 110.47234042553191) / controller.value.size.width)),
+                  //                   child: ClipRRect(
+                  //                     borderRadius: BorderRadius.circular(0),
+                  //                     child: Chewie(controller: cController,),
+                  //                     // child: VideoPlayer(controller),
+                  //                   ),
+                  //                 ),
+                  //               ],
+                  //             ),
+                  //             if (initialPlay)
+                  //               Center(
+                  //                 child: roundedContainer(
+                  //                   color: Colors.transparent,
+                  //                     borderRadius: 0,
+                  //                     // margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 65),
+                  //                     width: controller.value.size.width * ((((height/width) * 96.47234042553191) / controller.value.size.width)),
+                  //                     child: ClipRRect(
+                  //                         borderRadius:
+                  //                             BorderRadius.circular(0),
+                  //                         child: Image.asset(
+                  //                           AppImages.videoThumbnail,
+                  //                           fit: BoxFit.fill,
+                  //                         ))),
+                  //               ),
+                  //             if (videoCompleted || initialPlay || stopped)
+                  //               Positioned(
+                  //                   top: 0,
+                  //                   bottom: 0,
+                  //                   left: 0,
+                  //                   right: 0,
+                  //                   child: customGestureDetecter(
+                  //                     onTap: () {
+                  //                       setState(() {
+                  //                         print("play");
+                  //                         controller.play();
+                  //                         if (!stopped) {
+                  //                           initialPlay = false;
+                  //                           videoCompleted = false;
+                  //                         } else {
+                  //                           stopped = false;
+                  //                         }
+                  //                       });
+                  //                     },
+                  //                     child: roundedContainer(
+                  //                       color: Colors.transparent,
+                  //                       padding: const EdgeInsets.all(160.0),
+                  //                       // child: SvgPicture.asset(
+                  //                       //     AppImages.playButton,
+                  //                       //     width: 50),
+                  //                     ),
+                  //                   )),
+                  //             if (!videoCompleted && !initialPlay && !stopped)
+                  //               Positioned(
+                  //                   top: 0,
+                  //                   bottom: 0,
+                  //                   left: 0,
+                  //                   right: 0,
+                  //                   child: customGestureDetecter(
+                  //                     onTap: () {
+                  //                       stopVideo();
+                  //                     },
+                  //                     child: roundedContainer(
+                  //                       color: Colors.transparent,
+                  //                       padding: const EdgeInsets.all(130.0),
+                  //                       // child: SvgPicture.asset(AppImages.playButton, width: 50),
+                  //                     ),
+                  //                   )),
+                  //           ],
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
                   verticalSpace(10),
-                  bigHeadingText("Moolah Guardians",
+                  bigHeadingText("GeoLock",
                       color: AppColors.white, fontSize: 22),
                   verticalSpace(10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: subHeadingText(
-                        "Empowering Parents to Safeguard, Monitor, and Nurture Their Kids' Digital World",
+                        "Empowering Parents to Safeguard, Monitor,\nand Nurture Their Kids' Digital World",
                         color: AppColors.white,
                         textAlign: TextAlign.center,
-                        fontSize: 15),
+                        fontSize: 17),
                   ),
+                  verticalSpace(60),
+                  CustomButton(
+                      text: "Sign Up",
+                      onTap: () {
+                        stopVideo(reset: true);
+                        Get.toNamed(EnterEmailSignUp.screenName);
+                      }),
+                  CustomButton(
+                      color: Colors.transparent,
+                      textColor: AppColors.white,
+                      text: "Login",
+                      onTap: () {
+                        stopVideo(reset: true);
+                        Get.toNamed(EnterEmailLogin.screenName);
+                      }),
                   // verticalSpace(height * 0.06),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CustomButton(
-                            text: "Sign Up",
-                            onTap: () {
-                              stopVideo(reset: true);
-                              Get.toNamed(EnterEmailSignUp.screenName);
-                            }),
-                      ),
-                      Expanded(
-                        child: CustomButton(
-                            color: Colors.transparent,
-                            textColor: AppColors.white,
-                            text: "Login",
-                            onTap: () {
-                              stopVideo(reset: true);
-                              Get.toNamed(EnterEmailLogin.screenName);
-                            }),
-                      ),
-                    ],
-                  ),
-                  googleButton()
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: CustomButton(
+                  //           text: "Sign Up",
+                  //           onTap: () {
+                  //             stopVideo(reset: true);
+                  //             Get.toNamed(EnterEmailSignUp.screenName);
+                  //           }),
+                  //     ),
+                  //     Expanded(
+                  //       child: CustomButton(
+                  //           color: Colors.transparent,
+                  //           textColor: AppColors.white,
+                  //           text: "Login",
+                  //           onTap: () {
+                  //             stopVideo(reset: true);
+                  //             Get.toNamed(EnterEmailLogin.screenName);
+                  //           }),
+                  //     ),
+                  //   ],
+                  // ),
+                  googleButton(),
+                  verticalSpace(20)
                 ],
               ),
             ),

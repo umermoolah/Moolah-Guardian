@@ -12,19 +12,23 @@ import '../colors.dart';
 
 /// APP LOGO
 Widget appLogo({double? size}) {
+  if(size != null){
+    size = size + 20;
+  }
+
  double? height = size;
  double? width = size;
   return SvgPicture.asset(
-    AppImages.appLogoSvg,
+    AppImages.appLogo2Svg,
     height: height,
     width: width,
   );
 }
 
 
-Widget commonBackButton(){
+Widget commonBackButton({void Function()? onTap}){
   return customGestureDetecter(
-    onTap: (){
+    onTap: onTap??(){
       Get.back();
     },
     child: roundedContainer(

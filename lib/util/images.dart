@@ -9,6 +9,7 @@ class AppImages {
   static String pathToProfileImages = "assets/images/profile";
 
   static String appLogoSvg = "$pathToCommonImages/logo.svg";
+  static String appLogo2Svg = "$pathToCommonImages/app_logo_2.svg";
   static String backButtonIcon = "$pathToCommonImages/back_button.svg";
   static String unHideIcon = "$pathToCommonImages/unhide.svg";
 
