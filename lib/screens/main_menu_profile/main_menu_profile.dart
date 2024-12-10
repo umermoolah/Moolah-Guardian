@@ -55,7 +55,7 @@ class _MainMenuProfileState extends State<MainMenuProfile> {
                         customProfileViewer(),
                         verticalSpace(10),
                         bigSubHeading("${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "Your Name" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
-                        subHeadingText("Good Morning"),
+                        subHeadingText(Prefs.email.get()),
                         verticalSpace(30),
                         Align(
                           alignment: Alignment.centerLeft,

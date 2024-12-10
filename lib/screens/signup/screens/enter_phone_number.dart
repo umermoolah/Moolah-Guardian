@@ -33,12 +33,23 @@ class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
   // TextEditingController passwordController = TextEditingController();
   // TextEditingController confirmPasswordController = TextEditingController();
   String phone = "";
+  String countryCode = "";
   String withoutCCPhone = "";
   // DateTime? dateOfBirth;
   bool phoneError = false;
   // bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
   GlobalKey<FormState> key1 = GlobalKey<FormState>();
+
+
+  @override
+  void initState() {
+    countryCode = Get.find<AuthController>().countryCode;
+    print("countryCode:::$countryCode");
+    withoutCCPhone = Get.find<AuthController>().phoneWithoutCC;
+    phone = "$countryCode$withoutCCPhone";
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +109,8 @@ class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
                               verticalSpace(10),
                               IntlPhoneField(
                                 key: key1,
+                                initialCountryCode: countryCode.isEmpty ? null : countryCode,
+                                initialValue: withoutCCPhone,
                                 inputFormatters: <TextInputFormatter>[
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
@@ -118,7 +131,8 @@ class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
                                 onChanged: (number) {
                                   phone = number.completeNumber;
                                   withoutCCPhone = number.number;
-                                  print("phone: $phone");
+                                  countryCode = number.countryCode;
+                                  print("countryCode: $countryCode");
                                   print("withoutCCPhone: $withoutCCPhone");
                                   try{
                                     if(number.isValidNumber()){
@@ -132,6 +146,10 @@ class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
                                   setState(() {
 
                                   });
+                                },
+                                onCountryChanged: (c){
+                                  countryCode = "+${c.dialCode}";
+                                  print("countryCode: $countryCode");
                                 },
                                 validator: (number) {
                                   if (number != null) {
@@ -249,7 +267,10 @@ class _EnterPhoneNumberSignUpState extends State<EnterPhoneNumberSignUp> {
 
                                     });
                                     if (key.currentState!.validate() && (key1.currentState?.validate()??true) && !phoneError) {                                      // controller.fullNameGlob = nameController.text.trim();
+                                      print(withoutCCPhone);
                                       controller.phoneGlob = phone;
+                                      controller.phoneWithoutCC = withoutCCPhone;
+                                      controller.countryCode = countryCode;
                                       Get.toNamed(EnterDobSignUp.screenName);
                                       // Get.toNamed(EnterPasswordSignUp.screenName);
                                     }

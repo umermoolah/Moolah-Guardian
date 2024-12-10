@@ -1,20 +1,24 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ironsource_mediation/ironsource_mediation.dart';
+import 'package:moolah/helper/repo/homeRepo.dart';
 import 'package:moolah/util/common_widgets/CommonGradientBackground.dart';
 
+import '../../../helper/models/response_model.dart';
 import '../../../util/common_widgets/common_appbar.dart';
 import '../../../util/common_widgets/common_widgets.dart';
 
 class LiveLocation extends StatefulWidget {
   static const screenName = "LiveLocation";
 
-  const LiveLocation({Key? key, required this.lat, required this.long}) : super(key: key);
+  const LiveLocation({Key? key, required this.lat, required this.long, required this.deviceId}) : super(key: key);
 
   final double lat;
   final double long;
+  final String deviceId;
 
 
 
@@ -26,19 +30,24 @@ class _LiveLocationState extends State<LiveLocation> {
 
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
+  double? lat;
+  double? long;
 
   @override
   void initState() {
     print("LiveLocation::::${widget.lat}::::${widget.long}");
+    setLocationTimer();
     IronSource.hideBanner();
     super.initState();
   }
 
   @override
   void dispose() {
+    timer.cancel();
     IronSource.displayBanner();
     super.dispose();
   }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +70,13 @@ class _LiveLocationState extends State<LiveLocation> {
               myLocationEnabled: false,
               // mapType: MapType.hybrid,
               initialCameraPosition: CameraPosition(
-                target: LatLng(widget.lat, widget.long),
+                target: LatLng(lat??widget.lat, long??widget.long),
                 zoom: 14.4746,
               ),
               markers: {
                 Marker(
                   markerId: MarkerId("1"),
-                  position: LatLng(widget.lat, widget.long)
+                  position: LatLng(lat??widget.lat, long??widget.long)
                 ),
               },
               onMapCreated: (GoogleMapController controller) {
@@ -79,5 +88,23 @@ class _LiveLocationState extends State<LiveLocation> {
         ),
       ],
     ));
+  }
+  late Timer timer;
+  void setLocationTimer() {
+    timer = Timer.periodic(const Duration(seconds: 15), (timer) {
+      getLocation();
+    });
+  }
+
+  void getLocation() async {
+    ResponseModel responseModel = await HomeRepo.getSyncedKidDeviceLocation(widget.deviceId);
+    if(responseModel.isSuccessful){
+      log("responseModel.data::::${responseModel.data["data"]}");
+      lat = responseModel.data["data"]["currentLatitude"];
+      long = responseModel.data["data"]["currentLongitude"];
+      setState(() async {
+        (await _controller.future).animateCamera(CameraUpdate.newLatLng(LatLng(lat!, long!)));
+      });
+    }
   }
 }

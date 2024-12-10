@@ -29,4 +29,5 @@ class EndPoints {
   static String submitReview = "$baseUrl/submitReview";
   static String feedback = "$baseUrl/feedback";
   static String sendActionToDevice = "$baseUrl/sendActionToDevice";
+  static String getDeviceLocation = "$baseUrl/getDeviceLocation";
 }

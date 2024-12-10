@@ -59,7 +59,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      regularText("Current Pacakge", color: Colors.white, fontWeight: FontWeight.w500),
+                      regularText("Current Package", color: Colors.white, fontWeight: FontWeight.w500),
                       regularText("Monthly : Expire on 12/11/33", color: Colors.white, fontWeight: FontWeight.w100),
                     ],
                   ),
@@ -78,17 +78,17 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                         child: SvgPicture.asset(AppImages.crown),
                       )
                   ),
-                  bigHeadingText("Guardian+", color: Colors.white),
+                  bigHeadingText("GeoLock Standard", color: Colors.white),
                   SizedBox(
                       width: 180,
                       // height: 100,
                       child: tabBar()),
                   (currentIndex == 0)?
-                  priceBoard(price: "2.99", duration: "Month", features: [
-                    "Unlock Secure SMS Monitioring",
-                    "Unlock Network Blocking and Monitioring",
-                    "Remove Ads",
-                  ]):priceBoard(price: "29.99", duration: "Year", features: [
+                  priceBoard(price: "3.99", duration: "Month", features: [
+                    "Get full report of cars",
+                    "Get a spare car while your car is being fixed",
+                    "Get the latest deals first",
+                  ]):priceBoard(price: "30", duration: "Year", features: [
                     "Get full report of cars",
                     "Get a spare car while your car is being fixed",
                     "Get the latest deals first",

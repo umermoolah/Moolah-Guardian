@@ -21,7 +21,10 @@ class AuthController extends BaseController {
   String passwordGlob = "";
   String fullNameGlob = "";
   String phoneGlob = "";
+  String phoneWithoutCC = "";
+  String countryCode = "";
   String dobGlob = "";
+  DateTime? dobGlobDateTime;
   String usernameGlob = "";
 
 
@@ -142,7 +145,7 @@ class AuthController extends BaseController {
     try {
       isLoading = true;
       print("signupsignupsignup: $isLoading");
-      var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, "", phoneGlob, dobGlob, usernameGlob);
+      var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, fullNameGlob, phoneGlob, dobGlob, usernameGlob);
       print("RESPNCE: ${r.data}");
       if (r.isSuccessful) {
 

@@ -294,7 +294,7 @@ if(!homeController
     double flex = ((listOfInstalledApp.lastUsedTime) ?? 0) /
         totalTime; //listOfInstalledApp.//.percentUsage! ~/ 10;
     String time =
-        "${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inSeconds % 60} sec"; //.durationOfUsage!;
+        "${Duration(milliseconds: listOfInstalledApp.lastUsedTime??0).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inSeconds % 60} sec"; //.durationOfUsage!;
     print("listOfInstalledApp.isEnabled:::${listOfInstalledApp.isEnabled}");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -666,9 +666,11 @@ if(!homeController
           verticalSpace(10),
           customGestureDetecter(
             onTap: () {
+              print("kid.deviceDetail?.deviceId:::${widget.kidId}");
               Get.toNamed(LiveLocation.screenName, arguments: {
                 "lat": kid.deviceDetail?.data?.realTimeStats?.currentLatitude,
                 "long": kid.deviceDetail?.data?.realTimeStats?.currentLongitude,
+                "deviceId": widget.kidId,
               });
             },
             child: Row(

@@ -44,6 +44,7 @@ class _EnterFullNameSignUpState extends State<EnterFullNameSignUp> {
   @override
   void initState() {
     Get.find<MixPanelEventsController>().track(MixEvents.viewSignUp2);
+    nameController.text = Get.find<AuthController>().fullNameGlob;
     super.initState();
   }
 

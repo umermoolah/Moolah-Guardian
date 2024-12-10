@@ -173,7 +173,7 @@ class _HomeState extends State<Home> {
                       ),
                       verticalSpace(15),
                       CustomButton(
-                          text: "Connect a Moolah Device",
+                          text: "Connect a Device",
                           notExpanded: true,
                           icon: AppImages.scanBarcode,
                           onTap: () {
@@ -189,7 +189,7 @@ class _HomeState extends State<Home> {
                       Align(
                           alignment: Alignment.centerLeft,
                           child: bigSubHeading(
-                              "Sync Devices (${homeController.connectedKids.length})")),
+                              "Synched Devices (${homeController.connectedKids.length})")),
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(

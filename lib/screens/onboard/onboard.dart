@@ -181,7 +181,7 @@ class _OnBoardState extends State<OnBoard> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: subHeadingText(
-                        "Empowering Parents to Safeguard, Monitor,\nand Nurture Their Kids' Digital World",
+                        "GeoLock is here to help families find\na balance in the digital world.",
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                         fontSize: 17),

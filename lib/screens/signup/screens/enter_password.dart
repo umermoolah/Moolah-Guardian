@@ -42,6 +42,8 @@ class _EnterPasswordSignUpState extends State<EnterPasswordSignUp> {
   @override
   void initState() {
     Get.find<MixPanelEventsController>().track(MixEvents.viewSignUp3);
+    passwordController.text = Get.find<AuthController>().passwordGlob;
+    confirmPasswordController.text = Get.find<AuthController>().passwordGlob;
     super.initState();
   }
 

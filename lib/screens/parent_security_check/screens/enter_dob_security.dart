@@ -56,13 +56,13 @@ class _EnterDobParentSecurityCheckState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("Parent Security Check", fontSize: 27),
-                        verticalSpace(4),
+                        bigHeadingText("GeoLock Secure Connection", fontSize: 27, height: 1),
+                        verticalSpace(14),
                         subHeadingText(
-                            "Please provide the following data for security"),
-                        verticalSpace(7),
-                        subHeadingText(
-                            "purposes before syncing to your device. "),
+                            "Please provide the following data for security purposes before syncing to your device.", height: 1),
+                        // verticalSpace(7),
+                        // subHeadingText(
+                        //     "purposes before syncing to your device. "),
                         verticalSpace(10),
                         // CustomTextField(
                         //     hintText: "Moolah Wallet Device Email",
@@ -74,7 +74,7 @@ class _EnterDobParentSecurityCheckState
                         //     textInputType: TextInputType.visiblePassword,
                         //     validators: Validators.password),
                         verticalSpace(10),
-                        subHeadingText("Kid Account Birthday",
+                        subHeadingText("GeoLock Companion App Account Birthday or Moolah Account Birthday",
                             fontWeight: FontWeight.w500, color: Colors.grey),
                         verticalSpace(10),
                         customGestureDetecter(
@@ -134,7 +134,7 @@ class _EnterDobParentSecurityCheckState
                               // if (key.currentState!.validate()) {
                                 if (dateOfBirth != null) {
                                 if (await connectDeviceController
-                                    .parentSecurityCheck()) {
+                                    .parentSecurityCheck(context)) {
                                   Get.toNamed(
                                     ScanBarcode.screenName,
                                     // arguments: {

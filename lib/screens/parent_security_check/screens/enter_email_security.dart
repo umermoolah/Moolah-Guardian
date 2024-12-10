@@ -29,6 +29,7 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
   TextEditingController emailController = TextEditingController();
   // TextEditingController passwordController = TextEditingController();
   GlobalKey<FormState> key = GlobalKey<FormState>();
+  bool checked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +56,17 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("Parent Security Check", fontSize: 27),
-                        verticalSpace(4),
+                        bigHeadingText("GeoLock Secure Connection", fontSize: 27, height: 1),
+                        verticalSpace(14),
                         subHeadingText(
-                            "Please provide the following data for security"),
-                        verticalSpace(7),
-                        subHeadingText(
-                            "purposes before syncing to your device. "),
+                              "Please provide the following data for security purposes before syncing to your device.", height: 1),
+
+                        // verticalSpace(7),
+                        // subHeadingText(
+                        //     " "),
                         verticalSpace(10),
                         CustomTextField(
-                            hintText: "Kid Device Email",
+                            hintText: "Moolah Account Email or GeoLock Companion App Account Email",
                             textEditingController: emailController,
                             validators: Validators.email),
                         // CustomTextField(
@@ -123,12 +125,34 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
                         //     ),
                         //   ),
                         // ),
+
+                        Row(
+                          children: [
+                            Checkbox(value: checked, onChanged: (e){
+                              setState(() {
+                                checked = !checked;
+                              });
+                            },
+                              activeColor: AppColors.lightGreen,
+                              focusColor: AppColors.lightGreen,
+                            ),
+                            Expanded(child: customGestureDetecter(
+                              // onTap: () => setState(() {
+                              //   checked = !checked;
+                              // }),
+                                child: regularText("GeoLock only works on devices with the GeoLock Companion app installed or Moolah Devices.", color: AppColors.red))),
+                          ],
+                        ),
                         verticalSpace(15),
                         CustomButton(
                           text: "Submit",
+                          color: !checked ? Colors.black.withOpacity(0.2) : null,
                           margin: EdgeInsets.zero,
                           onTap: () async {
-
+                            if(!checked){
+                              errorToast("Please check the check box!");
+                              return;
+                            }
                             if (key.currentState!.validate()) {
                               connectDeviceController.emailGlob = emailController.text;
                               Get.toNamed(EnterPasswordParentSecurityCheck.screenName);
@@ -161,4 +185,6 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
       );
     }));
   }
+
+
 }

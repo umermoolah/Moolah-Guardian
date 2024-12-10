@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
+
+import '../../screens/subscription_screen/subscription_screen.dart';
 
 Widget commonAppBar({bool withIcon = false, String heading = ""}){
   return Padding(
@@ -17,9 +20,14 @@ Widget commonAppBar({bool withIcon = false, String heading = ""}){
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             (withIcon)?
-            Container(
-              // color: Colors.red,
-                child: appLogo(size: 100)):
+            GestureDetector(
+              onTap: () {
+                // Get.toNamed(SubscriptionScreen.screenName);
+              },
+              child: Container(
+                // color: Colors.red,
+                  child: appLogo(size: 100)),
+            ):
                 Center(child: Column(
                   children: [
                     verticalSpace(13),

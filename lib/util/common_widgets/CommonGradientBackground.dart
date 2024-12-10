@@ -49,6 +49,7 @@ class _CommonGradientBackgroundState extends State<CommonGradientBackground> {
     /// FOR THE GRADIENT BACKGROUND ON ALL THE SCREENS
 
       return Scaffold(
+        // resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Container(

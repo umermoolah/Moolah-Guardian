@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ironsource_mediation/ironsource_mediation.dart';
+import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
@@ -39,6 +41,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   String errorText = "";
   bool first = false;
   TextEditingController textEditingController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   void initState() {
@@ -48,7 +51,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
     if(widget.textEditingController != null){
       textEditingController = widget.textEditingController!;
     }
+    if(Prefs.isLoggedIn.get()) {
+      focusNode.addListener(() {
+        if(focusNode.hasFocus){
+          IronSource.hideBanner();
+        }else{
+          IronSource.displayBanner();
+        }
+      });
+    }
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -58,15 +76,16 @@ class _CustomTextFieldState extends State<CustomTextField> {
       children: [
         verticalSpace(10),
         if(widget.hintText.isNotEmpty)
-        Row(
+        Wrap(
           children: [
-            subHeadingText(widget.hintText, fontWeight: FontWeight.w500, color: error ? Colors.red : Colors.grey),
+            subHeadingText(widget.hintText, fontWeight: FontWeight.w500, color: error ? Colors.red : Colors.grey, height: 1.2),
             if (widget.required) boldText("*", color: Colors.red, fontSize: 13)
           ],
         ),
         verticalSpace(10),
         TextFormField(
           controller: textEditingController,
+          focusNode: focusNode,
           validator: (String? text) {
             String? t = validate(text?.trim()??"");
             print("Errroorr: $t");

@@ -38,6 +38,12 @@ class _EnterDobSignUpState extends State<EnterDobSignUp> {
   // bool phoneError = false;
   bool dateError = false;
   GlobalKey<FormState> key = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    dateOfBirth = Get.find<AuthController>().dobGlobDateTime;
+    super.initState();
+  }
   // GlobalKey<FormState> key1 = GlobalKey<FormState>();
 
   @override
@@ -255,8 +261,10 @@ class _EnterDobSignUpState extends State<EnterDobSignUp> {
                                   controller.dobGlob = dateOfBirth != null
                                       ? getSortedDate(dateOfBirth)
                                       : "";
+                                  controller.dobGlobDateTime = dateOfBirth;
                                   // controller.fullNameGlob = nameController.text.trim();
-                                  Get.toNamed(EnterUsernameSignUp.screenName);
+                                  Get.toNamed(EnterPasswordSignUp.screenName);
+                                  // Get.toNamed(EnterUsernameSignUp.screenName);
                                   // Get.toNamed(EnterPasswordSignUp.screenName);
                                 }
                               }),
