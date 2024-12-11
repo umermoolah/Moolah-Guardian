@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 // import 'package:flutter_ironsource_x/ironsource.dart';
 import 'package:get/get.dart';
 import 'package:ironsource_mediation/ironsource_mediation.dart';
@@ -11,6 +12,7 @@ import 'package:moolah/helper/route_helper.dart';
 import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/main_menu_profile/main_menu_profile.dart';
 import 'package:moolah/screens/splash/splash.dart';
+import 'package:moolah/util/common_widgets/common_widgets.dart';
 import 'package:moolah/util/mixpanel_events.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import './helper/get_di/get_di.dart' as get_di;
@@ -76,7 +78,13 @@ void initSDKS() async {
 
   ///Mixpanel
   await Get.find<MixPanelEventsController>().init();
+
+  ///Stripe
+  Stripe.publishableKey = getStripeSecretKey();
+
 }
+
+
 
 void initCrashlytics() {
 

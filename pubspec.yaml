@@ -64,6 +64,8 @@ dependencies:
   crypto: ^3.0.3
   crypton: ^2.2.1
   flutter_js: ^0.8.0
+  pinput: ^4.0.0
+  flutter_stripe: ^11.3.0
 #  flutter_ironsource_x: ^2.7.4
 
 dev_dependencies:

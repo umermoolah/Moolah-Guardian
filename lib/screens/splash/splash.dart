@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
+import 'package:moolah/screens/otp_verification/otp_verification.dart';
+import 'package:moolah/screens/subscription_screen/subscription_screen.dart';
 import 'package:moolah/util/colors.dart';
 import 'package:moolah/util/common_widgets/common_widgets.dart';
 
@@ -46,7 +48,12 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     });
     await animationController!.forward();
     if(Prefs.isLoggedIn.get()){
-      Get.offAllNamed(Home.screenName);
+      if(Prefs.verificationPending.get()){
+        Get.offAllNamed(OtpVerification.screenName);
+      }else{
+        Get.offAllNamed(Home.screenName);
+      }
+
     }else{
       Get.offAllNamed(OnBoard.screenName);
     }

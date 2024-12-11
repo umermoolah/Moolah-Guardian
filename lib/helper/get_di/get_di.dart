@@ -6,6 +6,7 @@ import 'package:moolah/controllers/connectDeviceController.dart';
 import 'package:moolah/controllers/feedbackController.dart';
 import 'package:moolah/controllers/homeController.dart';
 
+import '../../controllers/subscription_controller.dart';
 import '../../util/mixpanel_events.dart';
 
 init(){
@@ -16,4 +17,5 @@ init(){
   Get.lazyPut(() => AdvertisementController());
   Get.lazyPut(() => MixPanelEventsController());
   Get.lazyPut(() => FeedbackContactController());
+   Get.lazyPut(() => SubscriptionController());
 }

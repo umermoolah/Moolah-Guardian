@@ -19,6 +19,8 @@ class Prefs {
   static final phone = SharedPrefValue<String>('phone', prefs);
   static final accessToken = SharedPrefValue<String>('access_token', prefs);
   static final refreshToken = SharedPrefValue<String>('refresh_token', prefs);
+  static final verificationPending = SharedPrefValue<bool>('verification_pending', prefs);
+  static final verificationPhone = SharedPrefValue<bool>('verification_hone', prefs);
 
 
   static void clear() {

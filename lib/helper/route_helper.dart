@@ -31,6 +31,7 @@ import '../screens/main_menu_profile/screens/change_password/change_password.dar
 import '../screens/main_menu_profile/screens/feedback/feedback.dart';
 import '../screens/main_menu_profile/screens/privacy_policy/privacy_policy.dart';
 import '../screens/main_menu_profile/screens/tutorial_screen/tutorial_screen.dart';
+import '../screens/otp_verification/otp_verification.dart';
 import '../screens/splash/splash.dart';
 import '../screens/sync_device_detail_screen/sync_device_detail_screen.dart';
 
@@ -63,6 +64,7 @@ class RouteHelper {
     PasswordReset.screenName: (_) => const PasswordReset(),
     ForgotPassword.screenName: (_) => const ForgotPassword(),
     CheckYourEmail.screenName: (_) => const CheckYourEmail(),
+    OtpVerification.screenName: (_) => const OtpVerification(),
     LiveLocation.screenName: (_) => LiveLocation(lat: Get.arguments?["lat"]??0, long: Get.arguments?["long"]??0, deviceId: Get.arguments?["deviceId"]??0),
     FeedbackScreen.screenName: (_) => const FeedbackScreen(),
     ContactUsScreen.screenName: (_) => const ContactUsScreen(),

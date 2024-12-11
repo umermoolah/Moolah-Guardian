@@ -6,6 +6,8 @@ class EndPoints {
   static String login = "$baseUrl/login";
   static String signUp = "$baseUrl/register";
   static String refreshToken = "$baseUrl/refreshTokens";
+  static String sendMobileOtp = "$baseUrl/send-mobile-otp";
+  static String verifyMobileOtp = "$baseUrl/verifyMobileOtp";
 
   static String getSyncedKidDevicesUrl = "$baseUrl/getConnectedKidDevices";//getConnectedKidDevicesEncryption,getConnectedKidDevices, getSyncedKidDevices";
   static String getMSMSMonitoringStatus = "$baseUrl/getMSMSMonitoringStatus";
@@ -30,4 +32,6 @@ class EndPoints {
   static String feedback = "$baseUrl/feedback";
   static String sendActionToDevice = "$baseUrl/sendActionToDevice";
   static String getDeviceLocation = "$baseUrl/getDeviceLocation";
+
+  static String createSubscription = "$baseUrl/createSubscription";
 }

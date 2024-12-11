@@ -61,9 +61,22 @@ class AuthRepo {
     });
   }
   
-  static refreshToken(String rToken) async {
+  static Future<ResponseModel> refreshToken(String rToken) async {
     return await Network.post(EndPoints.refreshToken, body: {
       "refreshToken": rToken
+    });
+  }
+
+  static Future<ResponseModel> sendMobileOtp(String phone) async {
+    return await Network.post(EndPoints.sendMobileOtp, body: {
+      "phone": phone
+    });
+  }
+
+  static Future<ResponseModel> verifyMobileOtp(String phone, String otp) async {
+    return await Network.post(EndPoints.verifyMobileOtp, body: {
+      "otp": otp,
+      "phone": phone
     });
   }
 }

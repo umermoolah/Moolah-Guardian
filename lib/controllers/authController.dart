@@ -6,6 +6,7 @@ import 'package:moolah/helper/models/user_model1.dart';
 import 'package:moolah/helper/repo/authRepo.dart';
 import 'package:moolah/helper/sharedHelper.dart';
 import 'package:moolah/screens/home/home.dart';
+import 'package:moolah/screens/otp_verification/otp_verification.dart';
 import 'package:moolah/util/customtoast.dart';
 
 import '../helper/models/user_model.dart';
@@ -154,11 +155,17 @@ class AuthController extends BaseController {
         Prefs.userId.set(r.data["data"][0]["user_id"]);
         Prefs.isLoggedIn.set(true);
         Prefs.email.set(r.data["data"][0]["email"]);
+        Prefs.phone.set(phoneGlob);
         print("UserModel.fromJson");
         user = UserModel.fromJson(r.data["data"][0]);
         Prefs.firstName.set(user?.firstName??"");
         Prefs.lastName.set(user?.lastName??"");
-        Get.offAllNamed(SubscriptionScreen.screenName);
+        var res1 = await AuthRepo.sendMobileOtp(phoneGlob);
+        if(res1.isSuccessful){
+          successToast("OTP sent!");
+        }
+        Prefs.verificationPending.set(true);
+        Get.offAllNamed(OtpVerification.screenName);
         // Get.offAllNamed(Home.screenName);
         print("SignUp Successful: \n\n${r.data}");
       } else {
@@ -174,7 +181,18 @@ class AuthController extends BaseController {
     print("LOGIN: $isLoading");
   }
 
-  Future<void> googleSignIn() async {
+  Future<void> verifyOtp(String otp) async {
+    isLoading = true;
+    var res = await AuthRepo.verifyMobileOtp(phoneGlob ,otp);
+    apiToast(res);
+    if(res.isSuccessful){
+      Prefs.verificationPending.set(false);
+      Get.offAllNamed(SubscriptionScreen.screenName);
+    }
+    isLoading = false;
+  }
+
+  Future<void>  googleSignIn() async {
     Get.find<MixPanelEventsController>().track(MixEvents.startGoogleSignin);
 
     GoogleSignIn _googleSignIn = GoogleSignIn(

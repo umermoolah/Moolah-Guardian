@@ -152,9 +152,9 @@ class _HomeState extends State<Home> {
                       verticalSpace(30),
                       customGestureDetecter(
                         onTap: () {
-                          homeController.getData();
+                          // homeController.getData();
                           // Get.find<AdvertisementController>().loadBanner();
-                          // Get.toNamed(MainMenuProfile.screenName);
+                          Get.toNamed(SubscriptionScreen.screenName);
                         },
                         child: Column(
                           children: [
@@ -163,11 +163,11 @@ class _HomeState extends State<Home> {
                                 child: SvgPicture.asset(AppImages.person)),
                             verticalSpace(15),
                             bigSubHeading(
-                                "${Prefs.firstName.get()} ${Prefs.lastName.get()}"
+                                "${Prefs.firstName.get()} ${""/*Prefs.lastName.get()*/}"
                                         .trim()
                                         .isEmpty
                                     ? "Your Name"
-                                    : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
+                                    : "${Prefs.firstName.get()} ${""/*Prefs.lastName.get()*/}"),
                           ],
                         ),
                       ),

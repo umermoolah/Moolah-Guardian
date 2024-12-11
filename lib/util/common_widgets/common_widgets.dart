@@ -7,6 +7,9 @@ import '../apptext.dart';
 import '../colors.dart';
 
 
+String getStripeSecretKey() {
+  return "pk_test_51QUUWTDaY9di1Tkb1Db9XyeaWbakztltifvDLSUnxOtzvhQ2CJLOc5sWpp2FfdgIak1QvVBHBvEJFWVrXg0FQvES00EZNYOuor";
+}
 
 
 

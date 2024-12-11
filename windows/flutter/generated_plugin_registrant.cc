@@ -9,6 +9,7 @@
 #include <fast_rsa/fast_rsa_plugin.h>
 #include <firebase_core/firebase_core_plugin_c_api.h>
 #include <flutter_js/flutter_js_plugin.h>
+#include <smart_auth/smart_auth_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   FastRsaPluginRegisterWithRegistrar(
@@ -17,4 +18,6 @@ void RegisterPlugins(flutter::PluginRegistry* registry) {
       registry->GetRegistrarForPlugin("FirebaseCorePluginCApi"));
   FlutterJsPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("FlutterJsPlugin"));
+  SmartAuthPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("SmartAuthPlugin"));
 }

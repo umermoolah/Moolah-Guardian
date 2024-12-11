@@ -45,7 +45,7 @@ class _ProfileState extends State<Profile> {
                       valueContainers(icon: AppImages.nameField, heading: "Full Name", value: "${Prefs.firstName.get()} ${Prefs.lastName.get()}".trim().isEmpty ? "" : "${Prefs.firstName.get()} ${Prefs.lastName.get()}"),
                       valueContainers(icon: AppImages.emailField, heading: "Email", value: Prefs.email.get().isNotEmpty?Prefs.email.get():""),
                       valueContainers(icon: AppImages.mobileField, heading: "Mobile No.", value: Prefs.phone.get().isNotEmpty?Prefs.phone.get():""),
-                      valueContainers(icon: AppImages.passwordField, heading: "Password", value: "**********"),
+                      // valueContainers(icon: AppImages.passwordField, heading: "Password", value: "**********"),
                       verticalSpace(20),
                       CustomButton(margin: EdgeInsets.zero,text: "Edit Profile", onTap: (){
                         Get.toNamed(EditProfile.screenName);
