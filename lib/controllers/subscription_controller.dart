@@ -17,27 +17,31 @@ class SubscriptionController extends BaseController {
 
 
   Future<void> purchaseSubscription({bool isMonthly = false}) async {
-    var res = await createPaymentIntent("30", "USD", getStripeSecretKey());
-    // var res = await Network.post(EndPoints.createSubscription, body: {
-    //   "email": Prefs.email.get(),
-    //   "paymentMethod": isMonthly ? "prod_RNFOrZWTFTOgD7": "prod_RNFPiTGFkjNQIz",
-    // });
+    // var res = await createPaymentIntent("30", "USD", getStripeSecretKey());
+    isLoading = true;
+    var res = await Network.post(EndPoints.createSubscription, body: {
+      "amount": isMonthly ? 399 : 3000
+      // "email": Prefs.email.get(),
+      // "paymentMethod": isMonthly ? "prod_RNFOrZWTFTOgD7": "prod_RNFPiTGFkjNQIz",
+    });
 
-    if(true){
+    if(res.isSuccessful){
       print("ress:S:S:S:${res}");
-      return;
+      // return;
 
       try {
         // Setup payment sheet
         await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
-            paymentIntentClientSecret: 'your_client_secret', // From backend
+            paymentIntentClientSecret: res.data["clientSecret"], // From backend
             merchantDisplayName: 'GeoLock',
           ),
         );
 
         // Display payment sheet
-        await Stripe.instance.presentPaymentSheet();
+        PaymentSheetPaymentOption? e = await Stripe.instance.presentPaymentSheet();
+        print("e?.toJson()");
+        print(e?.toJson());
 
         print("Payment completed");
       } catch (e) {
@@ -45,6 +49,7 @@ class SubscriptionController extends BaseController {
       }
 
     }
+    isLoading = false;
   }
 
 

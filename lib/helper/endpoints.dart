@@ -33,5 +33,5 @@ class EndPoints {
   static String sendActionToDevice = "$baseUrl/sendActionToDevice";
   static String getDeviceLocation = "$baseUrl/getDeviceLocation";
 
-  static String createSubscription = "$baseUrl/createSubscription";
+  static String createSubscription = "$baseUrl/createPaymentIntent";
 }
