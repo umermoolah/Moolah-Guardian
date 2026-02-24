@@ -1,0 +1,2 @@
+/Users/umer/Documents/Moolah-Guardian/android/app/.cxx/release/48193lay/x86_64/CMakeFiles/edit_cache.dir
+/Users/umer/Documents/Moolah-Guardian/android/app/.cxx/release/48193lay/x86_64/CMakeFiles/rebuild_cache.dir
