@@ -34,7 +34,7 @@ class SubscriptionController extends BaseController {
         await Stripe.instance.initPaymentSheet(
           paymentSheetParameters: SetupPaymentSheetParameters(
             paymentIntentClientSecret: res.data["clientSecret"], // From backend
-            merchantDisplayName: 'GeoLock',
+            merchantDisplayName: 'Moolah Guardian',
           ),
         );
 

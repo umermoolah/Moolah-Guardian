@@ -55,7 +55,7 @@ class _EnterPasswordParentSecurityCheckState extends State<EnterPasswordParentSe
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("GeoLock Secure Connection", fontSize: 27, height: 1),
+                        bigHeadingText("Moolah Guardian Secure Connection", fontSize: 27, height: 1),
                         verticalSpace(14),
                         subHeadingText(
                             "Please provide the following data for security purposes before syncing to your device.", height: 1),
@@ -68,7 +68,7 @@ class _EnterPasswordParentSecurityCheckState extends State<EnterPasswordParentSe
                         //     textEditingController: emailController,
                         //     validators: Validators.email),
                         CustomTextField(
-                            hintText: "Moolah Account Password or GeoLock Companion App Account Password",
+                            hintText: "Moolah Account Password or Moolah Guardian Companion App Account Password",
                             textEditingController: passwordController,
                             textInputType: TextInputType.visiblePassword,
                             validators: Validators.password),

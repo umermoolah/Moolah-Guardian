@@ -37,7 +37,8 @@ class _PrivacyScreenState extends State<PrivacyScreen> {
           },
         ),
       )
-      ..loadRequest(Uri.parse('https://geolock.co/privacy-policy'));
+      // Assumption: privacy policy will be hosted at moolahguardian.com under /privacy-policy.
+      ..loadRequest(Uri.parse('https://moolahguardian.com/privacy-policy'));
       // ..loadRequest(Uri.parse('https://moolahwireless.com/term-and-conditions/'));
     super.initState();
   }

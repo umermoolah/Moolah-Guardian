@@ -56,7 +56,7 @@ class _EnterDobParentSecurityCheckState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("GeoLock Secure Connection", fontSize: 27, height: 1),
+                        bigHeadingText("Moolah Guardian Secure Connection", fontSize: 27, height: 1),
                         verticalSpace(14),
                         subHeadingText(
                             "Please provide the following data for security purposes before syncing to your device.", height: 1),
@@ -74,7 +74,7 @@ class _EnterDobParentSecurityCheckState
                         //     textInputType: TextInputType.visiblePassword,
                         //     validators: Validators.password),
                         verticalSpace(10),
-                        subHeadingText("GeoLock Companion App Account Birthday or Moolah Account Birthday",
+                        subHeadingText("Moolah Guardian Companion App Account Birthday or Moolah Account Birthday",
                             fontWeight: FontWeight.w500, color: Colors.grey),
                         verticalSpace(10),
                         customGestureDetecter(

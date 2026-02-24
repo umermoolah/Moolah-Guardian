@@ -56,7 +56,7 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        bigHeadingText("GeoLock Secure Connection", fontSize: 27, height: 1),
+                        bigHeadingText("Moolah Guardian Secure Connection", fontSize: 27, height: 1),
                         verticalSpace(14),
                         subHeadingText(
                               "Please provide the following data for security purposes before syncing to your device.", height: 1),
@@ -66,7 +66,7 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
                         //     " "),
                         verticalSpace(10),
                         CustomTextField(
-                            hintText: "Moolah Account Email or GeoLock Companion App Account Email",
+                            hintText: "Moolah Account Email or Moolah Guardian Companion App Account Email",
                             textEditingController: emailController,
                             validators: Validators.email),
                         // CustomTextField(
@@ -140,7 +140,7 @@ class _EnterEmailParentSecurityCheckState extends State<EnterEmailParentSecurity
                               // onTap: () => setState(() {
                               //   checked = !checked;
                               // }),
-                                child: regularText("GeoLock only works on devices with the GeoLock Companion app installed or Moolah Devices.", color: AppColors.red))),
+                                child: regularText("Moolah Guardian only works on devices with the Moolah Guardian Companion app installed or Moolah Devices.", color: AppColors.red))),
                           ],
                         ),
                         verticalSpace(15),

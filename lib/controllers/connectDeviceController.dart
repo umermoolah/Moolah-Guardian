@@ -54,7 +54,7 @@ class ConnectDeviceController extends BaseController {
       }
       // errorToast("Oh No. Looks like your credentials do not match. To make a secure connection, your email, password and birthday must match exactly to the device that you are trying to synch with. Would you like to try again?");
     } else {
-      successToast("Congratulations!! You have successfully synched with a device and added it to your GeoLock Account. Go to your dashboard to view real time data about this device.");
+      successToast("Congratulations!! You have successfully synched with a device and added it to your Moolah Guardian Account. Go to your dashboard to view real time data about this device.");
     }
     isLoading = false;
     return res.isSuccessful;

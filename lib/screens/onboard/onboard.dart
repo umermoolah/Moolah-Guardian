@@ -175,13 +175,13 @@ class _OnBoardState extends State<OnBoard> {
                   //   ),
                   // ),
                   verticalSpace(10),
-                  bigHeadingText("GeoLock",
+                  bigHeadingText("Moolah Guardian",
                       color: AppColors.white, fontSize: 22),
                   verticalSpace(10),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: subHeadingText(
-                        "GeoLock is here to help families find\na balance in the digital world.",
+                        "Moolah Guardian is here to help families find\na balance in the digital world.",
                         color: AppColors.white,
                         textAlign: TextAlign.center,
                         fontSize: 17),

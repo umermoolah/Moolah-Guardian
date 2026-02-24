@@ -1,0 +1,48 @@
+Moolah Guardian — Plain English Guide
+
+Quick summary
+- Name: Moolah Guardian
+- Purpose: Lets parents see and control certain things on a child’s phone or tablet (apps, websites, location, messages, and subscriptions).
+- Who it's for: Parents or guardians who want a single place to check device health, activity, and manage rules and subscriptions.
+
+How the app works (simple steps)
+1. Install and open the app, then sign up or sign in. (Server: /login or /register)
+2. Link (pair) your child’s device by scanning a QR or entering a code and confirming identity. (Server: /parentAppSecurityCheck → /parentKidDeviceConnect)
+3. After linking, the child’s device appears on your dashboard (a list of children/devices). (Server: /getConnectedKidDevices)
+4. Tap a child to see details: battery, last active time, location, apps, messages, and controls. (Server: /getSingleDeviceDetail, /getDeviceThreadsEncryption, /getThreadMessagesEncryption, /getDeviceLocation)
+5. When you take an action (block app, request location), the app sends that command; it’s applied immediately if the child device is online, or applied when the device next connects. (Server: /sendActionToDevice)
+
+Main features — plain English (and the simple backend name)
+- Account & Login: Sign up and sign in so you can use the app. (Server: /login, /register — OTP: /send-mobile-otp, /verifyMobileOtp)
+- Pair a child’s device: Connect a child’s phone/tablet to your account. (Server: /parentAppSecurityCheck, /parentKidDeviceConnect)
+- Dashboard: See all connected children with quick info like battery and last active time. (Server: /getConnectedKidDevices)
+- Device details: View one child’s device info, apps, messages, and location. (Server: /getSingleDeviceDetail, /getDeviceThreadsEncryption, /getThreadMessagesEncryption, /getDeviceLocation)
+- Location: See the child’s last known location on a map or as an address/time. (Server: /getDeviceLocation)
+- App usage: See which apps the child uses and how long. (Server: /getAppUsage)
+- Block apps: Block an app on the child device so it can’t be opened (takes effect when device is online). (Server: /blacklistApp, /getBlacklistedApps)
+- Block websites: Add websites to a blocked list so they can’t be visited. (Server: /getBlockedUrlsEncryption, /addBlockedUrl)
+- Messages & chat: View chat threads and messages if the child device shares them. (Server: /getDeviceThreadsEncryption, /getThreadMessagesEncryption)
+- SMS monitoring status: Check if SMS monitoring is on and enable if allowed. (Server: /getMSMSMonitoringStatus, /enableMSMSMonitoring)
+- Remote actions: Send commands to the child device (like request location or lock). (Server: /sendActionToDevice)
+- Wallet & subscriptions: Buy a subscription or check wallet status for premium features. (Server: /createPaymentIntent, /getWalletEnabled, /enableWallet)
+- Ads: Small ads may appear in the app if you’re not subscribed. (Server: /getBannerAds)
+- Feedback & support: Send feedback or a review to the app team. (Server: /feedback, /submitReview)
+
+Simple data flow — plain words
+- The child device sends allowed info (like app usage and location) to the service.
+- Your parent app asks the service for that info and shows it to you.
+- When you press a control, your app tells the service and the service tells the child device.
+- If the child device is offline, the change takes effect when it reconnects.
+
+Common problems and quick fixes
+- Data is old: The child’s phone might be off or not connected. Ask them to open the app or check internet.
+- Block didn’t work: The child’s device must be online and have necessary permissions. Check the command status and try again.
+- Location not updating: Make sure location is enabled on the child’s device.
+- Payment failed: Check payment details and retry; contact support if it keeps failing.
+
+Privacy & legal reminder
+- This app shows personal information from another person’s device. Only use it on devices you own or have explicit permission to monitor (for example, your child’s device).
+- Laws about monitoring devices and messages vary — make sure you follow local rules.
+
+Want this as a Google Doc or PDF?
+- I can convert this plain guide into a clean Google Doc (.docx) or a printable PDF and add it to the repository. Which would you prefer?

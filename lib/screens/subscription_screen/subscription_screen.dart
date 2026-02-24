@@ -83,7 +83,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen>
                           padding: const EdgeInsets.all(13.0),
                           child: SvgPicture.asset(AppImages.crown),
                         )),
-                    bigHeadingText("GeoLock Standard", color: Colors.white),
+                    bigHeadingText("Moolah Guardian Standard", color: Colors.white),
                     SizedBox(
                         width: 180,
                         // height: 100,

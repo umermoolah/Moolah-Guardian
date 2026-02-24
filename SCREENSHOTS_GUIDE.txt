@@ -1,0 +1,237 @@
+Moolah Guardian — Screenshots & Google-Doc Guide
+
+Goal
+- Provide a simple, non-technical step-by-step guide to capture screenshots of every app screen in this project and a ready-to-paste Google-Doc template.
+
+Quick checklist (what I'll put in this file)
+- Friendly name + short description for each screen file you gave me
+- Which backend API(s) the screen typically uses (plain words)
+- Exact terminal commands for macOS to run the app and capture screenshots (iOS Simulator, Android emulator, or real device)
+- Naming convention and suggested image sizes
+- Google-Doc-ready template (title page, TOC, per-screen blocks with placeholders for images)
+- Final verification checklist
+
+Friendly screen map (file → friendly name + short description + likely backend APIs)
+1) lib/screens/login/screens/enter_email_login.dart
+   - Friendly name: Enter Email (Login)
+   - Description: Enter your email to start logging in. Moves to the password step after you tap Continue.
+   - Backend API(s): Login (auth start / email flow)
+
+2) lib/screens/login/screens/enter_password_login.dart
+   - Friendly name: Enter Password (Login)
+   - Description: Type your password and sign in.
+   - Backend API(s): Login (verify password)
+
+3) lib/screens/login/login.dart
+   - Friendly name: Login (Combined)
+   - Description: A combined login flow that may include email and password steps and shortcuts like "Forgot password".
+   - Backend API(s): Login
+
+4) lib/screens/subscription_screen/subscription_screen.dart
+   - Friendly name: Subscription (Plans & Purchase)
+   - Description: Shows plans, buy/restore buttons, and subscription status.
+   - Backend API(s): Create payment intent, check/enable wallet/subscriptions
+
+5) lib/screens/otp_verification/otp_verification.dart
+   - Friendly name: OTP Verification
+   - Description: Enter the one-time code (PIN) to verify phone/email.
+   - Backend API(s): OTP verification (send/verify OTP)
+
+6) lib/screens/blacklist/blacklist_screen.dart
+   - Friendly name: Blacklist (Blocked URLs)
+   - Description: List of blocked websites with an option to add a new URL.
+   - Backend API(s): Blocked URLs list and add (get/add blocked URLs)
+
+7) lib/screens/onboard/onboard.dart
+   - Friendly name: Onboarding / Landing
+   - Description: Welcome screens with intro text and buttons for Sign Up or Login. Often static.
+   - Backend API(s): Usually none (static), possible analytics events
+
+8) lib/screens/parent_security_check/parent_security_check.dart
+   - Friendly name: Parent Security Check (overview)
+   - Description: Security flow for parents that leads to sub-steps (email, password, DOB) before pairing a child device.
+   - Backend API(s): Parent security check / child device connect
+
+9) lib/screens/parent_security_check/screens/enter_email_security.dart
+   - Friendly name: Parent Security — Enter Email
+   - Description: Enter the parent account email to begin verification.
+   - Backend API(s): Parent security / connect device
+
+10) lib/screens/parent_security_check/screens/enter_password_security.dart
+    - Friendly name: Parent Security — Enter Password
+    - Description: Enter password to continue parent security check.
+    - Backend API(s): Parent security / connect device
+
+11) lib/screens/parent_security_check/screens/enter_dob_security.dart
+    - Friendly name: Parent Security — Enter DOB
+    - Description: Enter date of birth to finalize the security check and begin device pairing.
+    - Backend API(s): Parent security / connect device
+
+12) lib/screens/signup/signup.dart
+    - Friendly name: Signup (Main)
+    - Description: Container for the multi-step signup flow.
+    - Backend API(s): Signup (auth)
+
+13) lib/screens/splash/splash.dart
+    - Friendly name: Splash / Launch Screen
+    - Description: App launch screen that routes to other flows depending on login state.
+    - Backend API(s): None (local checks)
+
+14) lib/screens/signup/screens/enter_dob.dart
+    - Friendly name: Signup — Enter DOB
+    - Description: Enter date of birth during signup.
+    - Backend API(s): Signup state local; final signup API called later
+
+15) lib/screens/signup/screens/enter_full_name.dart
+    - Friendly name: Signup — Full Name
+    - Description: Enter full name during signup.
+    - Backend API(s): Signup state local
+
+16) lib/screens/signup/screens/enter_password.dart
+    - Friendly name: Signup — Password (Final)
+    - Description: Set a password and submit signup.
+    - Backend API(s): Signup (create account)
+
+17) lib/screens/signup/screens/enter_phone_number.dart
+    - Friendly name: Signup — Phone Number
+    - Description: Enter phone number; often used with OTP verification.
+    - Backend API(s): Phone OTP send/verify
+
+18) lib/screens/signup/screens/enter_username.dart
+    - Friendly name: Signup — Username
+    - Description: Choose a username during signup.
+    - Backend API(s): Signup state local (possible username-availability check)
+
+19) lib/screens/signup/screens/enter_email.dart
+    - Friendly name: Signup — Email
+    - Description: First signup step to collect email.
+    - Backend API(s): Signup
+
+20) lib/screens/home/widget/SyncDevice.dart
+    - Friendly name: Sync Device (device card/widget)
+    - Description: A UI card that represents a linked child device (avatar, battery, last seen, quick action).
+    - Backend API(s): Device list and device detail APIs (get connected devices, single device detail)
+
+
+How to capture screenshots on macOS (simple, reliable methods)
+
+Where to save images: Create a folder called `screenshots/` in the project root.
+Command to make it:
+  mkdir -p screenshots
+
+Option A — iOS Simulator (recommended on macOS)
+1) Open iOS Simulator (manually or with command):
+   open -a Simulator
+2) From project root, run the app in the simulator (pick a device from `flutter devices`):
+   flutter run -d <deviceId>
+   or to list devices first: flutter devices
+3) Navigate in the running app to the screen you want.
+4) Take a screenshot using Flutter CLI (while app is running):
+   flutter screenshot --out screenshots/01_enter_email_login_normal_ios.png
+
+Alternative iOS screenshot using simctl (if flutter screenshot fails):
+   xcrun simctl io booted screenshot screenshots/01_enter_email_login_normal_ios.png
+
+Option B — Android emulator
+1) Start an Android emulator (Android Studio AVD) or use flutter emulators:
+   flutter emulators
+   flutter emulators --launch <emulatorId>
+2) Run the app on the emulator:
+   flutter run -d <android-device-id>
+3) When on the desired screen, use flutter screenshot:
+   flutter screenshot --out screenshots/01_enter_email_login_normal_android.png
+
+Or use adb to capture directly:
+   adb exec-out screencap -p > screenshots/01_enter_email_login_normal_android.png
+
+Option C — Real device (USB)
+1) Connect the device and trust it; confirm with `flutter devices`.
+2) Run the app on the device:
+   flutter run -d <deviceId>
+3) Use flutter screenshot or adb as above (for Android use adb).
+
+Capture workflow tips (simple)
+- Always capture the primary, normal view of each screen first (populated with sample data).
+- For list screens capture an empty state too (if applicable).
+- For multi-step flows (signup, security check) capture each step as a separate image.
+- Use the naming convention below so images stay organized.
+
+Naming convention (easy to follow)
+- Format: NN_friendly-name_state_platform_resolution.png
+- Example: 01_enter_email_login_normal_ios_1170x2532.png
+- Friendly name: use underscores for spaces, keep short (1–3 words)
+- State: normal / empty / error / list / details
+- Platform: ios / android / realdevice
+
+Recommended resolutions
+- Use the simulator/emulator native resolution. For Google Docs keep images about 1200 px wide maximum.
+- Common choices: iPhone (1170x2532), Android (1080x2400)
+
+Google-Doc-ready template (paste this entire section into a new Google Doc)
+
+Title page:
+- Document title: App UI Screenshots — Moolah Guardian
+- Version: v1.0
+- Author: [Your name]
+- Date: [YYYY-MM-DD]
+- Device used: [e.g., iPhone 14 Simulator, iOS 16]
+
+Table of contents (list headings for each screen; use Docs TOC to auto-generate if you like)
+1. Enter Email (Login) — lib/screens/login/screens/enter_email_login.dart
+2. Enter Password (Login) — lib/screens/login/screens/enter_password_login.dart
+3. Login (Combined) — lib/screens/login/login.dart
+4. Subscription (Plans & Purchase) — lib/screens/subscription_screen/subscription_screen.dart
+5. OTP Verification — lib/screens/otp_verification/otp_verification.dart
+6. Blacklist (Blocked URLs) — lib/screens/blacklist/blacklist_screen.dart
+7. Onboarding / Landing — lib/screens/onboard/onboard.dart
+8. Parent Security Check (overview) — lib/screens/parent_security_check/parent_security_check.dart
+9. Parent Security — Enter Email — lib/screens/parent_security_check/screens/enter_email_security.dart
+10. Parent Security — Enter Password — lib/screens/parent_security_check/screens/enter_password_security.dart
+11. Parent Security — Enter DOB — lib/screens/parent_security_check/screens/enter_dob_security.dart
+12. Signup (Main) — lib/screens/signup/signup.dart
+13. Splash / Launch Screen — lib/screens/splash/splash.dart
+14. Signup — Enter DOB — lib/screens/signup/screens/enter_dob.dart
+15. Signup — Full Name — lib/screens/signup/screens/enter_full_name.dart
+16. Signup — Password (Final) — lib/screens/signup/screens/enter_password.dart
+17. Signup — Phone Number — lib/screens/signup/screens/enter_phone_number.dart
+18. Signup — Username — lib/screens/signup/screens/enter_username.dart
+19. Signup — Email — lib/screens/signup/screens/enter_email.dart
+20. Sync Device (List item/card) — lib/screens/home/widget/SyncDevice.dart
+
+Per-screen block (copy-paste this block, then replace the values for each screen):
+
+Screen title: [Friendly name]
+File path: [path]
+Description: [1–2 sentence plain English description]
+Backend API(s): [Which APIs this screen uses — plain words]
+Suggested screenshot views:
+  - Normal (populated) — Filename: NN_friendlyname_normal_platform.png
+  - Empty (if list) — Filename: NN_friendlyname_empty_platform.png
+  - Error/Validation (if applicable) — Filename: NN_friendlyname_error_platform.png
+Insert image here: [Insert screenshot file: NN_friendlyname_normal_platform.png]
+Notes for PM: [short note]
+
+How to insert images into Google Docs
+1) In Google Docs: Insert -> Image -> Upload from computer (or drag-and-drop the file into the doc).
+2) After inserting, set the image layout to "In line" or "Wrap text". Recommended: "In line" and resize width to about 12–14 cm.
+3) Add the filename as a caption/text next to the image for traceability.
+4) When done, File -> Download -> PDF Document (.pdf)
+
+Final deliverable checklist (tick before you hand it off)
+- [ ] All listed screens captured (20 screens)
+- [ ] Each screenshot saved to `screenshots/` using the naming convention
+- [ ] Google Doc created with the Title page, TOC, and per-screen blocks
+- [ ] Images inserted and filenames noted
+- [ ] PDF exported as MoolahGuardian_UI_Screenshots_v1.0.pdf
+
+Next steps I can help with (pick one):
+- I can generate an automated screenshot script (Flutter integration_test or device lab) to capture all screens automatically.
+- I can create a .docx file with this content (so you can open in Word / upload to Google Drive directly).
+- I can produce placeholder mock screenshots (wireframes) for each screen if you can’t run the app locally.
+- I can also add this guide into the repo's README or update `PLAIN_GUIDE.txt` if you'd like.
+
+If you want me to put this content into a Google Doc or a .docx file inside the repo, tell me which and I will create it for you.
+
+---
+End of file
+
