@@ -1,0 +1,96 @@
+╔════════════════════════════════════════════════════════════════════════╗
+║                                                                        ║
+║          🚀 MOOLAH GUARDIAN - API ENDPOINT CAPTURE SYSTEM 🚀          ║
+║                                                                        ║
+║                    ONE COMMAND TO CAPTURE ALL APIS                    ║
+║                                                                        ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚡ QUICK START - 3 STEPS:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1️⃣  - RUN THIS COMMAND:
+
+    bash /Users/umer/Documents/Moolah-Guardian/capture-all-endpoints.sh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 2️⃣  - WALK THROUGH YOUR APP:
+
+    🔐 Login
+    👤 Go to Home
+    📱 Visit Profile
+    ⚙️  Open Settings
+    🎮 Click ALL features
+    🔄 Explore everything
+
+    ✨ The script captures all API calls automatically! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 3️⃣  - WHEN DONE:
+
+    Press Ctrl+C to stop
+
+    ✅ Script auto-generates documentation
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 WHAT YOU'LL GET:
+
+✅ API_LOGS_RAW_[timestamp].txt
+   → Complete raw logs from your app run
+
+✅ API_ENDPOINTS_DOCUMENTED.md
+   → Formatted API documentation with:
+     • All endpoints (GET & POST)
+     • Request/response examples
+     • Status codes
+     • Statistics
+     • Complete captured data
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎨 COLOR CODING (in real-time logs):
+
+🔴 = POST Request  (Magenta)
+🔵 = GET Request   (Cyan)
+✅ = Success       (Green)
+❌ = Error         (Red)
+📍 = URL           (Yellow)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 EXAMPLE OUTPUT:
+
+🔴 POST REQUEST - 2026-02-24 16:38:38.924382
+📍 URL: https://api2.moolahmobile.com/auth/login
+📋 Headers: {X-API-VERSION: 0.0.0.1, ...}
+📤 Request Body:
+{
+  "email": "user@example.com",
+  "password": "***"
+}
+
+✅ POST RESPONSE (1150ms)
+🔢 Status Code: 200
+📥 Response Body:
+{
+  "status": true,
+  "message": "Login successful",
+  "data": {...}
+}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 YOU'RE READY! JUST RUN:
+
+    bash /Users/umer/Documents/Moolah-Guardian/capture-all-endpoints.sh
+
+Then walk through your app and watch the magic happen! ✨
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+

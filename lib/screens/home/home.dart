@@ -139,7 +139,7 @@ class _HomeState extends State<Home> {
                                 left: 0,
                                 child: customGestureDetecter(
                                   onTap: (){
-                                    Get.toNamed(MainMenuProfile.screenName);
+                                     Get.toNamed(MainMenuProfile.screenName);
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.only(right: 8.0, bottom: 8.0),

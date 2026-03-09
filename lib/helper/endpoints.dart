@@ -3,8 +3,8 @@ class EndPoints {
   static String baseUrl = "https://api2.moolahmobile.com";
 
 
-  static String login = "$baseUrl/login";
-  static String signUp = "$baseUrl/register";
+  static String login = "$baseUrl/guardian/login";
+  static String signUp = "$baseUrl/guardian/register";
   static String refreshToken = "$baseUrl/refreshTokens";
   static String sendMobileOtp = "$baseUrl/send-mobile-otp";
   static String verifyMobileOtp = "$baseUrl/verifyMobileOtp";

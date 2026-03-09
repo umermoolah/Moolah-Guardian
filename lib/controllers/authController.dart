@@ -29,156 +29,81 @@ class AuthController extends BaseController {
   String usernameGlob = "";
 
 
-  ///Old One
-  // Future<void> login(String email, String password) async {
-  //   if (isLoading) return;
-  //   try {
-  //     isLoading = true;
-  //     print("LOGIN: $isLoading");
-  //     var r = await AuthRepo.login(email, password);
-  //     print("RESPNCE: ${r.data}");
-  //     print("RESPNCE: ${r.data["data"]}");
-  //     print("RESPNCE: ${r.isSuccessful}");
-  //     if (r.isSuccessful) {
-  //       print("Hello 1;");
-  //       user1 = UserModel1.fromJson(r.data["data"][0]);
-  //       print("Hello 2;");
-  //       Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
-  //       print("Hello 3;");
-  //       Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
-  //       print("Hello 4;");
-  //       Prefs.userId.set(r.data["data"][0]["user_id"]);
-  //       print("Hello 5;");
-  //       Prefs.isLoggedIn.set(true);
-  //       print("Hello 6;");
-  //       Prefs.email.set(r.data["data"][0]["email"]);
-  //       print("Hello 7;");
-  //       print("user model:::${user1?.toJson()}");
-  //       print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
-  //       Prefs.firstName.set(user1?.firstName??"");
-  //       Prefs.lastName.set(user1?.lastName??"");
-  //       Prefs.phone.set(user1?.phone??"");
-  //       Get.offAllNamed(Home.screenName);
-  //       print("Login Successful: \n\n${r.data}");
-  //     } else {
-  //       errorToastShow(r.data);
-  //     }
-  //   } catch (e) {}
-  //
-  //   isLoading = false;
-  //   print("LOGIN: $isLoading");
-  // }
-  // Future<void> signup(String firstName,String lastName,String phone,String dob,String username, String email, String password) async {
-  //   Prefs.accessToken.clear();
-  //   if (isLoading) return;
-  //   try {
-  //     isLoading = true;
-  //     print("signupsignupsignup: $isLoading");
-  //     var r = await AuthRepo.signUp(email, password, firstName, lastName, phone, dob, username);
-  //     print("RESPNCE: ${r.data}");
-  //     if (r.isSuccessful) {
-  //
-  //       Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
-  //       Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
-  //       Prefs.userId.set(r.data["data"][0]["user_id"]);
-  //       Prefs.isLoggedIn.set(true);
-  //       Prefs.email.set(r.data["data"][0]["email"]);
-  //       print("UserModel.fromJson");
-  //       user = UserModel.fromJson(r.data["data"][0]);
-  //       Prefs.firstName.set(user?.firstName??"");
-  //       Prefs.lastName.set(user?.lastName??"");
-  //       Get.offAllNamed(Home.screenName);
-  //       print("SignUp Successful: \n\n${r.data}");
-  //     } else {
-  //       errorToastShow(r.data);
-  //     }
-  //   } catch (e) {
-  //     print("object$e");
-  //   }
-  //
-  //   isLoading = false;
-  //   print("LOGIN: $isLoading");
-  // }
-  ///Old One
   Future<void> login() async {
     if (isLoading) return;
     try {
       isLoading = true;
-      print("LOGIN: $isLoading");
       var r = await AuthRepo.login(emailGlob, passwordGlob);
-      print("RESPNCE: ${r.data}");
-      print("RESPNCE: ${r.data["data"]}");
-      print("RESPNCE: ${r.isSuccessful}");
-      if (r.isSuccessful) {
-        print("Hello 1;");
-        user1 = UserModel1.fromJson(r.data["data"][0]);
-        print("Hello 2;");
-        Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
-        print("Hello 3;");
-        Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
-        print("Hello 4;");
-        Prefs.userId.set(r.data["data"][0]["user_id"]);
-        print("Hello 5;");
+      if (r.isSuccessful && r.data != null && r.data["data"] != null && r.data["data"].isNotEmpty) {
+        final userData = r.data["data"][0];
+        user1 = UserModel1.fromJson(userData);
+
+        if (r.data["tokens"] != null) {
+          Prefs.accessToken.set(r.data["tokens"]["access"]?["token"] ?? '');
+          Prefs.refreshToken.set(r.data["tokens"]["refresh"]?["token"] ?? '');
+        }
+        
+        Prefs.userId.set((userData["id"] ?? 0).toString());
         Prefs.isLoggedIn.set(true);
-        print("Hello 6;");
-        Prefs.email.set(r.data["data"][0]["email"]);
-        print("Hello 7;");
-        print("user model:::${user1?.toJson()}");
-        print("user:::::::${user1?.firstName}:::::${user1?.lastName}");
-        Prefs.firstName.set(user1?.firstName??"");
-        Prefs.lastName.set(user1?.lastName??"");
-        Prefs.phone.set(user1?.phone??"");
+        Prefs.email.set(userData["email"] ?? '');
+        Prefs.firstName.set(user1?.firstName ?? "");
+        Prefs.lastName.set(user1?.lastName ?? "");
+        Prefs.phone.set(user1?.phone ?? "");
         Get.offAllNamed(SubscriptionScreen.screenName);
-        // Get.offAllNamed(Home.screenName);
-        print("Login Successful: \n\n${r.data}");
       } else {
         Get.find<MixPanelEventsController>().track(MixEvents.errorLogin);
         errorToastShow(r.data);
       }
-    } catch (e) {}
+    } catch (e) {
+      errorToast("An unexpected error occurred during login.");
+    }
 
     isLoading = false;
-    print("LOGIN: $isLoading");
   }
+
+
   Future<void> signup() async {
     Prefs.accessToken.clear();
     if (isLoading) return;
     try {
       isLoading = true;
-      print("signupsignupsignup: $isLoading");
       var r = await AuthRepo.signUp(emailGlob, passwordGlob, fullNameGlob, fullNameGlob, phoneGlob, dobGlob, usernameGlob);
-      print("RESPNCE: ${r.data}");
-      if (r.isSuccessful) {
+      if (r.isSuccessful && r.data != null && r.data["data"] != null && r.data["data"].isNotEmpty) {
+        final userData = r.data["data"][0];
 
-        Prefs.accessToken.set(r.data["tokens"]["access"]["token"]);
-        Prefs.refreshToken.set(r.data["tokens"]["refresh"]["token"]);
-        Prefs.userId.set(r.data["data"][0]["user_id"]);
+        user1 = UserModel1.fromJson(userData);
+
+        if (r.data['tokens'] != null) {
+          Prefs.accessToken.set(r.data["tokens"]["access"]?["token"] ?? '');
+          Prefs.refreshToken.set(r.data["tokens"]["refresh"]?["token"] ?? '');
+        }
+
+        Prefs.userId.set((userData["id"] ?? 0).toString()); 
         Prefs.isLoggedIn.set(true);
-        Prefs.email.set(r.data["data"][0]["email"]);
+        Prefs.email.set(userData["email"] ?? '');
         Prefs.phone.set(phoneGlob);
-        print("UserModel.fromJson");
-        user = UserModel.fromJson(r.data["data"][0]);
-        Prefs.firstName.set(user?.firstName??"");
-        Prefs.lastName.set(user?.lastName??"");
+        
+        Prefs.firstName.set(user1?.firstName ?? "");
+        Prefs.lastName.set(user1?.lastName ?? "");
+
         var res1 = await AuthRepo.sendMobileOtp(phoneGlob);
-        if(res1.isSuccessful){
+        if (res1.isSuccessful) {
           successToast("OTP sent!");
         }
         Prefs.verificationPending.set(true);
         Get.offAllNamed(OtpVerification.screenName);
-        // Get.offAllNamed(Home.screenName);
-        print("SignUp Successful: \n\n${r.data}");
       } else {
         Get.find<MixPanelEventsController>().track(MixEvents.errorSignUp);
         errorToastShow(r.data);
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       Get.find<MixPanelEventsController>().track(MixEvents.errorSignUp);
-      print("object$e");
+      print("--- SIGNUP FAILED ---");
+      print("Error: $e");
+      errorToast("An unexpected error occurred during signup.");
     }
 
     isLoading = false;
-    print("LOGIN: $isLoading");
   }
 
   Future<void> verifyOtp(String otp) async {
@@ -202,7 +127,6 @@ class AuthController extends BaseController {
     );
     try {
       await _googleSignIn.signIn().then((value) => print(value));
-      // Get.find<MixPanelEventsController>().track(MixEvents.completeGoogleSignin);
     } catch (error) {
       print(error);
     }
@@ -210,10 +134,22 @@ class AuthController extends BaseController {
 
 
   Future<void> refreshToken() async {
-    var res = await AuthRepo.refreshToken(Prefs.refreshToken.get());
-    Prefs.accessToken.set(res.data["access"]["token"]);
-    Prefs.refreshToken.set(res.data["refresh"]["token"]);
-    print("res:::${res.data}");
+    try {
+      var res = await AuthRepo.refreshToken(Prefs.refreshToken.get());
+      if (res.isSuccessful && res.data != null) {
+        if (res.data["access"] != null) {
+          Prefs.accessToken.set(res.data["access"]["token"] ?? "");
+        }
+        if (res.data["refresh"] != null) {
+          Prefs.refreshToken.set(res.data["refresh"]["token"] ?? "");
+        }
+        print("Token Refreshed Successfully");
+      } else {
+        print("Token Refresh Failed: ${res.data}");
+      }
+    } catch (e) {
+      print("Error in refreshToken: $e");
+    }
   }
 
   Future<void> logout() async {

@@ -90,11 +90,10 @@ class _LoginState extends State<Login> {
                             margin: EdgeInsets.zero,
                             onTap: () {
                               if(key.currentState!.validate()){
-                                // authController.login(emailController.text, passwordController.text);
-                                // Get.toNamed(Home.screenName);
+                                authController.emailGlob = emailController.text;
+                                authController.passwordGlob = passwordController.text;
+                                authController.login();
                               }
-
-                              // Get.toNamed(Home.screenName);
                             },
                           ),
                           verticalSpace(20),

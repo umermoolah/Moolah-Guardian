@@ -31,9 +31,6 @@ class _ScanBarcodeState extends State<ScanBarcode> {
 
   @override
   void initState() {
-    // Future.delayed(Duration(seconds: 3), (){
-    //   showD();
-    // });
     super.initState();
   }
   @override
@@ -50,8 +47,6 @@ class _ScanBarcodeState extends State<ScanBarcode> {
               verticalSpace(15),
               customGestureDetecter(
                 onTap: (){
-                  // JUST TO TEST IT
-                  // showD();
                 },
                   child: commonAppBar(heading: "Moolah Guardian Code")),
               verticalSpace(20),
@@ -59,40 +54,48 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                 children: [
                   MobileScanner(
                     onDetect: (BarcodeCapture capture) async {
-                      print("CAPTURED");
-                      print(capture.raw);
-                      print("hello");
+                      print("--- QR CODE DETECTED ---");
+                      
                       try{
                         if(!scanned){
-                          scanned = true;
-                          Map data = {};
-                          // print(capture.raw);
-                          // successToast(capture.raw??"");
-                          if(capture.barcodes.first.displayValue != null){
-                            // if(jsonDecode(capture.raw?[0])?["rawValue"]?["kidConnectId"] != null){
-                            data = jsonDecode(capture.barcodes.first.displayValue!);
-                            String finalData = "";
-                            if(data["kidConnectId"] != null){
-                              finalData = data["kidConnectId"];
-                              if(finalData.isNotEmpty){
-                                if(await connectDeviceController.parentKidDeviceConnect(kidDeviceAccountConnectID: finalData)){
-                                  showD();
-                                }else{
-                                  scanned = false;
-                                }
+                          if (capture.barcodes.isEmpty) return;
+                          
+                          final String? codeValue = capture.barcodes.first.displayValue;
+                          print("Code display value: $codeValue");
+
+                          if(codeValue != null){
+                            scanned = true;
+                            print("Attempting to decode JSON...");
+                            Map data = jsonDecode(codeValue);
+                            print("Decoded JSON data: $data");
+
+                            // Check for possible keys: kidConnectId, kidDeviceAccountUserID, or user_device_id
+                            String? finalData = data["kidConnectId"]?.toString() ?? 
+                                              data["kidDeviceAccountUserID"]?.toString() ?? 
+                                              data["user_device_id"]?.toString();
+
+                            if(finalData != null && finalData.isNotEmpty){
+                              print("Extracted ID: $finalData");
+                              print("Calling parentKidDeviceConnect API...");
+                              
+                              if(await connectDeviceController.parentKidDeviceConnect(kidDeviceAccountConnectID: finalData)){
+                                print("API Success");
+                                showD();
+                              }else{
+                                print("API Failed");
+                                scanned = false;
                               }
+                            } else {
+                              print("Required key (kidConnectId, kidDeviceAccountUserID, or user_device_id) missing in JSON.");
+                              scanned = false;
                             }
-
-                            // }
                           }
-
                         }
-                      }catch(e){}
-                      // print(jsonDecode(capture.barcodes.first.displayValue));//["rawValue"]["kidConnectId"]);
-                      // successToast(capture.raw??"");
-                      // jsonDecode(capture.raw?[0]);
-
-
+                      }catch(e, stacktrace){
+                        print("ERROR during QR scan processing: $e");
+                        print("Stacktrace: $stacktrace");
+                        scanned = false;
+                      }
                     },
                   ),
                   ColorFiltered(
@@ -113,10 +116,6 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                             margin: const EdgeInsets.only(bottom: 20),
                             height: width * 0.7,
                             width: width * 0.7,
-                            // decoration: BoxDecoration(
-                            //   color: Colors.red,
-                            //   borderRadius: BorderRadius.circular(100),
-                            // ),
                           ),
                         ),
                       ],
@@ -134,13 +133,11 @@ class _ScanBarcodeState extends State<ScanBarcode> {
   void showD() async {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    // await Get.toNamed(ParentSecurityCheck.screenName);
     await showDialog(context: context, builder: (_){
       return Material(
         type: MaterialType.transparency,
         child: Center(
           child: roundedContainer(
-            // height: 100,
             margin: const EdgeInsets.all(30),
             padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 10),
             color: Colors.white,
@@ -155,8 +152,6 @@ class _ScanBarcodeState extends State<ScanBarcode> {
                 verticalSpace(20),
                 CustomButton(text: "Back to home", onTap: (){
                   Get.offAllNamed(Home.screenName);
-                  // Get.back();
-                  // Get.back();
                 },)
               ],
             )
