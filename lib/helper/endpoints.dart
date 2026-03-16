@@ -27,6 +27,7 @@ class EndPoints {
   static String getThreadsMessages = "$baseUrl/getThreadMessagesEncryption";
   static String parentAppSecurityCheck = "$baseUrl/parentAppSecurityCheck";
   static String parentKidDeviceConnect = "$baseUrl/parentKidDeviceConnect";
+  static String linkKidByConnectCode = "$baseUrl/linkKidByConnectCode";
   static String getBannerAds = "$baseUrl/getBannerAds";
   static String submitReview = "$baseUrl/submitReview";
   static String feedback = "$baseUrl/feedback";

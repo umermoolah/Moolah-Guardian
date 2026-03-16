@@ -1,0 +1,270 @@
+--------- beginning of main
+02-25 05:27:01.783 12072 12148 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+02-25 05:27:01.869 12072 12155 I flutter : The Dart VM service is listening on http://127.0.0.1:38689/Lfx-gA305Lw=/
+02-25 05:27:02.313 12072 12072 I flutter : Initializing Firebase
+02-25 05:27:02.786 12072 12072 I flutter : unhandled element <style/>; Picture key: Svg loader
+02-25 05:27:03.491 12072 12072 I flutter : Initializing Mixpanel
+02-25 05:27:03.538 12072 12072 I flutter : Initializing OneSignal
+02-25 05:27:03.544 12072 12072 I flutter : OneSignal.Notifications.permission
+02-25 05:27:03.545 12072 12072 I flutter : false
+02-25 05:27:03.545 12072 12072 I flutter : OneSignal.Notifications.permission::1
+02-25 05:27:03.557 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:27:03.557 12072 12072 I flutter : 🔴 POST REQUEST - 2026-02-25 05:27:03.551498
+02-25 05:27:03.557 12072 12072 I flutter : 📍 URL: https://api2.moolahmobile.com/getBannerAds
+02-25 05:27:03.559 12072 12072 I flutter : 📋 Headers: {X-API-VERSION: 0.0.0.1, Content-type: application/json; charset=utf-8}
+02-25 05:27:03.561 12072 12072 I flutter : 📤 Request Body:
+02-25 05:27:03.561 12072 12072 I flutter : {}
+02-25 05:27:03.563 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:27:05.136 12072 12072 I flutter : ✅ POST RESPONSE (1571ms)
+02-25 05:27:05.136 12072 12072 I flutter : 🔢 Status Code: 200
+02-25 05:27:05.138 12072 12072 I flutter : 📥 Response Body:
+02-25 05:27:05.138 12072 12072 I flutter : {
+02-25 05:27:05.138 12072 12072 I flutter :   "campaigns": [
+02-25 05:27:05.138 12072 12072 I flutter :     {
+02-25 05:27:05.138 12072 12072 I flutter :       "campaign_id": 133,
+02-25 05:27:05.138 12072 12072 I flutter :       "platform_campaign_id": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "advertiser_id": "37",
+02-25 05:27:05.138 12072 12072 I flutter :       "email": "admin@admin.com",
+02-25 05:27:05.138 12072 12072 I flutter :       "bid": 0.002,
+02-25 05:27:05.138 12072 12072 I flutter :       "status": "active",
+02-25 05:27:05.138 12072 12072 I flutter :       "type": "impression",
+02-25 05:27:05.138 12072 12072 I flutter :       "location": null,
+02-25 05:27:05.138 12072 12072 I flutter :       "class_name": null,
+02-25 05:27:05.138 12072 12072 I flutter :       "offer_name": "JCI Campaign",
+02-25 05:27:05.138 12072 12072 I flutter :       "app_name": "undefined",
+02-25 05:27:05.138 12072 12072 I flutter :       "link": "--",
+02-25 05:27:05.138 12072 12072 I flutter :       "expiration": "2020-12-25T12:00:00.000Z",
+02-25 05:27:05.138 12072 12072 I flutter :       "mulaah": 3,
+02-25 05:27:05.138 12072 12072 I flutter :       "description": "dummy disc",
+02-25 05:27:05.138 12072 12072 I flutter :       "icon": "--",
+02-25 05:27:05.138 12072 12072 I flutter :       "instructions": "We need leads on this ad",
+02-25 05:27:05.138 12072 12072 I flutter :       "city": "undefined",
+02-25 05:27:05.138 12072 12072 I flutter :       "state": "NWIDE",
+02-25 05:27:05.138 12072 12072 I flutter :       "banner_img": "https://firebasestorage.googleapis.com/v0/b/moolahmobilesystem.appspot.com/o/Banners%2F16057016104.png?alt=media",
+02-25 05:27:05.138 12072 12072 I flutter :       "interstitial_img": "undefined",
+02-25 05:27:05.138 12072 12072 I flutter :       "installs": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "daily_limit": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "total_budget": 50,
+02-25 05:27:05.138 12072 12072 I flutter :       "banner_views": 4237480,
+02-25 05:27:05.138 12072 12072 I flutter :       "interstitial_views": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "banner_clicks": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "interstitial_clicks": 0,
+02-25 05:27:05.138 12072 12072 I flutter :       "question_1": null,
+02-25 05:27:05.138 12072 12072 I flutter :       "question_2": null,
+02-25 05:27:05.138 12072 12072 I flutter :     
+02-25 05:27:05.140 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:27:05.143 12072 12072 I flutter : 🔍 RESPONSE HANDLER
+02-25 05:27:05.143 12072 12072 I flutter : 📊 Status Code: 200
+02-25 05:27:05.143 12072 12072 I flutter : 📄 Body:
+02-25 05:27:05.143 12072 12072 I flutter : {
+02-25 05:27:05.143 12072 12072 I flutter :   "campaigns": [
+02-25 05:27:05.143 12072 12072 I flutter :     {
+02-25 05:27:05.143 12072 12072 I flutter :       "campaign_id": 133,
+02-25 05:27:05.143 12072 12072 I flutter :       "platform_campaign_id": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "advertiser_id": "37",
+02-25 05:27:05.143 12072 12072 I flutter :       "email": "admin@admin.com",
+02-25 05:27:05.143 12072 12072 I flutter :       "bid": 0.002,
+02-25 05:27:05.143 12072 12072 I flutter :       "status": "active",
+02-25 05:27:05.143 12072 12072 I flutter :       "type": "impression",
+02-25 05:27:05.143 12072 12072 I flutter :       "location": null,
+02-25 05:27:05.143 12072 12072 I flutter :       "class_name": null,
+02-25 05:27:05.143 12072 12072 I flutter :       "offer_name": "JCI Campaign",
+02-25 05:27:05.143 12072 12072 I flutter :       "app_name": "undefined",
+02-25 05:27:05.143 12072 12072 I flutter :       "link": "--",
+02-25 05:27:05.143 12072 12072 I flutter :       "expiration": "2020-12-25T12:00:00.000Z",
+02-25 05:27:05.143 12072 12072 I flutter :       "mulaah": 3,
+02-25 05:27:05.143 12072 12072 I flutter :       "description": "dummy disc",
+02-25 05:27:05.143 12072 12072 I flutter :       "icon": "--",
+02-25 05:27:05.143 12072 12072 I flutter :       "instructions": "We need leads on this ad",
+02-25 05:27:05.143 12072 12072 I flutter :       "city": "undefined",
+02-25 05:27:05.143 12072 12072 I flutter :       "state": "NWIDE",
+02-25 05:27:05.143 12072 12072 I flutter :       "banner_img": "https://firebasestorage.googleapis.com/v0/b/moolahmobilesystem.appspot.com/o/Banners%2F16057016104.png?alt=media",
+02-25 05:27:05.143 12072 12072 I flutter :       "interstitial_img": "undefined",
+02-25 05:27:05.143 12072 12072 I flutter :       "installs": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "daily_limit": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "total_budget": 50,
+02-25 05:27:05.143 12072 12072 I flutter :       "banner_views": 4237480,
+02-25 05:27:05.143 12072 12072 I flutter :       "interstitial_views": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "banner_clicks": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "interstitial_clicks": 0,
+02-25 05:27:05.143 12072 12072 I flutter :       "question_1": null,
+02-25 05:27:05.143 12072 12072 I flutter :       "question_2": null,
+02-25 05:27:05.143 12072 12072 I flutter :       "questi
+02-25 05:27:05.143 12072 12072 I flutter : ✅ Response Status: SUCCESS
+02-25 05:27:05.143 12072 12072 I flutter : 💬 Message: 
+02-25 05:27:05.143 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:27:05.150 12072 12072 I flutter : loadLocalAds:::{campaigns: [{campaign_id: 133, platform_campaign_id: 0, advertiser_id: 37, email: admin@admin.com, bid: 0.002, status: active, type: impression, location: null, class_name: null, offer_name: JCI Campaign, app_name: undefined, link: --, expiration: 2020-12-25T12:00:00.000Z, mulaah: 3, description: dummy disc, icon: --, instructions: We need leads on this ad, city: undefined, state: NWIDE, banner_img: https://firebasestorage.googleapis.com/v0/b/moolahmobilesystem.appspot.com/o/Banners%2F16057016104.png?alt=media, interstitial_img: undefined, installs: 0, daily_limit: 0, total_budget: 50, banner_views: 4237480, interstitial_views: 0, banner_clicks: 0, interstitial_clicks: 0, question_1: null, question_2: null, question_3: null, question_4: null, question_5: null, question_6: null, question_7: null, question_8: null, question_9: null, question_10: null, banner_type: null, demographics_age_group: null, demographics_gender: null, demographics_ethnicity: null, currentActiveThemes: 0, image1: null, i
+02-25 05:27:05.329 12072 12072 I flutter : controller.value.size.width
+02-25 05:27:05.329 12072 12072 I flutter : Infinity
+02-25 05:27:05.330 12072 12072 I flutter : 0.0
+02-25 05:27:06.961 12072 12072 I flutter : controller.value.size.width
+02-25 05:27:06.964 12072 12072 I flutter : 0.2679787234042553
+02-25 05:27:06.965 12072 12072 I flutter : 90.684
+02-25 05:27:08.175 12072 12072 I flutter : MixPanel Event Triggered: viewSignUp1
+02-25 05:27:08.227 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:08.648 12072 12072 I flutter : controller.value.size.width
+02-25 05:27:08.649 12072 12072 I flutter : 0.2679787234042553
+02-25 05:27:08.649 12072 12072 I flutter : 90.684
+02-25 05:27:08.806 12072 12072 I flutter : OneSignal.Notifications.permission::2
+02-25 05:27:11.383 12072 12072 I flutter : MixPanel Event Triggered: viewSignUp1
+02-25 05:27:11.386 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:11.399 12072 12072 I flutter : controller.value.size.width
+02-25 05:27:11.400 12072 12072 I flutter : 0.2679787234042553
+02-25 05:27:11.400 12072 12072 I flutter : 90.684
+02-25 05:27:27.071 12072 12072 I flutter : Errroorr: null
+02-25 05:27:27.073 12072 12072 I flutter : MixPanel Event Triggered: startSignupEmail
+02-25 05:27:27.089 12072 12072 I flutter : MixPanel Event Triggered: viewSignUp2
+02-25 05:27:27.092 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:30.084 12072 12072 I flutter : Errroorr: null
+02-25 05:27:30.086 12072 12072 I flutter : MixPanel Event Triggered: enterFullName
+02-25 05:27:30.106 12072 12072 I flutter : countryCode:::
+02-25 05:27:30.112 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:41.134 12072 12072 I flutter : countryCode: +46
+02-25 05:27:43.817 12072 12072 I flutter : countryCode: +46
+02-25 05:27:43.818 12072 12072 I flutter : withoutCCPhone: 0
+02-25 05:27:43.823 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:45.212 12072 12072 I flutter : countryCode: +46
+02-25 05:27:45.214 12072 12072 I flutter : withoutCCPhone: 07
+02-25 05:27:45.233 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:45.294 12072 12072 I flutter : countryCode: +46
+02-25 05:27:45.295 12072 12072 I flutter : withoutCCPhone: 070
+02-25 05:27:45.316 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:45.662 12072 12072 I flutter : countryCode: +46
+02-25 05:27:45.663 12072 12072 I flutter : withoutCCPhone: 0708
+02-25 05:27:45.685 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:46.203 12072 12072 I flutter : countryCode: +46
+02-25 05:27:46.205 12072 12072 I flutter : withoutCCPhone: 07083
+02-25 05:27:46.217 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:47.249 12072 12072 I flutter : countryCode: +46
+02-25 05:27:47.250 12072 12072 I flutter : withoutCCPhone: 070837
+02-25 05:27:47.266 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:47.356 12072 12072 I flutter : countryCode: +46
+02-25 05:27:47.356 12072 12072 I flutter : withoutCCPhone: 0708377
+02-25 05:27:47.366 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:47.527 12072 12072 I flutter : countryCode: +46
+02-25 05:27:47.527 12072 12072 I flutter : withoutCCPhone: 07083776
+02-25 05:27:47.538 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:47.861 12072 12072 I flutter : countryCode: +46
+02-25 05:27:47.864 12072 12072 I flutter : withoutCCPhone: 070837760
+02-25 05:27:47.883 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:48.703 12072 12072 I flutter : countryCode: +46
+02-25 05:27:48.705 12072 12072 I flutter : withoutCCPhone: 0708377608
+02-25 05:27:48.716 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:49.498 12072 12072 I flutter : 0708377608
+02-25 05:27:49.506 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:49.515 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:51.664 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:52.270 12072 12072 I flutter : MixPanel Event Triggered: viewSignUp3
+02-25 05:27:52.276 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:52.296 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:54.638 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:54.883 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:55.406 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:55.449 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:55.818 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:55.983 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:56.166 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:56.416 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:56.699 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:56.933 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:57.149 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:57.367 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:57.516 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:27:58.833 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 05:28:05.085 12072 12072 I flutter : Errroorr: null
+02-25 05:28:05.087 12072 12072 I flutter : Errroorr: null
+02-25 05:28:05.087 12072 12072 I flutter : MixPanel Event Triggered: signUpComplete
+02-25 05:28:05.090 12072 12072 I flutter : Signup process started...
+02-25 05:28:05.101 12072 12072 I flutter : bodyyyyy::{email: umerfarooq2k20@gmail.com, password: Umer123456789!, firstName: umer, lastName: umer, phone: +460708377608, dob: 01-01-2006, moolahApp: guardian, device_id: BP41.250916.009.A1, imei: }
+02-25 05:28:05.102 12072 12072 I flutter : bodyyyyy::{email: umerfarooq2k20@gmail.com, password: Umer123456789!, firstName: umer, lastName: umer, phone: +460708377608, dob: 01-01-2006, moolahApp: guardian, device_id: BP41.250916.009.A1, imei: BP41.250916.009.A1}
+02-25 05:28:05.103 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:28:05.103 12072 12072 I flutter : 🔴 POST REQUEST - 2026-02-25 05:28:05.102956
+02-25 05:28:05.103 12072 12072 I flutter : 📍 URL: https://api2.moolahmobile.com/guardian/register
+02-25 05:28:05.103 12072 12072 I flutter : 📋 Headers: {X-API-VERSION: 0.0.0.1, Content-type: application/json; charset=utf-8}
+02-25 05:28:05.103 12072 12072 I flutter : 📤 Request Body:
+02-25 05:28:05.103 12072 12072 I flutter : {
+02-25 05:28:05.103 12072 12072 I flutter :   "email": "umerfarooq2k20@gmail.com",
+02-25 05:28:05.103 12072 12072 I flutter :   "password": "Umer123456789!",
+02-25 05:28:05.103 12072 12072 I flutter :   "firstName": "umer",
+02-25 05:28:05.103 12072 12072 I flutter :   "lastName": "umer",
+02-25 05:28:05.103 12072 12072 I flutter :   "phone": "+460708377608",
+02-25 05:28:05.103 12072 12072 I flutter :   "dob": "01-01-2006",
+02-25 05:28:05.103 12072 12072 I flutter :   "moolahApp": "guardian",
+02-25 05:28:05.103 12072 12072 I flutter :   "device_id": "BP41.250916.009.A1",
+02-25 05:28:05.103 12072 12072 I flutter :   "imei": ""
+02-25 05:28:05.103 12072 12072 I flutter : }
+02-25 05:28:05.103 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:28:05.106 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 05:28:05.116 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 05:28:05.122 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 05:28:05.131 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 05:28:05.132 12072 12072 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 05:28:05.557 12072 12072 I flutter : ✅ POST RESPONSE (454ms)
+02-25 05:28:05.558 12072 12072 I flutter : 🔢 Status Code: 201
+02-25 05:28:05.559 12072 12072 I flutter : 📥 Response Body:
+02-25 05:28:05.559 12072 12072 I flutter : {
+02-25 05:28:05.559 12072 12072 I flutter :   "status": true,
+02-25 05:28:05.559 12072 12072 I flutter :   "message": "Guardian registered successfully",
+02-25 05:28:05.559 12072 12072 I flutter :   "tokens": {
+02-25 05:28:05.559 12072 12072 I flutter :     "access": {
+02-25 05:28:05.559 12072 12072 I flutter :       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTc3MTk5NzI4OSwiZXhwIjoxNzcxOTk5MDg5LCJ0eXBlIjoiYWNjZXNzIn0.KUOPBSr5o-E8fpc_y2woJwAaCQjG0mJz-6pvFsiLDLY",
+02-25 05:28:05.559 12072 12072 I flutter :       "expires": "2026-02-25T05:58:09.532Z"
+02-25 05:28:05.559 12072 12072 I flutter :     },
+02-25 05:28:05.559 12072 12072 I flutter :     "refresh": {
+02-25 05:28:05.559 12072 12072 I flutter :       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTc3MTk5NzI4OSwiZXhwIjoxNzc0NTg5Mjg5LCJ0eXBlIjoicmVmcmVzaCJ9.K0WHhrxS13wjB0pxDWeu9WpeyGqooeCltE0lp-5Wlsc",
+02-25 05:28:05.559 12072 12072 I flutter :       "expires": "2026-03-27T05:28:09.534Z"
+02-25 05:28:05.559 12072 12072 I flutter :     }
+02-25 05:28:05.559 12072 12072 I flutter :   },
+02-25 05:28:05.559 12072 12072 I flutter :   "data": [
+02-25 05:28:05.559 12072 12072 I flutter :     {
+02-25 05:28:05.559 12072 12072 I flutter :       "id": 4,
+02-25 05:28:05.559 12072 12072 I flutter :       "first_name": "umer",
+02-25 05:28:05.559 12072 12072 I flutter :       "last_name": "umer",
+02-25 05:28:05.559 12072 12072 I flutter :       "email": "umerfarooq2k20@gmail.com",
+02-25 05:28:05.559 12072 12072 I flutter :       "user_role": 2
+02-25 05:28:05.559 12072 12072 I flutter :     }
+02-25 05:28:05.559 12072 12072 I flutter :   ]
+02-25 05:28:05.559 12072 12072 I flutter : }
+02-25 05:28:05.559 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:28:05.560 12072 12072 I flutter : 🔍 RESPONSE HANDLER
+02-25 05:28:05.560 12072 12072 I flutter : 📊 Status Code: 201
+02-25 05:28:05.560 12072 12072 I flutter : 📄 Body:
+02-25 05:28:05.560 12072 12072 I flutter : {
+02-25 05:28:05.560 12072 12072 I flutter :   "status": true,
+02-25 05:28:05.560 12072 12072 I flutter :   "message": "Guardian registered successfully",
+02-25 05:28:05.560 12072 12072 I flutter :   "tokens": {
+02-25 05:28:05.560 12072 12072 I flutter :     "access": {
+02-25 05:28:05.560 12072 12072 I flutter :       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTc3MTk5NzI4OSwiZXhwIjoxNzcxOTk5MDg5LCJ0eXBlIjoiYWNjZXNzIn0.KUOPBSr5o-E8fpc_y2woJwAaCQjG0mJz-6pvFsiLDLY",
+02-25 05:28:05.560 12072 12072 I flutter :       "expires": "2026-02-25T05:58:09.532Z"
+02-25 05:28:05.560 12072 12072 I flutter :     },
+02-25 05:28:05.560 12072 12072 I flutter :     "refresh": {
+02-25 05:28:05.560 12072 12072 I flutter :       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjQsImlhdCI6MTc3MTk5NzI4OSwiZXhwIjoxNzc0NTg5Mjg5LCJ0eXBlIjoicmVmcmVzaCJ9.K0WHhrxS13wjB0pxDWeu9WpeyGqooeCltE0lp-5Wlsc",
+02-25 05:28:05.560 12072 12072 I flutter :       "expires": "2026-03-27T05:28:09.534Z"
+02-25 05:28:05.560 12072 12072 I flutter :     }
+02-25 05:28:05.560 12072 12072 I flutter :   },
+02-25 05:28:05.560 12072 12072 I flutter :   "data": [
+02-25 05:28:05.560 12072 12072 I flutter :     {
+02-25 05:28:05.560 12072 12072 I flutter :       "id": 4,
+02-25 05:28:05.560 12072 12072 I flutter :       "first_name": "umer",
+02-25 05:28:05.560 12072 12072 I flutter :       "last_name": "umer",
+02-25 05:28:05.560 12072 12072 I flutter :       "email": "umerfarooq2k20@gmail.com",
+02-25 05:28:05.560 12072 12072 I flutter :       "user_role": 2
+02-25 05:28:05.560 12072 12072 I flutter :     }
+02-25 05:28:05.560 12072 12072 I flutter :   ]
+02-25 05:28:05.560 12072 12072 I flutter : }
+02-25 05:28:05.561 12072 12072 I flutter : ✅ Response Status: SUCCESS
+02-25 05:28:05.561 12072 12072 I flutter : 💬 Message: Guardian registered successfully
+02-25 05:28:05.561 12072 12072 I flutter : ═══════════════════════════════════════════
+02-25 05:28:05.561 12072 12072 I flutter : Signup API call successful.
+02-25 05:28:05.561 12072 12072 I flutter : Step 1: Setting access token...
+02-25 05:28:05.561 12072 12072 I flutter : Step 2: Setting refresh token...
+02-25 05:28:05.564 12072 12072 I flutter : Step 3: Setting user ID...
+02-25 05:28:05.567 12072 12072 I flutter : MixPanel Event Triggered: errorSignUp
+02-25 05:28:05.568 12072 12072 I flutter : --- SIGNUP FAILED ---
+02-25 05:28:05.568 12072 12072 I flutter : Error: type 'Null' is not a subtype of type 'String'
+02-25 05:28:05.568 12072 12072 I flutter : StackTrace: #0      AuthController.signup (package:moolah/controllers/authController.dart:160:43)
+02-25 05:28:05.568 12072 12072 I flutter : <asynchronous suspension>
+02-25 05:28:05.570 12072 12072 E flutter : [ERROR:flutter/runtime/dart_vm_initializer.cc(40)] Unhandled Exception: type 'Null' is not a subtype of type 'String'
+02-25 05:28:05.570 12072 12072 E flutter : #0      AuthController.signup (package:moolah/controllers/authController.dart:160:43)
+02-25 05:28:05.570 12072 12072 E flutter : <asynchronous suspension>
+02-25 05:28:05.570 12072 12072 E flutter : 

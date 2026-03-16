@@ -10,10 +10,8 @@ import 'package:get/get.dart';
 import 'package:ironsource_mediation/ironsource_mediation.dart';
 import 'package:moolah/controllers/advertisementController.dart';
 import 'package:moolah/controllers/homeController.dart';
-import 'package:moolah/screens/chat/chat_list_screen.dart';
+import 'package:moolah/screens/connect_device/connect_device_screen.dart';
 import 'package:moolah/screens/home/widget/SyncDevice.dart';
-import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
-import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
 import 'package:moolah/screens/subscription_screen/subscription_screen.dart';
 import 'package:moolah/util/apptext.dart';
 import 'package:moolah/util/colors.dart';
@@ -30,7 +28,6 @@ import '../../helper/sharedHelper.dart';
 import '../../util/common_widgets/CommonGradientBackground.dart';
 import '../../util/common_widgets/ads_button.dart';
 import '../main_menu_profile/main_menu_profile.dart';
-import '../parent_security_check/parent_security_check.dart';
 
 class Home extends StatefulWidget {
   static const screenName = "home";
@@ -177,13 +174,8 @@ class _HomeState extends State<Home> {
                           notExpanded: true,
                           icon: AppImages.scanBarcode,
                           onTap: () {
-                            // Get.find<AuthController>().refreshToken();
-                            // Get.toNamed(ScanBarcode.screenName);
                             Get.find<AuthController>().refreshToken();
-                            // Get.toNamed(ScanBarcode.screenName);
-                            Get.toNamed(
-                                EnterEmailParentSecurityCheck.screenName);
-                            // Get.toNamed(ParentSecurityCheck.screenName);
+                            Get.toNamed(ConnectDeviceScreen.screenName);
                           }),
                       verticalSpace(height * 0.07),
                       Align(

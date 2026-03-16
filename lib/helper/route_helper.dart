@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:moolah/screens/connect_device/connect_device_screen.dart';
 import 'package:moolah/screens/forgot_password/widget/check_your_email.dart';
 import 'package:moolah/screens/home/home.dart';
 import 'package:moolah/screens/login/login.dart';
@@ -10,11 +11,6 @@ import 'package:moolah/screens/main_menu_profile/screens/contact_us/contact_us.d
 import 'package:moolah/screens/main_menu_profile/screens/edit_profile/edit_profile.dart';
 import 'package:moolah/screens/main_menu_profile/screens/profile/profile.dart';
 import 'package:moolah/screens/onboard/onboard.dart';
-import 'package:moolah/screens/parent_security_check/parent_security_check.dart';
-import 'package:moolah/screens/parent_security_check/screens/enter_dob_security.dart';
-import 'package:moolah/screens/parent_security_check/screens/enter_email_security.dart';
-import 'package:moolah/screens/parent_security_check/screens/enter_password_security.dart';
-import 'package:moolah/screens/scan_barcode/scan_barcode.dart';
 import 'package:moolah/screens/signup/screens/enter_dob.dart';
 import 'package:moolah/screens/signup/screens/enter_email.dart';
 import 'package:moolah/screens/signup/screens/enter_full_name.dart';
@@ -51,12 +47,8 @@ class RouteHelper {
     Login.screenName: (_) => Login(fromSignup: Get.arguments?["fromSignup"] ?? false),
     EnterEmailLogin.screenName: (_) => EnterEmailLogin(fromSignup: Get.arguments?["fromEnterEmailSignUp"] ?? false),
     EnterPasswordLogin.screenName: (_) => EnterPasswordLogin(fromSignup: Get.arguments?["fromSignup"] ?? false),
-    ScanBarcode.screenName: (_) => const ScanBarcode(),
-    SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments?["kidId"]??""),
-    ParentSecurityCheck.screenName: (_) => const ParentSecurityCheck(),
-    EnterEmailParentSecurityCheck.screenName: (_) => const EnterEmailParentSecurityCheck(),
-    EnterPasswordParentSecurityCheck.screenName: (_) => const EnterPasswordParentSecurityCheck(),
-    EnterDobParentSecurityCheck.screenName: (_) => const EnterDobParentSecurityCheck(),
+    ConnectDeviceScreen.screenName: (_) => const ConnectDeviceScreen(),
+    SyncDeviceDetailScreen.screenName: (_) => SyncDeviceDetailScreen(kidId: Get.arguments?["kidId"] ?? ""),
     MainMenuProfile.screenName: (_) => const MainMenuProfile(),
     Profile.screenName: (_) => const Profile(),
     EditProfile.screenName: (_) => const EditProfile(),
@@ -65,7 +57,7 @@ class RouteHelper {
     ForgotPassword.screenName: (_) => const ForgotPassword(),
     CheckYourEmail.screenName: (_) => const CheckYourEmail(),
     OtpVerification.screenName: (_) => const OtpVerification(),
-    LiveLocation.screenName: (_) => LiveLocation(lat: Get.arguments?["lat"]??0, long: Get.arguments?["long"]??0, deviceId: Get.arguments?["deviceId"]??0),
+    LiveLocation.screenName: (_) => LiveLocation(lat: Get.arguments?["lat"] ?? 0, long: Get.arguments?["long"] ?? 0, deviceId: Get.arguments?["deviceId"] ?? 0),
     FeedbackScreen.screenName: (_) => const FeedbackScreen(),
     ContactUsScreen.screenName: (_) => const ContactUsScreen(),
     PrivacyScreen.screenName: (_) => const PrivacyScreen(),

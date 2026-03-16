@@ -1,0 +1,192 @@
+--------- beginning of main
+02-25 04:53:13.644  9427  9560 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_gl_impeller.cc(104)] Using the Impeller rendering backend (OpenGLES).
+02-25 04:53:13.730  9427  9567 I flutter : The Dart VM service is listening on http://127.0.0.1:37157/BiJEh7gGPYM=/
+02-25 04:53:14.161  9427  9427 I flutter : Initializing Firebase
+02-25 04:53:14.556  9427  9427 I flutter : unhandled element <style/>; Picture key: Svg loader
+02-25 04:53:15.194  9427  9427 I flutter : Initializing Mixpanel
+02-25 04:53:15.428  9427  9427 I flutter : Initializing OneSignal
+02-25 04:53:15.445  9427  9427 I flutter : OneSignal.Notifications.permission
+02-25 04:53:15.447  9427  9427 I flutter : false
+02-25 04:53:15.447  9427  9427 I flutter : OneSignal.Notifications.permission::1
+02-25 04:53:15.463  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:53:15.471  9427  9427 I flutter : 🔴 POST REQUEST - 2026-02-25 04:53:15.457711
+02-25 04:53:15.471  9427  9427 I flutter : 📍 URL: https://api2.moolahmobile.com/api/v1/getBannerAds
+02-25 04:53:15.473  9427  9427 I flutter : 📋 Headers: {X-API-VERSION: 0.0.0.1, Content-type: application/json; charset=utf-8}
+02-25 04:53:15.483  9427  9427 I flutter : 📤 Request Body:
+02-25 04:53:15.483  9427  9427 I flutter : {}
+02-25 04:53:15.483  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:53:17.364  9427  9427 I flutter : controller.value.size.width
+02-25 04:53:17.366  9427  9427 I flutter : Infinity
+02-25 04:53:17.369  9427  9427 I flutter : 0.0
+02-25 04:53:17.884  9427  9427 I flutter : ✅ POST RESPONSE (2401ms)
+02-25 04:53:17.885  9427  9427 I flutter : 🔢 Status Code: 404
+02-25 04:53:17.889  9427  9427 I flutter : 📥 Response Body:
+02-25 04:53:17.889  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:53:17.889  9427  9427 I flutter : <html lang="en">
+02-25 04:53:17.889  9427  9427 I flutter : <head>
+02-25 04:53:17.889  9427  9427 I flutter : <meta charset="utf-8">
+02-25 04:53:17.889  9427  9427 I flutter : <title>Error</title>
+02-25 04:53:17.889  9427  9427 I flutter : </head>
+02-25 04:53:17.889  9427  9427 I flutter : <body>
+02-25 04:53:17.889  9427  9427 I flutter : <pre>Cannot POST /api/v1/getBannerAds</pre>
+02-25 04:53:17.889  9427  9427 I flutter : </body>
+02-25 04:53:17.889  9427  9427 I flutter : </html>
+02-25 04:53:17.889  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:53:17.891  9427  9427 I flutter : 🔍 RESPONSE HANDLER
+02-25 04:53:17.891  9427  9427 I flutter : 📊 Status Code: 404
+02-25 04:53:17.904  9427  9427 I flutter : 📄 Body:
+02-25 04:53:17.904  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:53:17.904  9427  9427 I flutter : <html lang="en">
+02-25 04:53:17.904  9427  9427 I flutter : <head>
+02-25 04:53:17.904  9427  9427 I flutter : <meta charset="utf-8">
+02-25 04:53:17.904  9427  9427 I flutter : <title>Error</title>
+02-25 04:53:17.904  9427  9427 I flutter : </head>
+02-25 04:53:17.904  9427  9427 I flutter : <body>
+02-25 04:53:17.904  9427  9427 I flutter : <pre>Cannot POST /api/v1/getBannerAds</pre>
+02-25 04:53:17.904  9427  9427 I flutter : </body>
+02-25 04:53:17.904  9427  9427 I flutter : </html>
+02-25 04:53:17.904  9427  9427 I flutter : ❌ Error Status: 404
+02-25 04:53:17.905  9427  9427 I flutter : ❌ Error Parse: FormatException: Unexpected character (at character 1)
+02-25 04:53:17.905  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:53:17.905  9427  9427 I flutter : ^
+02-25 04:53:17.905  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:53:19.403  9427  9427 I flutter : controller.value.size.width
+02-25 04:53:19.404  9427  9427 I flutter : 0.2679787234042553
+02-25 04:53:19.404  9427  9427 I flutter : 90.684
+02-25 04:53:24.778  9427  9427 I flutter : OneSignal.Notifications.permission::2
+02-25 04:53:24.784  9427  9427 I flutter : Has permission true
+02-25 04:53:27.347  9427  9427 I flutter : MixPanel Event Triggered: viewSignUp1
+02-25 04:53:27.370  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:53:27.564  9427  9427 I flutter : controller.value.size.width
+02-25 04:53:27.564  9427  9427 I flutter : 0.2679787234042553
+02-25 04:53:27.564  9427  9427 I flutter : 90.684
+02-25 04:53:42.330  9427  9427 I flutter : Errroorr: null
+02-25 04:53:42.332  9427  9427 I flutter : MixPanel Event Triggered: startSignupEmail
+02-25 04:53:42.340  9427  9427 I flutter : MixPanel Event Triggered: viewSignUp2
+02-25 04:53:42.343  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:53:45.597  9427  9427 I flutter : Errroorr: null
+02-25 04:53:45.597  9427  9427 I flutter : MixPanel Event Triggered: enterFullName
+02-25 04:53:45.607  9427  9427 I flutter : countryCode:::
+02-25 04:53:45.616  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:11.083  9427  9427 I flutter : countryCode: +46
+02-25 04:54:13.164  9427  9427 I flutter : countryCode: +46
+02-25 04:54:13.169  9427  9427 I flutter : withoutCCPhone: 0
+02-25 04:54:13.174  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:13.960  9427  9427 I flutter : countryCode: +46
+02-25 04:54:13.960  9427  9427 I flutter : withoutCCPhone: 07
+02-25 04:54:13.967  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:14.068  9427  9427 I flutter : countryCode: +46
+02-25 04:54:14.068  9427  9427 I flutter : withoutCCPhone: 070
+02-25 04:54:14.083  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:15.333  9427  9427 I flutter : countryCode: +46
+02-25 04:54:15.333  9427  9427 I flutter : withoutCCPhone: 0708
+02-25 04:54:15.350  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:15.878  9427  9427 I flutter : countryCode: +46
+02-25 04:54:15.878  9427  9427 I flutter : withoutCCPhone: 07083
+02-25 04:54:15.900  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:16.449  9427  9427 I flutter : countryCode: +46
+02-25 04:54:16.449  9427  9427 I flutter : withoutCCPhone: 070837
+02-25 04:54:16.468  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:16.574  9427  9427 I flutter : countryCode: +46
+02-25 04:54:16.575  9427  9427 I flutter : withoutCCPhone: 0708377
+02-25 04:54:16.583  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:17.342  9427  9427 I flutter : countryCode: +46
+02-25 04:54:17.342  9427  9427 I flutter : withoutCCPhone: 07083776
+02-25 04:54:17.350  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:18.170  9427  9427 I flutter : countryCode: +46
+02-25 04:54:18.170  9427  9427 I flutter : withoutCCPhone: 070837760
+02-25 04:54:18.187  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:18.252  9427  9427 I flutter : countryCode: +46
+02-25 04:54:18.252  9427  9427 I flutter : withoutCCPhone: 0708377608
+02-25 04:54:18.266  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:19.136  9427  9427 I flutter : 0708377608
+02-25 04:54:19.152  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:19.162  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:21.917  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:22.621  9427  9427 I flutter : MixPanel Event Triggered: viewSignUp3
+02-25 04:54:22.625  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:22.641  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:27.766  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:28.070  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:28.649  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:28.701  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:29.150  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:29.333  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:29.567  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:29.783  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:30.051  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:30.299  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:30.549  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:30.817  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:30.966  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:31.799  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:38.943  9427  9427 I flutter : Errroorr: null
+02-25 04:54:38.943  9427  9427 I flutter : Errroorr: null
+02-25 04:54:38.943  9427  9427 I flutter : MixPanel Event Triggered: signUpComplete
+02-25 04:54:38.947  9427  9427 I flutter : signupsignupsignup: true
+02-25 04:54:38.951  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 04:54:38.963  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 04:54:38.968  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 04:54:38.972  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 04:54:38.974  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::true
+02-25 04:54:38.991  9427  9427 I flutter : bodyyyyy::{email: umermoolah@gmail.com, password: Umer123456789!, firstName: umer, lastName: umer, phone: +460708377608, dob: 01-01-2006, moolahApp: guardian, device_id: BP41.250916.009.A1, imei: }
+02-25 04:54:38.992  9427  9427 I flutter : bodyyyyy::{email: umermoolah@gmail.com, password: Umer123456789!, firstName: umer, lastName: umer, phone: +460708377608, dob: 01-01-2006, moolahApp: guardian, device_id: BP41.250916.009.A1, imei: BP41.250916.009.A1}
+02-25 04:54:38.992  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:54:38.993  9427  9427 I flutter : 🔴 POST REQUEST - 2026-02-25 04:54:38.992724
+02-25 04:54:38.993  9427  9427 I flutter : 📍 URL: https://api2.moolahmobile.com/api/v1/guardian/register
+02-25 04:54:38.993  9427  9427 I flutter : 📋 Headers: {X-API-VERSION: 0.0.0.1, Content-type: application/json; charset=utf-8}
+02-25 04:54:38.994  9427  9427 I flutter : 📤 Request Body:
+02-25 04:54:38.994  9427  9427 I flutter : {
+02-25 04:54:38.994  9427  9427 I flutter :   "email": "umermoolah@gmail.com",
+02-25 04:54:38.994  9427  9427 I flutter :   "password": "Umer123456789!",
+02-25 04:54:38.994  9427  9427 I flutter :   "firstName": "umer",
+02-25 04:54:38.994  9427  9427 I flutter :   "lastName": "umer",
+02-25 04:54:38.994  9427  9427 I flutter :   "phone": "+460708377608",
+02-25 04:54:38.994  9427  9427 I flutter :   "dob": "01-01-2006",
+02-25 04:54:38.994  9427  9427 I flutter :   "moolahApp": "guardian",
+02-25 04:54:38.994  9427  9427 I flutter :   "device_id": "BP41.250916.009.A1",
+02-25 04:54:38.994  9427  9427 I flutter :   "imei": ""
+02-25 04:54:38.994  9427  9427 I flutter : }
+02-25 04:54:38.994  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:54:39.424  9427  9427 I flutter : ✅ POST RESPONSE (429ms)
+02-25 04:54:39.424  9427  9427 I flutter : 🔢 Status Code: 404
+02-25 04:54:39.424  9427  9427 I flutter : 📥 Response Body:
+02-25 04:54:39.424  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:54:39.424  9427  9427 I flutter : <html lang="en">
+02-25 04:54:39.424  9427  9427 I flutter : <head>
+02-25 04:54:39.424  9427  9427 I flutter : <meta charset="utf-8">
+02-25 04:54:39.424  9427  9427 I flutter : <title>Error</title>
+02-25 04:54:39.424  9427  9427 I flutter : </head>
+02-25 04:54:39.424  9427  9427 I flutter : <body>
+02-25 04:54:39.424  9427  9427 I flutter : <pre>Cannot POST /api/v1/guardian/register</pre>
+02-25 04:54:39.424  9427  9427 I flutter : </body>
+02-25 04:54:39.424  9427  9427 I flutter : </html>
+02-25 04:54:39.424  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:54:39.424  9427  9427 I flutter : 🔍 RESPONSE HANDLER
+02-25 04:54:39.425  9427  9427 I flutter : 📊 Status Code: 404
+02-25 04:54:39.425  9427  9427 I flutter : 📄 Body:
+02-25 04:54:39.425  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:54:39.425  9427  9427 I flutter : <html lang="en">
+02-25 04:54:39.425  9427  9427 I flutter : <head>
+02-25 04:54:39.425  9427  9427 I flutter : <meta charset="utf-8">
+02-25 04:54:39.425  9427  9427 I flutter : <title>Error</title>
+02-25 04:54:39.425  9427  9427 I flutter : </head>
+02-25 04:54:39.425  9427  9427 I flutter : <body>
+02-25 04:54:39.425  9427  9427 I flutter : <pre>Cannot POST /api/v1/guardian/register</pre>
+02-25 04:54:39.425  9427  9427 I flutter : </body>
+02-25 04:54:39.425  9427  9427 I flutter : </html>
+02-25 04:54:39.425  9427  9427 I flutter : ❌ Error Status: 404
+02-25 04:54:39.426  9427  9427 I flutter : ❌ Error Parse: FormatException: Unexpected character (at character 1)
+02-25 04:54:39.426  9427  9427 I flutter : <!DOCTYPE html>
+02-25 04:54:39.426  9427  9427 I flutter : ^
+02-25 04:54:39.426  9427  9427 I flutter : ═══════════════════════════════════════════
+02-25 04:54:39.427  9427  9427 I flutter : RESPNCE: null
+02-25 04:54:39.427  9427  9427 I flutter : MixPanel Event Triggered: errorSignUp
+02-25 04:54:39.428  9427  9427 I flutter : EROOR:null
+02-25 04:54:39.428  9427  9427 I flutter : LOGIN: false
+02-25 04:54:39.434  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:39.438  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:39.441  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:39.445  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:54:39.450  9427  9427 I flutter : bool loading = Get.find<BaseController>().isLoading;:::false
+02-25 04:56:42.249  9427  9427 I flutter : Errroorr: Confirm Password must be as same as Password
