@@ -75,7 +75,10 @@ class HomeController extends BaseController {
             privateKey: tem["privateKey"],
             dataUsageStatus: "0",
             deviceType: tem["kidDeviceType"],
-            deviceData: DeviceDetail(deviceId: tem["device_id"]),
+            deviceData: DeviceDetail(
+              deviceId: tem["device_id"],
+              kidDeviceAccountConnectID: tem["kidDeviceAccountConnectID"],
+            ),
             kidPic: null,
             lastActive: "0m",
             walletEnabled: false));
@@ -119,7 +122,8 @@ class HomeController extends BaseController {
     connectedKids[index] = connectedKids[index].copyWith(msmsMonitoringStatus: value);
     update();
     
-    ResponseModel responseModel = await SingleKidRepo.enableMSMSMonitoring(kidId: kidId, enable: value);
+    final String kidAccountUserId = connectedKids[index].kidId ?? kidId;
+    ResponseModel responseModel = await SingleKidRepo.enableMSMSMonitoring(kidId: kidAccountUserId, enable: value);
     print("enableMSMSMonitoring Response: ${responseModel.data}");
     isLoading = false;
   }
@@ -132,7 +136,8 @@ class HomeController extends BaseController {
     connectedKids[index] = connectedKids[index].copyWith(walletEnabled: value);
     update();
     
-    ResponseModel responseModel = await SingleKidRepo.enableWallet(kidId: kidId, enable: value);
+    final String kidAccountUserId = connectedKids[index].kidId ?? kidId;
+    ResponseModel responseModel = await SingleKidRepo.enableWallet(kidId: kidAccountUserId, enable: value);
     print("enableWallet Response: ${responseModel.data}");
     isLoading = false;
   }
@@ -154,15 +159,18 @@ class HomeController extends BaseController {
   Future<void> getDeviceDetail({required String kidId}) async {
     isLoading = true;
     print("Fetching Device Details for: $kidId");
-    ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: kidId);
+    final int index = getSelectedKidIndex(kidId);
+    final String connectId =
+        connectedKids[index].deviceData?.kidDeviceAccountConnectID ??
+            connectedKids[index].connectId ??
+            kidId;
+    ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: connectId);
     
     if (responseModel.isSuccessful && responseModel.data != null) {
       String resp = jsonEncode(responseModel.data);
       log("getDeviceDetail Response: $resp");
       
       var decodedData = jsonDecode(resp);
-      int index = getSelectedKidIndex(kidId);
-      
       connectedKids[index].msmsMonitoringStatus = decodedData["msmsMonitoringStatus"];
       DeviceDetail detail = DeviceDetail.fromJson(decodedData);
       connectedKids[index].deviceDetail = detail;
@@ -237,7 +245,10 @@ class HomeController extends BaseController {
   int getSelectedKidIndex(String kidId) {
     int index = 0;
     for (int i = 0; i < connectedKids.length; i++) {
-      if (kidId == connectedKids[i].deviceData?.deviceId) {
+      final String? connectId = connectedKids[i].deviceData?.kidDeviceAccountConnectID ?? connectedKids[i].connectId;
+      if (kidId == connectId ||
+          kidId == connectedKids[i].deviceData?.deviceId ||
+          kidId == connectedKids[i].kidId) {
         index = i;
         break;
       }
