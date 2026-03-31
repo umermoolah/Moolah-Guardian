@@ -17,10 +17,10 @@ import 'package:moolah/util/mixpanel_events.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import './helper/get_di/get_di.dart' as get_di;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Prefs.init();
   get_di.init();
-  Prefs.init();
   initSDKS();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

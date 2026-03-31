@@ -10,17 +10,17 @@ class Prefs {
     prefs = await SharedPreferences.getInstance();
   }
 
-  static final id = SharedPrefValue<int>('id', prefs);
-  static final userId = SharedPrefValue<String>('user_id', prefs);
-  static final isLoggedIn = SharedPrefValue<bool>('is_logged_in', prefs);
-  static final email = SharedPrefValue<String>('email', prefs);
-  static final firstName = SharedPrefValue<String>('first_name', prefs);
-  static final lastName = SharedPrefValue<String>('last_name', prefs);
-  static final phone = SharedPrefValue<String>('phone', prefs);
-  static final accessToken = SharedPrefValue<String>('access_token', prefs);
-  static final refreshToken = SharedPrefValue<String>('refresh_token', prefs);
-  static final verificationPending = SharedPrefValue<bool>('verification_pending', prefs);
-  static final verificationPhone = SharedPrefValue<bool>('verification_hone', prefs);
+  static SharedPrefValue<int> get id => SharedPrefValue<int>('id');
+  static SharedPrefValue<String> get userId => SharedPrefValue<String>('user_id');
+  static SharedPrefValue<bool> get isLoggedIn => SharedPrefValue<bool>('is_logged_in');
+  static SharedPrefValue<String> get email => SharedPrefValue<String>('email');
+  static SharedPrefValue<String> get firstName => SharedPrefValue<String>('first_name');
+  static SharedPrefValue<String> get lastName => SharedPrefValue<String>('last_name');
+  static SharedPrefValue<String> get phone => SharedPrefValue<String>('phone');
+  static SharedPrefValue<String> get accessToken => SharedPrefValue<String>('access_token');
+  static SharedPrefValue<String> get refreshToken => SharedPrefValue<String>('refresh_token');
+  static SharedPrefValue<bool> get verificationPending => SharedPrefValue<bool>('verification_pending');
+  static SharedPrefValue<bool> get verificationPhone => SharedPrefValue<bool>('verification_hone');
 
 
   static void clear() {
@@ -30,9 +30,10 @@ class Prefs {
 
 class SharedPrefValue<T> {
   final String key;
-  final SharedPreferences prefs;
 
-  SharedPrefValue(this.key, this.prefs);
+  SharedPrefValue(this.key);
+
+  SharedPreferences get prefs => Prefs.prefs;
 
   ///Sets a value to the key provided in constructor
   void set(T value) {

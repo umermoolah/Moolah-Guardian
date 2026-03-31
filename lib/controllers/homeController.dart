@@ -115,8 +115,6 @@ class HomeController extends BaseController {
   }
 
   Future<void> enableMSMSMonitoring({required String kidId, required bool value}) async {
-    if (isLoading) return;
-    isLoading = true;
     print("Enabling MSMS Monitoring: $value for kidId: $kidId");
     int index = getSelectedKidIndex(kidId);
     connectedKids[index] = connectedKids[index].copyWith(msmsMonitoringStatus: value);
@@ -125,12 +123,9 @@ class HomeController extends BaseController {
     final String kidAccountUserId = connectedKids[index].kidId ?? kidId;
     ResponseModel responseModel = await SingleKidRepo.enableMSMSMonitoring(kidId: kidAccountUserId, enable: value);
     print("enableMSMSMonitoring Response: ${responseModel.data}");
-    isLoading = false;
   }
 
   Future<void> enableWallet({required String kidId, required bool value}) async {
-    if (isLoading) return;
-    isLoading = true;
     print("Enabling Wallet: $value for kidId: $kidId");
     int index = getSelectedKidIndex(kidId);
     connectedKids[index] = connectedKids[index].copyWith(walletEnabled: value);
@@ -139,7 +134,6 @@ class HomeController extends BaseController {
     final String kidAccountUserId = connectedKids[index].kidId ?? kidId;
     ResponseModel responseModel = await SingleKidRepo.enableWallet(kidId: kidAccountUserId, enable: value);
     print("enableWallet Response: ${responseModel.data}");
-    isLoading = false;
   }
 
   Future<void> getAppUsage({required String kidId}) async {
@@ -167,17 +161,21 @@ class HomeController extends BaseController {
     ResponseModel responseModel = await SingleKidRepo.getDeviceDetails(kidId: connectId);
     
     if (responseModel.isSuccessful && responseModel.data != null) {
-      String resp = jsonEncode(responseModel.data);
-      log("getDeviceDetail Response: $resp");
-      
-      var decodedData = jsonDecode(resp);
-      connectedKids[index].msmsMonitoringStatus = decodedData["msmsMonitoringStatus"];
-      DeviceDetail detail = DeviceDetail.fromJson(decodedData);
-      connectedKids[index].deviceDetail = detail;
-      
-      Duration time = (DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(detail.data?.lastReportedTime ?? 0)));
-      String timee = "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
-      connectedKids[index].lastActive = timee;
+      try {
+        String resp = jsonEncode(responseModel.data);
+        log("getDeviceDetail Response: $resp");
+
+        var decodedData = jsonDecode(resp);
+        connectedKids[index].msmsMonitoringStatus = decodedData["msmsMonitoringStatus"];
+        DeviceDetail detail = DeviceDetail.fromJson(decodedData);
+        connectedKids[index].deviceDetail = detail;
+
+        Duration time = (DateTime.now().difference(DateTime.fromMillisecondsSinceEpoch(detail.data?.lastReportedTime ?? 0)));
+        String timee = "${time.inHours != 0 ? "${time.inHours % 24}h" : ""} ${time.inMinutes != 0 ? "${time.inMinutes % 60}m" : ""}";
+        connectedKids[index].lastActive = timee;
+      } catch (e) {
+        print("ERROR parsing device details: $e");
+      }
     } else {
       print("Failed to fetch device details for: $kidId");
     }
@@ -187,27 +185,48 @@ class HomeController extends BaseController {
   }
 
   Future<void> blacklistApp({required String kidId, required String deviceId, required String appPackage}) async {
-    if (isLoading) return;
+    if (isLoading) {
+      print("⚠️ blacklistApp SKIPPED - another request in progress. kidId=$kidId appPackage=$appPackage");
+    }
     isLoading = true;
     print("Blacklisting app: $appPackage on device: $deviceId");
-    ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "27", message: appPackage);
-    print("blacklistApp Response: ${responseModel.data}");
-    if(responseModel.isSuccessful){
-      await getDeviceDetail(kidId: kidId);
+    try {
+      ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "27", message: appPackage);
+      print("blacklistApp Response: ${responseModel.data}");
+      if(responseModel.isSuccessful){
+        successToast("Request sent! It may take a moment to disable the app on the device.");
+        await getDeviceDetail(kidId: kidId);
+      } else {
+        print("❌ blacklistApp FAILED: ${responseModel.message}");
+        errorToast(responseModel.message ?? "Failed to disable app. Please try again.");
+      }
+    } catch (e) {
+      print("❌ blacklistApp ERROR: $e");
+      errorToast("Something went wrong. Please try again.");
     }
     isLoading = false;
+    update();
   }
 
   Future<void> deleteApp({required String kidId, required String deviceId, required String appPackage}) async {
-    if (isLoading) return;
+    if (isLoading) {
+      print("⚠️ deleteApp SKIPPED - another request in progress. kidId=$kidId appPackage=$appPackage");
+    }
     isLoading = true;
     print("Deleting app: $appPackage on device: $deviceId");
-    ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "20", message: appPackage);
-    print("deleteApp Response: ${responseModel.data}");
-    if(responseModel.isSuccessful){
-      await getDeviceDetail(kidId: kidId);
+    try {
+      ResponseModel responseModel = await HomeRepo.sendActionToDevice(deviceId: deviceId.toString(), actionId: "20", message: appPackage);
+      print("deleteApp Response: ${responseModel.data}");
+      if(responseModel.isSuccessful){
+        await getDeviceDetail(kidId: kidId);
+      } else {
+        print("❌ deleteApp FAILED: ${responseModel.message}");
+      }
+    } catch (e) {
+      print("❌ deleteApp ERROR: $e");
     }
     isLoading = false;
+    update();
   }
 
   Future<void> getBlacklistUrls({String? kidId}) async {
@@ -216,29 +235,33 @@ class HomeController extends BaseController {
     print("getBlacklistUrls Response: ${responseModel.data}");
     
     if (responseModel.isSuccessful && responseModel.data != null) {
-      connectedKids[getSelectedKidIndex(kidId!)].blockedUrls = BlockedUrlModel.fromJson(responseModel.data);
+      connectedKids[getSelectedKidIndex(kidId ?? "")].blockedUrls = BlockedUrlModel.fromJson(responseModel.data);
     }
     update();
   }
 
   Future<void> addBlacklistUrl({String? kidId, String? url}) async {
     if((url ?? "").isEmpty) return;
-    if (isLoading) return;
-    isLoading = true;
     print("Adding URL to Blacklist: $url for kidId: $kidId");
-    ResponseModel responseModel = await SingleKidRepo.addBlacklistUrl(kidId: connectedKids[getSelectedKidIndex(kidId!)].kidId, url: url);
-    print("addBlacklistUrl Response: ${responseModel.data}");
-    if(responseModel.isSuccessful){
-      connectedKids[getSelectedKidIndex(kidId!)].blockedUrls?.blockedUrlsData?.blockedUrls?.add(url ?? "");
-      successToast(responseModel.data["message"]);
+    try {
+      ResponseModel responseModel = await SingleKidRepo.addBlacklistUrl(kidId: connectedKids[getSelectedKidIndex(kidId ?? "")].kidId, url: url);
+      print("addBlacklistUrl Response: ${responseModel.data}");
+      if(responseModel.isSuccessful){
+        connectedKids[getSelectedKidIndex(kidId ?? "")].blockedUrls?.blockedUrlsData?.blockedUrls?.add(url ?? "");
+        successToast(responseModel.data["message"]);
+      } else {
+        print("❌ addBlacklistUrl FAILED: ${responseModel.message}");
+      }
+    } catch (e) {
+      print("❌ addBlacklistUrl ERROR: $e");
     }
-    isLoading = false;
+    update();
   }
 
   Future<void> getMessageThreads({String? kidId}) async {
     print("Fetching Message Threads for: $kidId");
     List<ThreadModel> tempDataThreadsFinal = [];
-    connectedKids[getSelectedKidIndex(kidId!)].threads = tempDataThreadsFinal;
+    connectedKids[getSelectedKidIndex(kidId ?? "")].threads = tempDataThreadsFinal;
     update();
   }
 

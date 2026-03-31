@@ -195,18 +195,17 @@ class _HomeState extends State<Home> {
                                     homeController.connectedKids[i].connectId ??
                                     homeController.connectedKids[i].deviceData?.deviceId ??
                                     "",
-                                    name: homeController.connectedKids[i].name!,
+                                    name: homeController.connectedKids[i].name ?? "Unknown",
                                     image:
                                         homeController.connectedKids[i].kidPic,
                                     active: homeController
-                                        .connectedKids[i].lastActive!,
+                                        .connectedKids[i].lastActive ?? "N/A",
                                     battery: homeController
-                                        .connectedKids[i].batteryStatus!,
+                                        .connectedKids[i].batteryStatus ?? "0",
                                     mbps: homeController
-                                        .connectedKids[i].dataUsageStatus!,
-                                    isIPad: homeController
-                                        .connectedKids[i].deviceType!
-                                        .toString()
+                                        .connectedKids[i].dataUsageStatus ?? "0",
+                                    isIPad: (homeController
+                                        .connectedKids[i].deviceType ?? "")
                                         .toLowerCase()
                                         .contains("tab"))
                               // SyncDevice(

@@ -244,16 +244,16 @@ class _SyncDeviceDetailScreenState extends State<SyncDeviceDetailScreen>
               //             0) == 0)
               //     ? const SizedBox()
               //     :
-if(!homeController
+if(!(homeController
     .getSelectedKid(widget.kidId)
-    .deviceDetail!.data!.apps![i].systemApp!)
+    .deviceDetail?.data?.apps?[i].systemApp ?? true))
     appItem(
                       homeController
                           .getSelectedKid(widget.kidId)
                           .deviceDetail!.data!.apps![i],
                           deviceId: homeController
                               .getSelectedKid(widget.kidId)
-                              .deviceDetail!.data!.deviceId.toString(),
+                              .deviceDetail?.data?.deviceId?.toString() ?? "",
                           kidId: widget.kidId
                           // .!
                           // .realTimeStats!
@@ -290,11 +290,11 @@ if(!homeController
     // String iconPath = listOfInstalledApp//.appIcon!;
     var width = MediaQuery.of(context).size.width;
     // print("listOfInstalledApp.mFgUsageTime!:::${totalTime}");
-    String appName = listOfInstalledApp.appName!; //.appName!;
+    String appName = listOfInstalledApp.appName ?? "Unknown App"; //.appName!;
     double flex = ((listOfInstalledApp.lastUsedTime) ?? 0) /
         totalTime; //listOfInstalledApp.//.percentUsage! ~/ 10;
     String time =
-        "${Duration(milliseconds: listOfInstalledApp.lastUsedTime??0).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.lastUsedTime!).inSeconds % 60} sec"; //.durationOfUsage!;
+        "${Duration(milliseconds: listOfInstalledApp.lastUsedTime??0).inMinutes % 60}mins ${Duration(milliseconds: listOfInstalledApp.lastUsedTime??0).inSeconds % 60} sec"; //.durationOfUsage!;
     print("listOfInstalledApp.isEnabled:::${listOfInstalledApp.isEnabled}");
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
@@ -337,6 +337,17 @@ if(!homeController
                 onTap: () {
                   print("deleteApp");
                   Get.find<HomeController>().deleteApp(kidId: kidId, deviceId: deviceId, appPackage: listOfInstalledApp.packageName??"");
+                  Get.snackbar(
+                    "Uninstall Requested",
+                    "The app will be uninstalled from the device. This may take up to 15 minutes based on network connectivity.",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: AppColors.normalGreen,
+                    colorText: Colors.white,
+                    duration: const Duration(seconds: 15),
+                    margin: const EdgeInsets.all(16),
+                    borderRadius: 10,
+                    icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+                  );
                 },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
@@ -356,6 +367,17 @@ if(!homeController
               PopupMenuItem(
                 onTap: () {
                   Get.find<HomeController>().blacklistApp(kidId: kidId, deviceId: deviceId, appPackage: listOfInstalledApp.packageName??"");
+                  Get.snackbar(
+                    "Disable Requested",
+                    "The app will be disabled on the device. This may take up to 15 minutes based on network connectivity.",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: AppColors.normalGreen,
+                    colorText: Colors.white,
+                    duration: const Duration(seconds: 15),
+                    margin: const EdgeInsets.all(16),
+                    borderRadius: 10,
+                    icon: const Icon(Icons.check_circle_outline, color: Colors.white),
+                  );
                 },
                 padding: const EdgeInsets.only(left: 5),
                 height: 30,
@@ -379,10 +401,10 @@ if(!homeController
   }
 
   Widget appItemStagging(ListOfInstalledApp listOfInstalledApp) {
-    String iconPath = listOfInstalledApp.appIcon!;
-    String appName = listOfInstalledApp.appName!;
-    int flex = listOfInstalledApp.percentUsage! ~/ 10;
-    String time = listOfInstalledApp.durationOfUsage!;
+    String iconPath = listOfInstalledApp.appIcon ?? "";
+    String appName = listOfInstalledApp.appName ?? "Unknown";
+    int flex = (listOfInstalledApp.percentUsage ?? 0) ~/ 10;
+    String time = listOfInstalledApp.durationOfUsage ?? "0 mins";
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: Row(
@@ -465,15 +487,30 @@ if(!homeController
 
   }
 
-  Widget urlSection(HomeController homeController ) {
-    BlockedUrlModel? list = homeController.connectedKids[homeController.getSelectedKidIndex(widget.kidId)].blockedUrls;
+  Widget urlSection(HomeController homeController) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8).copyWith(bottom: 25),
-        child: ListView.builder(
-          itemCount: list?.blockedUrlsData?.blockedUrls?.length ?? 0,
-          itemBuilder: (context, index) =>
-              urlItem(list?.blockedUrlsData?.blockedUrls?[index]??""),
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: roundedContainer(
+            color: AppColors.lightGrey,
+            borderRadius: 15,
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.lock_outline, size: 48, color: Colors.grey),
+                verticalSpace(16),
+                bigSubHeading("Platinum Feature"),
+                verticalSpace(10),
+                subHeadingText(
+                  "Browser History is available for Platinum users. This feature is coming soon!",
+                  textAlign: TextAlign.center,
+                  height: 1.4,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -481,36 +518,29 @@ if(!homeController
 
   messagesSection(HomeController homeController) {
     return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10)
-            .copyWith(top: 20),
-        child:
-        (homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus ?? false) ?
-        ChatListScreen(kidId: widget.kidId):
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: roundedContainer(
+            color: AppColors.lightGrey,
+            borderRadius: 15,
+            padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                boldText("Enable SMS Monitoring"),
-
-                regularText("Monitor SMS messages sent to this device.", fontSize: 10, fontWeight: FontWeight.w600, color: AppColors.grey8181),
+                const Icon(Icons.lock_outline, size: 48, color: Colors.grey),
+                verticalSpace(16),
+                bigSubHeading("Platinum Feature"),
                 verticalSpace(10),
-                customGestureDetecter(
-                  onTap: () {
-                    homeController.enableMSMSMonitoring(kidId: widget.kidId, value: !(homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus??false));
-                    // homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus = true;
-                  },
-                    child: customSwitchSMS(value: homeController.getSelectedKid(widget.kidId).msmsMonitoringStatus??false, showM: false))
+                subHeadingText(
+                  "Messages monitoring is available for Platinum users. This feature is coming soon!",
+                  textAlign: TextAlign.center,
+                  height: 1.4,
+                ),
               ],
-            )
-        ,
-
-
-        // child: ListView.builder(
-        //   itemCount: 15,
-        //   itemBuilder: (context, index) =>
-        //       urlItem('https://www.fiverr.com/cp/product-release-2023'),
-        // ),
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -709,10 +739,10 @@ if(!homeController
             },
             controller: tabController,
             tabs: [
-              textForTab("Apps", tabController!.index == 0),
-              textForTab("Browser History", tabController!.index == 1),
-              textForTab("Messages", tabController!.index == 2),
-        
+              textForTab("Apps", tabController?.index == 0),
+              textForTab("Browser History", tabController?.index == 1),
+              textForTab("Messages", tabController?.index == 2),
+
               /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
               // regularText("Browser History",color: AppColors.normalGreen, fontWeight: FontWeight.w500),
             ]),
